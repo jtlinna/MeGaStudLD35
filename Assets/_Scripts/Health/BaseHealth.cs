@@ -8,6 +8,11 @@ public class BaseHealth : MonoBehaviour {
 
     private float _currentHealth;
 
+    protected virtual void Awake()
+    {
+        _currentHealth = MaxHealth;
+    }
+
     public virtual void TakeDamage(float damage)
     {
         _currentHealth -= damage;
@@ -19,7 +24,7 @@ public class BaseHealth : MonoBehaviour {
 
     protected virtual void Die()
     {
-
+        Destroy(gameObject);
     }
 
 }

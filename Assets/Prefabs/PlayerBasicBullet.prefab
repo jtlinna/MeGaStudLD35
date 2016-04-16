@@ -11,9 +11,9 @@ GameObject:
   - 212: {fileID: 21237528}
   - 50: {fileID: 5059376}
   - 58: {fileID: 5870248}
-  - 114: {fileID: 11400218}
+  - 114: {fileID: 11411604}
   m_Layer: 0
-  m_Name: Bullet
+  m_Name: PlayerBasicBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,7 +43,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -62,7 +62,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.2
---- !u!114 &11400218
+--- !u!114 &11411604
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -70,10 +70,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 172534}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df8883395b7e641c5b9ca70a73ba83f4, type: 3}
+  m_Script: {fileID: 11500000, guid: 9d597babe612db0448c59ddcd158e28f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  Damage: 25
+  MoveSpeed: 5
+  TargetTag: Enemy
 --- !u!212 &21237528
 SpriteRenderer:
   m_ObjectHideFlags: 1
