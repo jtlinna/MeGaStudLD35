@@ -7,7 +7,8 @@ public class WaypointPath : MonoBehaviour {
         star = 1,
         curve = 2,
         hourglass = 3,
-        envelope = 4 };
+        envelope = 4,
+		infinity = 5 };
 
     public GameObject MoveObject;
 
@@ -63,6 +64,8 @@ public class WaypointPath : MonoBehaviour {
             case Shapes.star:
                 Move_Star();
                 break;
+			case Shapes.infinity:
+				break;
         }
     }
 
@@ -83,7 +86,7 @@ public class WaypointPath : MonoBehaviour {
         _moveTimer = 0f;
     }
 
-	public void reset (int waypointAmount, Shapes newShape) {
+	public void reset (Shapes newShape) {
 		foreach (Transform trans in waypoints) {
 			trans.gameObject.SetActive (true);
 			trans.localPosition = Vector3.zero;
@@ -102,6 +105,9 @@ public class WaypointPath : MonoBehaviour {
 			break;
 		case Shapes.envelope:
 			setEnvelope (shapeScale);
+			break;
+		case Shapes.infinity:
+			setInfinity (shapeScale);
 			break;
 		}
 			
@@ -175,6 +181,22 @@ public class WaypointPath : MonoBehaviour {
 		waypoints [4].localPosition = new Vector2 (-1f, -0f) * scale;
 
         _currentShape = Shapes.envelope;
+	}
+
+	private void setInfinity (float scale = 1f) {
+		for (int i = 0; i < length; i++) {
+			if (i < 6)
+				waypoints [i].gameObject.SetActive (true);
+			else
+				waypoints [i].gameObject.SetActive (false);
+		}
+
+		waypoints [0].localPosition = new Vector2 (0f, 0f) * scale;
+		waypoints [1].localPosition = new Vector2 (1f, 0f) * scale;
+		waypoints [2].localPosition = new Vector2 (1f, 0f) * scale;
+		waypoints [3].localPosition = new Vector2 (0f, 0f) * scale;
+		waypoints [4].localPosition = new Vector2 (-1f, 0f) * scale;
+		waypoints [5].localPosition = new Vector2 (-1f, 0f) * scale;
 	}
 
     private void Move_Curve()
