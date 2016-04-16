@@ -10,6 +10,7 @@ public class Player : MonoBehaviour {
 
 	public BaseHealth health;
 	public GameObject bulletPrefab;
+	public int shotType = 1;
 
 	// Use this for initialization
 	public virtual void Start () {
@@ -23,14 +24,24 @@ public class Player : MonoBehaviour {
 		move (inputData);
 
 		if (Input.GetKeyDown(KeyCode.Space))
-			shoot ();
+			shoot (shotType);
 	}
 
 	private void move(Vector2 movement) {
 		rigidBody.velocity = movement.normalized * velocity;
 	}
 
-	private void shoot() {
-		Instantiate (bulletPrefab, muzzle.position, Quaternion.identity);
+	private void shoot(int type = 1) {
+		GameObject temp;
+		if (type == 1) {
+			Instantiate (bulletPrefab, muzzle.position, Quaternion.identity);
+		} else if (type == 2) {
+			Instantiate (bulletPrefab, muzzle.position, Quaternion.Euler(0f,0f,-15f));
+			Instantiate (bulletPrefab, muzzle.position, Quaternion.Euler(0f,0f,15f));
+		} else if (type == 3) {
+			Instantiate (bulletPrefab, muzzle.position, Quaternion.identity);
+			Instantiate (bulletPrefab, muzzle.position, Quaternion.Euler(0f,0f,-15f));
+			Instantiate (bulletPrefab, muzzle.position, Quaternion.Euler(0f,0f,15f));
+		}
 	}
 }
