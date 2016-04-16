@@ -1,14 +1,18 @@
 fileFormatVersion: 2
-guid: 5c06cda590e624881a80dd624c190daf
-timeCreated: 1460818154
+guid: ccf5120196e7847f7bb87495583d16ba
+timeCreated: 1460820818
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: //RootNode
-    400000: //RootNode
-    2300000: //RootNode
-    3300000: //RootNode
+    100000: ground_ref
+    100002: Icosphere
+    100004: //RootNode
+    400000: ground_ref
+    400002: Icosphere
+    400004: //RootNode
+    2300000: Icosphere
+    3300000: Icosphere
     4300000: Icosphere
     7400000: Default Take
     9500000: //RootNode

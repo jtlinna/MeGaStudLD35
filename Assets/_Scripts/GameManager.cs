@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour {
 	private States currentState;
 	private float gameTime;
 	private ulong score;
+	private int lives = 5;
 
 	private float _lastGameTime;
 	public float lastGameTime { get { return _lastGameTime; } }
@@ -38,6 +39,8 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void Update () {
+		if (lives < 0)
+			currentState == States.menu;
 		if (currentState == States.playing)
 			gameTime += Time.deltaTime;
 	}
@@ -50,6 +53,14 @@ public class GameManager : MonoBehaviour {
 			Debug.LogError ("GAME NOT RUNNING, NO SCORE ADDED");
 			return false;
 		}
+	}
+
+	public void addLife () {
+		lives++;
+	}
+
+	public void removeLife () {
+		lives--;
 	}
 
 }

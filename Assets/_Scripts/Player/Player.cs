@@ -43,4 +43,17 @@ public class Player : MonoBehaviour {
 			Instantiate (bulletPrefab, muzzle.position, Quaternion.Euler(0f,0f,15f));
 		}
 	}
+
+	public bool PowerUp () {
+		if (shotType < 3){
+			shotType++;
+			return true;
+		}
+		else
+			return false;
+	}
+
+	public void resetPlayer () {
+		shotType = 1;
+	}
 }

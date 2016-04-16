@@ -40,9 +40,9 @@ public class BaseBullet : MonoBehaviour {
         {
             Trigger(other.gameObject);
         }
-        //if(other.CompareTag("BulletBoundary"))
-        //{
-        //    Trigger(null);
-        //}
+        if(other.CompareTag("BottomEdge"))
+        {
+            Trigger(null);
+        }
     }
 }

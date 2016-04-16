@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: b285dc264f48343ceb832c081e37fb88
-timeCreated: 1460818158
+guid: 811b9f1eb038442c5836bd58030cb003
+timeCreated: 1460820815
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -38,6 +38,7 @@ ModelImporter:
     100060: barnacle_028
     100062: barnacle_029
     100064: barnacle_030
+    100066: ground_ref
     400000: arc
     400002: //RootNode
     400004: barnacle
@@ -71,6 +72,7 @@ ModelImporter:
     400060: barnacle_028
     400062: barnacle_029
     400064: barnacle_030
+    400066: ground_ref
     2300000: arc
     2300002: barnacle
     2300004: barnacle_001

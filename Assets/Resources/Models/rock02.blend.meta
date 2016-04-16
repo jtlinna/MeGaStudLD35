@@ -1,15 +1,19 @@
 fileFormatVersion: 2
-guid: 1a52a2208cced4ed3844475613b857a8
-timeCreated: 1460818153
+guid: c9800cef36cc34702948fe0af6ff618a
+timeCreated: 1460820817
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: //RootNode
-    400000: //RootNode
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: Icosphere
+    100000: ground_ref
+    100002: rock02
+    100004: //RootNode
+    400000: ground_ref
+    400002: rock02
+    400004: //RootNode
+    2300000: rock02
+    3300000: rock02
+    4300000: rock02
     7400000: Default Take
     9500000: //RootNode
   materials:
