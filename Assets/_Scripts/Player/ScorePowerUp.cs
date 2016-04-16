@@ -8,7 +8,7 @@ public class ScorePowerUp : PowerUp {
 	public override void OnTriggerEnter2D (Collider2D other)
 	{
 		if (other.CompareTag ("Player"))
-			GameObject.Find ("GameManager").GetComponent<GameManager> ().addScore (_addScore);
+			manager.addScore (_addScore);
 		base.OnTriggerEnter2D (other);
 	}
 

@@ -16,7 +16,6 @@ public class WaypointPath : MonoBehaviour {
 	private int length;
 	public Shapes shape;
 	public float shapeScale = 1f;
-	private Transform nearest;
 
     private Shapes _currentShape;
     private int _currentWaypoint;
@@ -88,13 +87,16 @@ public class WaypointPath : MonoBehaviour {
     }
 
 	public Transform getNearestWaypoint () {
+		float distance = Mathf.Infinity;
+		Transform nearestTrans = null;
 		foreach (Transform trans in waypoints) {
-			if (nearest == null)
-				nearest = trans;
-			else if (Vector2.Distance (MoveObject.transform.position, nearest.position) > Vector2.Distance (MoveObject.transform.position, trans.position))
-				nearest = trans;
+			float dist = Vector2.Distance(MoveObject.transform.position, trans.position);
+			if (dist < distance) {
+				distance = dist;
+				nearestTrans = trans;
+			}
 		}
-		return nearest;
+		return nearestTrans;
 	}
 
 	public void reset (Shapes newShape) {

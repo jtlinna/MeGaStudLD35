@@ -9,9 +9,11 @@ public class GameManager : MonoBehaviour {
 		menu = 3};
 	
 	private States currentState;
-	private float gameTime;
-	private ulong score;
-	private int lives = 5;
+	[SerializeField] private float gameTime;
+	[SerializeField] private ulong score;
+	private float maxMultiplier = 20f;
+	[SerializeField] private float multiplier = 1f;
+	[SerializeField] private int lives = 5;
 
 	private float _lastGameTime;
 	public float lastGameTime { get { return _lastGameTime; } }
@@ -20,6 +22,8 @@ public class GameManager : MonoBehaviour {
 
 	void Awake() {
 		DontDestroyOnLoad(gameObject);
+
+		StartGame ();
 	}
 
 	public void StartGame() {
@@ -34,20 +38,31 @@ public class GameManager : MonoBehaviour {
 
 		currentState = States.menu;
 
+		multiplier = 1f;
 		score = 0;
 		gameTime = 0f;
 	}
 
 	void Update () {
-		if (lives < 0)
-			currentState == States.menu;
+		if (lives < 0) {
+			currentState = States.menu;
+			StopGame();
+		}
 		if (currentState == States.playing)
 			gameTime += Time.deltaTime;
 	}
 
+	public bool addMultiplier (float amount) {
+		if (multiplier < maxMultiplier){
+			multiplier += amount;
+			return true;
+		} else
+			return false; 
+	}
+
 	public bool addScore (ulong amount){
 		if (currentState == States.playing) {
-			score += amount;
+			score += (ulong)((float)amount * multiplier);
 			return true;
 		} else {
 			Debug.LogError ("GAME NOT RUNNING, NO SCORE ADDED");
@@ -61,6 +76,7 @@ public class GameManager : MonoBehaviour {
 
 	public void removeLife () {
 		lives--;
+		multiplier = 1f;
 	}
 
 }
