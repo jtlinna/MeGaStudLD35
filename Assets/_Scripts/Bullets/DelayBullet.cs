@@ -9,13 +9,19 @@ public class DelayBullet : BaseBullet {
 	private float currentMoveSpeed;
 	private bool targetAquired = false;
 
+	void Awake() {
+		_movementVector = transform.up;
+		timer = 0f;
+		currentMoveSpeed = MoveSpeed;
+	}
+
     protected override void DoMovement()
     {
         base.DoMovement();
 		timer += Time.deltaTime;
 		if (timer < timeToStop) {
 			currentMoveSpeed = MoveSpeed * 0.2f;
-		} else if (timer >= timeToStop) {
+		} else if (timer >= timeToStop && timer < (stopTime + timeToStop)) {
 			currentMoveSpeed = 0f;
 		} else if (timer >= (stopTime + timeToStop)) {
 			if (!targetAquired)

@@ -27,10 +27,7 @@ public class Player : MonoBehaviour {
 	}
 
 	private void move(Vector2 movement) {
-		Debug.Log("Mag " + movement.magnitude);
-		Debug.Log("Norm " + movement.normalized);
 		rigidBody.velocity = movement.normalized * velocity;
-		Debug.Log("Vel " + rigidBody.velocity + " " + rigidBody.velocity.magnitude);
 	}
 
 	private void shoot() {

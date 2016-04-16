@@ -144,7 +144,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: {fileID: 11400446}
   MoveSpeed: 2.5
-  ProjectilePrefab: {fileID: 172534, guid: bd20af9bbd05449b286ebdaf3c0520b5, type: 2}
+  ProjectilePrefab: {fileID: 172534, guid: 973e1781e92124cce9c05931e80ebd09, type: 2}
   ShotSpawn: {fileID: 430482}
   ShootSpeed: 1
 --- !u!212 &21233354
