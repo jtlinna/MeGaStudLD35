@@ -74,7 +74,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damage: 25
-  MoveSpeed: 10
+  MoveSpeed: 50
   TargetTag: Enemy
 --- !u!212 &21237528
 SpriteRenderer:

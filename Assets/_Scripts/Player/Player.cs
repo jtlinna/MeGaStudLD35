@@ -59,6 +59,7 @@ public class Player : MonoBehaviour {
 	public bool PowerUp () {
 		if (shotType < 3){
 			shotType++;
+			GetComponent<Animator> ().SetInteger ("PowerStage", shotType);
 			return true;
 		}
 		else
