@@ -3,11 +3,23 @@ using System.Collections;
 
 public class WaypointPath : MonoBehaviour {
 
-	public enum shapes {star, curve, hourglass, envelope};
+	public enum Shapes {
+        star = 1,
+        curve = 2,
+        hourglass = 3,
+        envelope = 4 };
+
+    public GameObject MoveObject;
+
 	public Transform[] waypoints, rWaypoints;
 	private int length;
-	public shapes shape;
+	public Shapes shape;
 	public float shapeScale = 1f;
+
+    private Shapes _currentShape;
+    private int _currentWaypoint;
+
+    private float _moveTimer;
 
 	void Awake () {
 		length = transform.childCount;
@@ -20,26 +32,58 @@ public class WaypointPath : MonoBehaviour {
 		}
 
 		switch (shape) {
-		case shapes.star:
+		case Shapes.star:
 			setStar (shapeScale);
 			break;
-		case shapes.curve:
+		case Shapes.curve:
 			setCurve (shapeScale);
 			break;
-		case shapes.hourglass:
+		case Shapes.hourglass:
 			setHourglass (shapeScale);
 			break;
-		case shapes.envelope:
+		case Shapes.envelope:
 			setEnvelope (shapeScale);
 			break;
 		}
 	}
 
+    void Update()
+    {
+        switch(_currentShape)
+        {
+            case Shapes.curve:
+                Move_Curve();
+                break;
+            case Shapes.envelope:
+                Move_Envelope();
+                break;
+            case Shapes.hourglass:
+                Move_Hourglass();
+                break;
+            case Shapes.star:
+                Move_Star();
+                break;
+        }
+    }
+
 	public Transform getWaypoint(int index, bool reverse = false) {
 		return reverse ? rWaypoints[index] : waypoints[index];
 	}
 
-	public void reset (int waypointAmount, shapes newShape) {
+    private void NextWaypoint()
+    {
+        _currentWaypoint++;
+        if (_currentWaypoint >= waypoints.Length)
+            _currentWaypoint = 0;
+
+        Transform newWaypoint = getWaypoint(_currentWaypoint);
+        if (!newWaypoint.gameObject.activeInHierarchy)
+            _currentWaypoint = 0;
+
+        _moveTimer = 0f;
+    }
+
+	public void reset (int waypointAmount, Shapes newShape) {
 		foreach (Transform trans in waypoints) {
 			trans.gameObject.SetActive (true);
 			trans.localPosition = Vector3.zero;
@@ -47,16 +91,16 @@ public class WaypointPath : MonoBehaviour {
 		}
 
 		switch (newShape) {
-		case shapes.star:
+		case Shapes.star:
 			setStar (shapeScale);
 			break;
-		case shapes.curve:
+		case Shapes.curve:
 			setCurve (shapeScale);
 			break;
-		case shapes.hourglass:
+		case Shapes.hourglass:
 			setHourglass (shapeScale);
 			break;
-		case shapes.envelope:
+		case Shapes.envelope:
 			setEnvelope (shapeScale);
 			break;
 		}
@@ -79,6 +123,8 @@ public class WaypointPath : MonoBehaviour {
 
 		foreach (Transform trans in waypoints)
 			trans.localPosition += trans.up * scale;
+
+        _currentShape = Shapes.star;
 	}
 
 	private void setCurve (float scale = 1f) {
@@ -94,6 +140,8 @@ public class WaypointPath : MonoBehaviour {
 
 		foreach (Transform trans in waypoints)
 			trans.localPosition += trans.up * scale;
+
+        _currentShape = Shapes.curve;
 	}
 
 	private void setHourglass (float scale = 1f) {
@@ -104,10 +152,12 @@ public class WaypointPath : MonoBehaviour {
 				waypoints [i].gameObject.SetActive (false);
 		}
 
-		waypoints [0].localPosition = new Vector2 (1f, 0.5f) * scale;
-		waypoints [1].localPosition = new Vector2 (1f, -0.5f) * scale;
-		waypoints [2].localPosition = new Vector2 (-1f, 0.5f) * scale;
-		waypoints [3].localPosition = new Vector2 (-1f, -0.5f) * scale;
+		waypoints [0].localPosition = new Vector2 (1f, -0.5f) * scale;
+		waypoints [1].localPosition = new Vector2 (1f, 0.5f) * scale;
+		waypoints [2].localPosition = new Vector2 (-1f, -0.5f) * scale;
+		waypoints [3].localPosition = new Vector2 (-1f, 0.5f) * scale;
+
+        _currentShape = Shapes.hourglass;
 	}
 
 	private void setEnvelope (float scale = 1f) {
@@ -123,5 +173,64 @@ public class WaypointPath : MonoBehaviour {
 		waypoints [2].localPosition = new Vector2 (0f, -1f) * scale;
 		waypoints [3].localPosition = new Vector2 (-1f, 1f) * scale;
 		waypoints [4].localPosition = new Vector2 (-1f, -0f) * scale;
+
+        _currentShape = Shapes.envelope;
 	}
+
+    private void Move_Curve()
+    {
+        _moveTimer += Time.deltaTime;
+        if (_moveTimer > 2)
+            _moveTimer = 2f;
+        if (_currentWaypoint == 0)
+        {
+
+            MoveObject.transform.position = Vector3.Slerp(getWaypoint(0).position, getWaypoint(1).position, _moveTimer / 2f);
+            
+            if(MoveObject.transform.position == getWaypoint(1).position)
+            {
+                NextWaypoint();
+            }
+        }
+        else
+        {
+            MoveObject.transform.position = Vector3.Slerp(getWaypoint(1).position, getWaypoint(0).position, _moveTimer / 2f);
+
+            if (MoveObject.transform.position == getWaypoint(0).position)
+            {
+                NextWaypoint();
+            }
+        }
+    }
+
+    private void Move_Envelope()
+    {
+        float speed = (_currentWaypoint == 2 || _currentWaypoint == 3) ? 20f : 4f;
+        MoveObject.transform.position = Vector2.MoveTowards(MoveObject.transform.position, getWaypoint(_currentWaypoint).position, speed * Time.deltaTime);
+        if (MoveObject.transform.position == getWaypoint(_currentWaypoint).position)
+            NextWaypoint();
+    }
+
+    private void Move_Hourglass()
+    {
+        float speed = (_currentWaypoint == 2 || _currentWaypoint == 0) ? 20f : 4f;
+        MoveObject.transform.position = Vector2.MoveTowards(MoveObject.transform.position, getWaypoint(_currentWaypoint).position, speed * Time.deltaTime);
+        if (MoveObject.transform.position == getWaypoint(_currentWaypoint).position)
+            NextWaypoint();
+    }
+
+    private void Move_Star()
+    {
+        float speed = 20f;
+        MoveObject.transform.position = Vector2.MoveTowards(MoveObject.transform.position, getWaypoint(_currentWaypoint).position, speed * Time.deltaTime);
+        if (MoveObject.transform.position == getWaypoint(_currentWaypoint).position)
+        {
+            _moveTimer += Time.deltaTime;
+            if (_moveTimer >= 0.5f)
+            {
+                _moveTimer = 0f;
+                NextWaypoint();
+            }
+        }
+    }
 }
