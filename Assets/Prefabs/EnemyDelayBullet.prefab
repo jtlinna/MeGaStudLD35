@@ -74,10 +74,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damage: 25
-  MoveSpeed: 5
+  MoveSpeed: 4
   TargetTag: Player
-  timeToStop: 2
-  stopTime: 2
+  timeToStop: 1
+  stopTime: 1
 --- !u!212 &21237528
 SpriteRenderer:
   m_ObjectHideFlags: 1
