@@ -146,7 +146,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
---- !u!1001 &566089539
+--- !u!1001 &570938989
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -301,7 +301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d544cf3db962e654a82394e3687fd02f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyType: 1
+  EnemyType: 6
   SpawnInterval: 2.5
 --- !u!4 &1914107888
 Transform:

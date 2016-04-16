@@ -8,12 +8,12 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 450802}
-  - 114: {fileID: 11400446}
-  - 114: {fileID: 11419828}
+  - 114: {fileID: 11464400}
+  - 114: {fileID: 11426640}
   - 50: {fileID: 5063486}
   - 58: {fileID: 5867440}
   m_Layer: 0
-  m_Name: DiamondEnemyPrefab
+  m_Name: EnemyPrefab
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -119,7 +119,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &11400446
+--- !u!114 &11426640
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -127,11 +127,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 101538}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a867e924e18dd8448f8a3f17393a392, type: 3}
+  m_Script: {fileID: 11500000, guid: 72c9a9e0d1f66664983528496c604012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 50
---- !u!114 &11419828
+  MaxHealth: 0
+  EnemyAI: {fileID: 11464400}
+--- !u!114 &11464400
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -139,14 +140,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 101538}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da44da1fa24c9004f8a3f305ba8c6bf4, type: 3}
+  m_Script: {fileID: 11500000, guid: ec7ce4bf2b6a01141a7e2b496465126a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: {fileID: 11400446}
+  Health: {fileID: 11426640}
   MoveSpeed: 2.5
-  ProjectilePrefab: {fileID: 172534, guid: 973e1781e92124cce9c05931e80ebd09, type: 2}
+  Type: 6
+  ProjectilePrefab: {fileID: 172534, guid: bd20af9bbd05449b286ebdaf3c0520b5, type: 2}
   ShotSpawn: {fileID: 430482}
-  ShootSpeed: 1
+  ShootSpeed: 10
 --- !u!212 &21233354
 SpriteRenderer:
   m_ObjectHideFlags: 1

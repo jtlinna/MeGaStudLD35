@@ -3,6 +3,8 @@ using System.Collections;
 
 public class BaseEnemy : BaseAI {
 
+    public EnemyIdentifier Type;
+
     [SerializeField]
     protected GameObject ProjectilePrefab;
     [SerializeField]
@@ -11,6 +13,13 @@ public class BaseEnemy : BaseAI {
     protected float ShootSpeed = 1f;
 
     protected float _shootTimer;
+    protected SpriteRenderer _renderer;
+
+    public void Init()
+    {
+        GetSprite();
+        GetPath();
+    }
 
     protected virtual void Update()
     {
@@ -36,16 +45,74 @@ public class BaseEnemy : BaseAI {
 
     protected virtual void CalculateMovement()
     {
-
-    }
-
-    public void SwapSprite(float health)
-    {
-
+        HandleMovement(Vector2.down);
     }
 
     protected void Shoot()
     {
         Instantiate(ProjectilePrefab, ShotSpawn.position, ShotSpawn.rotation);
+    }
+
+    public void ChangeShape()
+    {
+        int newType = (int)Type - 1;
+        if(newType <= 0)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Type = (EnemyIdentifier)newType;
+        GetSprite();
+        GetPath();
+    }
+
+    protected void GetSprite()
+    {
+        Sprite sprite = null;
+        switch(Type)
+        {
+            case EnemyIdentifier.TRIANGLE:
+                sprite = Resources.Load<Sprite>("Sprites/TriangleEnemy");
+                break;
+            case EnemyIdentifier.SQUARE:
+                sprite = Resources.Load<Sprite>("Sprites/SquareEnemy");
+                break;
+            case EnemyIdentifier.PENTAGON:
+                sprite = Resources.Load<Sprite>("Sprites/PentagonEnemy");
+                break;
+            case EnemyIdentifier.HEXAGON:
+                sprite = Resources.Load<Sprite>("Sprites/HexagonEnemy");
+                break;
+            case EnemyIdentifier.SEPTIGON:
+                sprite = Resources.Load<Sprite>("Sprites/SeptigonEnemy");
+                break;
+            case EnemyIdentifier.OCTAGON:
+                sprite = Resources.Load<Sprite>("Sprites/OctagonEnemy");
+                break;
+        }
+
+        if(sprite == null)
+        {
+            Debug.Log("No sprite was found for enemytype " + Type.ToString());
+            return;
+        }
+
+        if(_renderer == null)
+        {
+            _renderer = GetComponentInChildren<SpriteRenderer>();
+
+            if (_renderer == null)
+            {
+                Debug.LogError("No spriterenderer was found enemy");
+                return;
+            }
+        }
+
+        _renderer.sprite = sprite;
+    }
+
+    protected void GetPath()
+    {
+
     }
 }

@@ -30,29 +30,27 @@ public class Spawner : MonoBehaviour {
     {
         if(_prefab == null)
         {
-            string prefabPath = GetPrefabPath();
-            _prefab = Resources.Load<GameObject>(prefabPath);
+            _prefab = GetPrefab();
+
             if(_prefab == null)
             {
-                Debug.LogError("No prefab for type " + EnemyType.ToString() + " was found");
+                Debug.LogError("No enemy prefab found!");
                 return;
             }
         }
 
-        Instantiate(_prefab, transform.position, Quaternion.identity);
+        GameObject go = Instantiate(_prefab, transform.position, Quaternion.identity) as GameObject;
+        BaseEnemy enemy = go.GetComponent<BaseEnemy>();
+        if(enemy != null)
+        {
+            enemy.Type = EnemyType;
+            enemy.Init();
+        }
     }
 
-    string GetPrefabPath()
+    GameObject GetPrefab()
     {
-        string path = "Enemies/";
-
-        switch(EnemyType)
-        {
-            case EnemyIdentifier.DIAMOND_ENEMY:
-                path += "DiamondEnemyPrefab";
-                break;
-        }
-
-        return path;
+        return Resources.Load<GameObject>("Enemies/EnemyPrefab");
+        
     }
 }
