@@ -26,7 +26,6 @@ GameObject:
   - 4: {fileID: 450802}
   - 114: {fileID: 11464400}
   - 114: {fileID: 11426640}
-  - 50: {fileID: 5063486}
   m_Layer: 0
   m_Name: EnemyPrefab
   m_TagString: Enemy
@@ -91,9 +90,10 @@ GameObject:
   - 4: {fileID: 443210}
   - 212: {fileID: 21233354}
   - 58: {fileID: 5884768}
+  - 50: {fileID: 5078320}
   m_Layer: 0
   m_Name: Graphics
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -291,13 +291,13 @@ Transform:
   m_Children: []
   m_Father: {fileID: 466222}
   m_RootOrder: 0
---- !u!50 &5063486
+--- !u!50 &5078320
 Rigidbody2D:
   serializedVersion: 2
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 101538}
+  m_GameObject: {fileID: 137486}
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
