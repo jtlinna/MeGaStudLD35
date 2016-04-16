@@ -32,6 +32,7 @@ public class Player : MonoBehaviour {
 	}
 
 	private void shoot(int type = 1) {
+		GameObject temp;
 		if (type == 1) {
 			Instantiate (bulletPrefab, muzzle.position, Quaternion.identity);
 		} else if (type == 2) {
