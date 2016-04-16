@@ -1,0 +1,34 @@
+{
+	"WaveConfigData" :
+	[
+		{
+			"WaveId" : 1,
+			"SpawnerTiers" : 
+			[
+				{
+					"SpawnerId" : 
+					[
+						3					
+					]
+				},
+				{
+					"SpawnerId" : 
+					[
+						2,
+						4
+					]
+				},
+				{
+					"SpawnerId" : 
+					[
+						1,
+						5
+					]
+				}
+			],
+			"StartDelay" : 1.5,
+			"SpawnDelay" : 0.25,
+			"WaveDelay" : 10
+		}
+	]
+}
