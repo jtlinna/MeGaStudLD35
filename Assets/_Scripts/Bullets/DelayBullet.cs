@@ -20,12 +20,13 @@ public class DelayBullet : BaseBullet {
         base.DoMovement();
 		timer += Time.deltaTime;
 		if (timer < timeToStop) {
-			currentMoveSpeed = MoveSpeed * 0.2f;
+			currentMoveSpeed = MoveSpeed * 0.5f;
 		} else if (timer >= timeToStop && timer < (stopTime + timeToStop)) {
 			currentMoveSpeed = 0f;
 		} else if (timer >= (stopTime + timeToStop)) {
 			if (!targetAquired)
-				SetTarget (GameObject.Find ("Player"));
+				if (GameObject.Find ("Player") != null) 
+					SetTarget (GameObject.Find ("Player"));
 			currentMoveSpeed = MoveSpeed * 2f;
 		}
 		transform.position += _movementVector * Time.deltaTime * currentMoveSpeed;

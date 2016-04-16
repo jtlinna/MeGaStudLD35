@@ -17,7 +17,7 @@ public class BaseBullet : MonoBehaviour {
 
     protected virtual void DoMovement()
     {
-
+		
     }
     
     protected void Trigger(GameObject target)
