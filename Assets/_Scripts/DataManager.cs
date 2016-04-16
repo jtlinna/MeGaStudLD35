@@ -21,6 +21,8 @@ public class WaveData
 public class SpawnerTierData
 {
     public int[] SpawnerId;
+    public int SpawnCount;
+    public float Interval;
 }
 
 [System.Serializable]

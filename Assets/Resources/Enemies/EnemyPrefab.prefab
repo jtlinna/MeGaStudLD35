@@ -350,7 +350,7 @@ MonoBehaviour:
   waypoints: []
   rWaypoints: []
   shape: 1
-  shapeScale: 3
+  shapeScale: 10
 --- !u!114 &11464400
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -363,7 +363,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Health: {fileID: 11426640}
-  MoveSpeed: 0.5
+  MoveSpeed: 5
   Type: 6
   ProjectilePrefab: {fileID: 172534, guid: bd20af9bbd05449b286ebdaf3c0520b5, type: 2}
   ShotSpawn: {fileID: 430482}

@@ -8,27 +8,33 @@
 				{
 					"SpawnerId" : 
 					[
-						3					
-					]
-				},
-				{
-					"SpawnerId" : 
-					[
-						2,
-						4
-					]
+						2					
+					],
+					"SpawnCount" : 5,
+					"Interval" : 1.25
 				},
 				{
 					"SpawnerId" : 
 					[
 						1,
-						5
-					]
+						3
+					],
+					"SpawnCount" : 5,
+					"Interval" : 1.25
+				},
+				{
+					"SpawnerId" : 
+					[
+						0,
+						4
+					],
+					"SpawnCount" : 5,
+					"Interval" : 1.25
 				}
 			],
 			"StartDelay" : 1.5,
-			"SpawnDelay" : 0.25,
-			"WaveDelay" : 10
+			"SpawnDelay" : 3,
+			"WaveDelay" : 20
 		}
 	]
 }
