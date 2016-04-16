@@ -16,6 +16,7 @@ public class WaypointPath : MonoBehaviour {
 	private int length;
 	public Shapes shape;
 	public float shapeScale = 1f;
+	private Transform nearest;
 
     private Shapes _currentShape;
     private int _currentWaypoint;
@@ -85,6 +86,16 @@ public class WaypointPath : MonoBehaviour {
 
         _moveTimer = 0f;
     }
+
+	public Transform getNearestWaypoint () {
+		foreach (Transform trans in waypoints) {
+			if (nearest == null)
+				nearest = trans;
+			else if (Vector2.Distance (MoveObject.transform.position, nearest.position) > Vector2.Distance (MoveObject.transform.position, trans.position))
+				nearest = trans;
+		}
+		return nearest;
+	}
 
 	public void reset (Shapes newShape) {
 		foreach (Transform trans in waypoints) {
