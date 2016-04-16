@@ -11,6 +11,8 @@ public class BaseEnemy : BaseAI {
     protected Transform ShotSpawn;
     [SerializeField]
     protected float ShootSpeed = 1f;
+    [SerializeField]
+    protected WaypointPath Path;
 
     protected float _shootTimer;
     protected SpriteRenderer _renderer;
@@ -18,7 +20,7 @@ public class BaseEnemy : BaseAI {
     public void Init()
     {
         GetSprite();
-        GetPath();
+        ChangePath();
     }
 
     protected virtual void Update()
@@ -63,7 +65,7 @@ public class BaseEnemy : BaseAI {
         }
         Type = (EnemyIdentifier)newType;
         GetSprite();
-        GetPath();
+        ChangePath();
     }
 
     protected void GetSprite()
@@ -111,8 +113,28 @@ public class BaseEnemy : BaseAI {
         _renderer.sprite = sprite;
     }
 
-    protected void GetPath()
+    protected void ChangePath()
     {
-
+        switch(Type)
+        {
+            case EnemyIdentifier.TRIANGLE:
+                Path.reset(WaypointPath.Shapes.none);
+                break;
+            case EnemyIdentifier.SQUARE:
+                Path.reset(WaypointPath.Shapes.curve);
+                break;
+            case EnemyIdentifier.PENTAGON:
+                Path.reset(WaypointPath.Shapes.infinity);
+                break;
+            case EnemyIdentifier.HEXAGON:
+                Path.reset(WaypointPath.Shapes.envelope);
+                break;
+            case EnemyIdentifier.SEPTIGON:
+                Path.reset(WaypointPath.Shapes.star);
+                break;
+            case EnemyIdentifier.OCTAGON:
+                Path.reset(WaypointPath.Shapes.hourglass);
+                break;
+        }
     }
 }

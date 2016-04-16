@@ -13,7 +13,7 @@ public class Spawner : MonoBehaviour {
 
     void Awake()
     {
-        _timer = SpawnInterval;
+        //_timer = SpawnInterval;
     }
 
     void Update()

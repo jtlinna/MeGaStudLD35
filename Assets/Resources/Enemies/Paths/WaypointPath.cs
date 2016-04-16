@@ -4,6 +4,7 @@ using System.Collections;
 public class WaypointPath : MonoBehaviour {
 
 	public enum Shapes {
+        none = 0,
         star = 1,
         curve = 2,
         hourglass = 3,
@@ -32,20 +33,20 @@ public class WaypointPath : MonoBehaviour {
 			rWaypoints [i] = waypoints [(length - 1) - i];
 		}
 
-		switch (shape) {
-		case Shapes.star:
-			setStar (shapeScale);
-			break;
-		case Shapes.curve:
-			setCurve (shapeScale);
-			break;
-		case Shapes.hourglass:
-			setHourglass (shapeScale);
-			break;
-		case Shapes.envelope:
-			setEnvelope (shapeScale);
-			break;
-		}
+		//switch (shape) {
+		//case Shapes.star:
+		//	setStar (shapeScale);
+		//	break;
+		//case Shapes.curve:
+		//	setCurve (shapeScale);
+		//	break;
+		//case Shapes.hourglass:
+		//	setHourglass (shapeScale);
+		//	break;
+		//case Shapes.envelope:
+		//	setEnvelope (shapeScale);
+		//	break;
+		//}
 	}
 
     void Update()
