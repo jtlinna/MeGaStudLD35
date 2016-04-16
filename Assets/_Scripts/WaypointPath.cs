@@ -87,6 +87,19 @@ public class WaypointPath : MonoBehaviour {
         _moveTimer = 0f;
     }
 
+	public Transform getNearestWaypoint () {
+		float distance = Mathf.Infinity;
+		Transform nearestTrans = null;
+		foreach (Transform trans in waypoints) {
+			float dist = Vector2.Distance(MoveObject.transform.position, trans.position);
+			if (dist < distance) {
+				distance = dist;
+				nearestTrans = trans;
+			}
+		}
+		return nearestTrans;
+	}
+
 	public void reset (Shapes newShape) {
 		foreach (Transform trans in waypoints) {
 			trans.gameObject.SetActive (true);

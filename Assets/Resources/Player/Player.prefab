@@ -117,6 +117,7 @@ MonoBehaviour:
   velocity: 10
   health: {fileID: 11427242}
   bulletPrefab: {fileID: 172534, guid: 489dc30f2cf9c3c4d916214c286f7b98, type: 2}
+  shotType: 1
 --- !u!212 &21204026
 SpriteRenderer:
   m_ObjectHideFlags: 1

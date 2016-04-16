@@ -1,0 +1,217 @@
+fileFormatVersion: 2
+guid: d276e58cc436149d78835711f2127238
+timeCreated: 1460820822
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: barnacle
+    100002: barnacle_001
+    100004: barnacle_002
+    100006: barnacle_003
+    100008: barnacle_004
+    100010: barnacle_005
+    100012: barnacle_006
+    100014: barnacle_007
+    100016: barnacle_008
+    100018: barnacle_009
+    100020: barnacle_010
+    100022: barnacle_011
+    100024: barnacle_012
+    100026: barnacle_013
+    100028: barnacle_014
+    100030: barnacle_015
+    100032: barnacle_016
+    100034: barnacle_017
+    100036: barnacle_018
+    100038: barnacle_019
+    100040: barnacle_020
+    100042: barnacle_021
+    100044: barnacle_022
+    100046: barnacle_023
+    100048: barnacle_024
+    100050: barnacle_025
+    100052: barnacle_026
+    100054: ground_ref
+    100056: pillar
+    100058: //RootNode
+    400000: barnacle
+    400002: barnacle_001
+    400004: barnacle_002
+    400006: barnacle_003
+    400008: barnacle_004
+    400010: barnacle_005
+    400012: barnacle_006
+    400014: barnacle_007
+    400016: barnacle_008
+    400018: barnacle_009
+    400020: barnacle_010
+    400022: barnacle_011
+    400024: barnacle_012
+    400026: barnacle_013
+    400028: barnacle_014
+    400030: barnacle_015
+    400032: barnacle_016
+    400034: barnacle_017
+    400036: barnacle_018
+    400038: barnacle_019
+    400040: barnacle_020
+    400042: barnacle_021
+    400044: barnacle_022
+    400046: barnacle_023
+    400048: barnacle_024
+    400050: barnacle_025
+    400052: barnacle_026
+    400054: ground_ref
+    400056: pillar
+    400058: //RootNode
+    2300000: barnacle
+    2300002: barnacle_001
+    2300004: barnacle_002
+    2300006: barnacle_003
+    2300008: barnacle_004
+    2300010: barnacle_005
+    2300012: barnacle_006
+    2300014: barnacle_007
+    2300016: barnacle_008
+    2300018: barnacle_009
+    2300020: barnacle_010
+    2300022: barnacle_011
+    2300024: barnacle_012
+    2300026: barnacle_013
+    2300028: barnacle_014
+    2300030: barnacle_015
+    2300032: barnacle_016
+    2300034: barnacle_017
+    2300036: barnacle_018
+    2300038: barnacle_019
+    2300040: barnacle_020
+    2300042: barnacle_021
+    2300044: barnacle_022
+    2300046: barnacle_023
+    2300048: barnacle_024
+    2300050: barnacle_025
+    2300052: barnacle_026
+    2300054: pillar
+    3300000: barnacle
+    3300002: barnacle_001
+    3300004: barnacle_002
+    3300006: barnacle_003
+    3300008: barnacle_004
+    3300010: barnacle_005
+    3300012: barnacle_006
+    3300014: barnacle_007
+    3300016: barnacle_008
+    3300018: barnacle_009
+    3300020: barnacle_010
+    3300022: barnacle_011
+    3300024: barnacle_012
+    3300026: barnacle_013
+    3300028: barnacle_014
+    3300030: barnacle_015
+    3300032: barnacle_016
+    3300034: barnacle_017
+    3300036: barnacle_018
+    3300038: barnacle_019
+    3300040: barnacle_020
+    3300042: barnacle_021
+    3300044: barnacle_022
+    3300046: barnacle_023
+    3300048: barnacle_024
+    3300050: barnacle_025
+    3300052: barnacle_026
+    3300054: pillar
+    4300000: barnacle_026
+    4300002: barnacle_025
+    4300004: barnacle_024
+    4300006: barnacle_023
+    4300008: barnacle_022
+    4300010: barnacle_021
+    4300012: barnacle_020
+    4300014: barnacle_019
+    4300016: barnacle_018
+    4300018: barnacle_017
+    4300020: barnacle_016
+    4300022: barnacle_015
+    4300024: barnacle_014
+    4300026: barnacle_013
+    4300028: barnacle_012
+    4300030: barnacle_011
+    4300032: barnacle_010
+    4300034: barnacle_009
+    4300036: barnacle_008
+    4300038: barnacle_007
+    4300040: barnacle_006
+    4300042: barnacle_005
+    4300044: barnacle_004
+    4300046: barnacle_003
+    4300048: barnacle_002
+    4300050: barnacle_001
+    4300052: pillar
+    4300054: barnacle
+    7400000: Default Take
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -5,16 +5,19 @@ public class Player : MonoBehaviour {
 
 	[SerializeField] private float velocity = 10f;
 	private Rigidbody2D rigidBody;
+	private Collider2D col;
 	private Vector2 inputData;
 	private Transform muzzle;
 
 	public BaseHealth health;
 	public GameObject bulletPrefab;
 	public int shotType = 1;
+	private float invulnTime = 3f;
 
 	// Use this for initialization
 	public virtual void Start () {
 		rigidBody = GetComponent<Rigidbody2D> ();
+		col = GetComponent<Collider2D> ();
 		muzzle = transform.FindChild ("Muzzle");
 	}
 	
@@ -25,6 +28,15 @@ public class Player : MonoBehaviour {
 
 		if (Input.GetKeyDown(KeyCode.Space))
 			shoot (shotType);
+
+		if (invulnTime > 0f) {
+			invulnTime -= Time.deltaTime;
+			GetComponent<SpriteRenderer> ().color = new Color (1f, 1f, 1f, 0.4f);
+			col.enabled = false;
+		} else {
+			GetComponent<SpriteRenderer> ().color = new Color (1f, 1f, 1f, 1f);
+			col.enabled = true;
+		}
 	}
 
 	private void move(Vector2 movement) {
@@ -32,7 +44,6 @@ public class Player : MonoBehaviour {
 	}
 
 	private void shoot(int type = 1) {
-		GameObject temp;
 		if (type == 1) {
 			Instantiate (bulletPrefab, muzzle.position, Quaternion.identity);
 		} else if (type == 2) {
@@ -44,4 +55,18 @@ public class Player : MonoBehaviour {
 			Instantiate (bulletPrefab, muzzle.position, Quaternion.Euler(0f,0f,15f));
 		}
 	}
+
+	public bool PowerUp () {
+		if (shotType < 3){
+			shotType++;
+			return true;
+		}
+		else
+			return false;
+	}
+
+//	public void resetPlayer () {
+//		
+//		shotType = 1;
+//	}
 }

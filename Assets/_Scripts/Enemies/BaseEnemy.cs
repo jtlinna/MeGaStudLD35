@@ -137,4 +137,9 @@ public class BaseEnemy : BaseAI {
                 break;
         }
     }
+
+	void OnTriggerEnter2D (Collider2D other) {
+		if (other.CompareTag ("BottomEdge"))
+			Destroy (gameObject);
+	}
 }
