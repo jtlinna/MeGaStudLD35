@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BaseEnemy : MonoBehaviour {
+public class BaseEnemy : BaseAI {
 
-    public BaseHealth Health;
-
-    [SerializeField]
-    protected float MoveSpeed;
-    
+    public override void HandleMovement(Vector2 movement)
+    {
+        base.HandleMovement(movement);
+    }
 }
