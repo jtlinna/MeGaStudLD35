@@ -11,12 +11,6 @@ public class SpawnerController : MonoBehaviour {
     private TierData _currentTier;
     private float _timeSinceWaveStart;
 
-    private List<BaseAI> _spawnedEnemies;
-
-    private BaseEnemy _prefab;
-    
-    private bool _spawning;
-
     private List<Spawner> _activeSpawners;
 
     void Awake()
@@ -29,9 +23,6 @@ public class SpawnerController : MonoBehaviour {
         }
 
         _currentTier = DataManager.Instance.GetNextTier(_currentWave);
-
-        _spawning = false;
-
         _timeSinceWaveStart = 0f;
     }
 
@@ -67,7 +58,6 @@ public class SpawnerController : MonoBehaviour {
 
     private void StartTier(TierData tier)
     {
-        Debug.Log("Staring tier");
         for (int i = 0; i < tier.Spawners.Count; i++)
         {
             for (int j = 0; j < Spawners.Length; j++)

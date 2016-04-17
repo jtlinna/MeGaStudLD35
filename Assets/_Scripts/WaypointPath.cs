@@ -114,12 +114,14 @@ public class WaypointPath : MonoBehaviour {
 				nearestTrans = trans;
 			}
 		}
+        NextWaypoint();
 		return nearestTrans;
 	}
 
     public void MoveToNearestWaypoint()
     {
         Transform nearestWaypoint = getNearestWaypoint(out _currentWaypoint);
+        NextWaypoint();
         StartCoroutine(MoveToNearestRoutine(nearestWaypoint));
     }
 
@@ -194,7 +196,7 @@ public class WaypointPath : MonoBehaviour {
         
         _currentShape = Shapes.curve;
         float arcLength = 90f * (Mathf.PI / 180) * scale;
-        _arcMoveTime = arcLength / 20;
+        _arcMoveTime = arcLength / 10f;
 	}
 
 	private void setHourglass (float scale = 1f) {
@@ -267,7 +269,7 @@ public class WaypointPath : MonoBehaviour {
                 NextWaypoint();
             }
         }
-        else
+        else if(_currentWaypoint == 1)
         {
             MoveObject.transform.position = Vector3.Slerp(rightRelCenter, leftRelCenter, _moveTimer / _arcMoveTime);
             MoveObject.transform.position += center;
@@ -281,7 +283,7 @@ public class WaypointPath : MonoBehaviour {
 
     private void Move_Envelope()
     {
-        float speed = (_currentWaypoint == 2 || _currentWaypoint == 3) ? 10f : 10f;
+        float speed = 10f;
         MoveObject.transform.position = Vector2.MoveTowards(MoveObject.transform.position, getWaypoint(_currentWaypoint).position, speed * Time.deltaTime);
         if (MoveObject.transform.position == getWaypoint(_currentWaypoint).position)
             NextWaypoint();
@@ -289,7 +291,7 @@ public class WaypointPath : MonoBehaviour {
 
     private void Move_Hourglass()
     {
-        float speed = (_currentWaypoint == 2 || _currentWaypoint == 0) ? 10f : 10f;
+        float speed = 10f;
         MoveObject.transform.position = Vector2.MoveTowards(MoveObject.transform.position, getWaypoint(_currentWaypoint).position, speed * Time.deltaTime);
         if (MoveObject.transform.position == getWaypoint(_currentWaypoint).position)
             NextWaypoint();
@@ -362,5 +364,6 @@ public class WaypointPath : MonoBehaviour {
             yield return null;
         }
         _allowPattern = true;
+        Debug.Log("Current WP: " + _currentWaypoint);
     }
 }

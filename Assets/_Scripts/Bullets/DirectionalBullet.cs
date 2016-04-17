@@ -6,8 +6,10 @@ public class DirectionalBullet : BaseBullet {
     private Vector3 _movementVector;
 	private bool targetAquired = false;
 
-	void Awake () {
-		_movementVector = transform.up;
+    protected override void Awake ()
+    {
+        base.Awake();
+        _movementVector = transform.up;
 	}
 
     protected override void DoMovement()

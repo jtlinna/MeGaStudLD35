@@ -1,8 +1,34 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class BaseEnemy : BaseAI {
 
+    private static List<BaseEnemy> ActiveEnemies = new List<BaseEnemy>();
+
+    public static void AddEnemy(BaseEnemy enemy)
+    {
+        ActiveEnemies.Add(enemy);
+    }
+
+    public static void RemoveEnemy(BaseEnemy enemy)
+    {
+        if (ActiveEnemies.Contains(enemy))
+            ActiveEnemies.Remove(enemy);
+    }
+
+    public static void RemoveAllEnemies(bool destroyObject = false)
+    {
+        if (destroyObject)
+        {
+            for (int i = ActiveEnemies.Count - 1; i >= 0; i--)
+            {
+                Destroy(ActiveEnemies[i].gameObject);
+            }
+        }
+
+        ActiveEnemies.Clear();
+    }
     public EnemyIdentifier Type;
 
     [SerializeField]
@@ -25,10 +51,17 @@ public class BaseEnemy : BaseAI {
 		if (AutoStart)
 			StartCoroutine (delayedInit ());
 
+        AddEnemy(this);
+
 		ShotSpawns = new Transform[transform.FindChild("Graphics").childCount];
 		for (int i = 0; i < ShotSpawns.Length; i++) {
 			ShotSpawns [i] = transform.FindChild ("Graphics").GetChild (i);
 		}
+    }
+
+    void OnDestroy()
+    {
+        RemoveEnemy(this);
     }
 
 	private IEnumerator delayedInit() {
@@ -99,7 +132,7 @@ public class BaseEnemy : BaseAI {
         if (changeType)
         {
             int newType = (int)Type - 1;
-            if (newType <= 0)
+            if (newType < 3)
             {
                 DropPowerUp();
                 Destroy(gameObject);

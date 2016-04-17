@@ -1,7 +1,33 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class BaseBullet : MonoBehaviour {
+
+    private static List<BaseBullet> ActiveBullets = new List<BaseBullet>();
+    
+    public static void AddBullet(BaseBullet bullet)
+    {
+        ActiveBullets.Add(bullet);
+    }
+
+    public static void RemoveBullet(BaseBullet bullet)
+    {
+        if (ActiveBullets.Contains(bullet))
+            ActiveBullets.Remove(bullet);
+    }
+
+    public static void RemoveAllBullets(bool destroyObject = false)
+    {
+        if(destroyObject)
+        {
+            for (int i = ActiveBullets.Count - 1; i >= 0; i--)
+            {
+                Destroy(ActiveBullets[i].gameObject);
+            }
+        }
+
+        ActiveBullets.Clear();
+    }
 
     [SerializeField]
     protected float Damage;
@@ -11,6 +37,16 @@ public class BaseBullet : MonoBehaviour {
     protected string TargetTag;
 	[SerializeField]
 	protected Vector3 _lastPos;
+
+    protected virtual void Awake()
+    {
+        AddBullet(this);
+    }
+
+    void OnDestroy()
+    {
+        RemoveBullet(this);
+    }
 
     void Update()
     {

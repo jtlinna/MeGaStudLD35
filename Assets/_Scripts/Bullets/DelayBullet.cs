@@ -9,7 +9,8 @@ public class DelayBullet : BaseBullet {
 	private float currentMoveSpeed;
 	private bool targetAquired = false;
 
-	void Awake() {
+	protected override void Awake() {
+        base.Awake();
 		_movementVector = transform.up;
 		timer = 0f;
 		currentMoveSpeed = MoveSpeed;

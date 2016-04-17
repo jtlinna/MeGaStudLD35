@@ -50,6 +50,12 @@ public class GameManager : MonoBehaviour {
 		}
 		if (currentState == States.playing)
 			gameTime += Time.deltaTime;
+
+        if(Input.GetKeyDown(KeyCode.K))
+        {
+            BaseBullet.RemoveAllBullets(true);
+            BaseEnemy.RemoveAllEnemies(true);
+        }
 	}
 
 	public bool addMultiplier (float amount) {
