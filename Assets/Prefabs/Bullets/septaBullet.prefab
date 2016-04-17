@@ -74,8 +74,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damage: 25
-  MoveSpeed: 5
+  MoveSpeed: 7.5
   TargetTag: Player
+  _lastPos: {x: 0, y: 0, z: 0}
   timeToStop: 1
   stopTime: 1
 --- !u!212 &21237528
