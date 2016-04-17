@@ -142,10 +142,10 @@ CircleCollider2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 114400}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0.1}
   serializedVersion: 2
@@ -194,6 +194,7 @@ MonoBehaviour:
   health: {fileID: 11427242}
   bulletPrefab: {fileID: 172534, guid: 489dc30f2cf9c3c4d916214c286f7b98, type: 2}
   shotType: 1
+  rateOfFire: 0.5
 --- !u!212 &21204026
 SpriteRenderer:
   m_ObjectHideFlags: 1
