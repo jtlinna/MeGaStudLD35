@@ -16,6 +16,7 @@ public class Player : MonoBehaviour {
 	private float rofTimer = 0f;
 	private float invulnTime = 3f;
 	private float _lastFrameAxis = 0f;
+	private bool control = true;
 
 	// Use this for initialization
 	public virtual void Start () {
@@ -26,21 +27,22 @@ public class Player : MonoBehaviour {
 	
 	// Update is called once per frame
 	public virtual void Update () {
-		inputData = new Vector2 (Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-		move (inputData);
-
-		if (Input.GetAxisRaw("Fire") > 0f && _lastFrameAxis == 0f) {
-			shoot (shotType);
-			rofTimer = 0f;
-		}
-		if (Input.GetAxisRaw("Fire") > 0f && _lastFrameAxis == 1f) {
-			if (rofTimer > rateOfFire) {
+		if (control) {
+			inputData = new Vector2 (Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+			move (inputData);
+			if (Input.GetAxisRaw ("Fire") > 0f && _lastFrameAxis == 0f) {
 				shoot (shotType);
 				rofTimer = 0f;
 			}
-			rofTimer += Time.deltaTime;
+			if (Input.GetAxisRaw ("Fire") > 0f && _lastFrameAxis == 1f) {
+				if (rofTimer > rateOfFire) {
+					shoot (shotType);
+					rofTimer = 0f;
+				}
+				rofTimer += Time.deltaTime;
+			}
+			_lastFrameAxis = Input.GetAxisRaw ("Fire");
 		}
-		_lastFrameAxis = Input.GetAxisRaw ("Fire");
 
 		if (invulnTime > 0f) {
 			invulnTime -= Time.deltaTime;
@@ -77,6 +79,17 @@ public class Player : MonoBehaviour {
 		}
 		else
 			return false;
+	}
+
+	public void toggleControls () {
+		if (control)
+			control = false;
+		else
+			control = true;
+	}
+
+	public void destroyPlayer () {
+		Destroy (gameObject);
 	}
 
 //	public void resetPlayer () {
