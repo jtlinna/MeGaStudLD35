@@ -12,7 +12,10 @@ public class Player : MonoBehaviour {
 	public BaseHealth health;
 	public GameObject bulletPrefab;
 	public int shotType = 1;
+	public float rateOfFire = 0.5f;
+	private float rofTimer = 0f;
 	private float invulnTime = 3f;
+	private float _lastFrameAxis = 0f;
 
 	// Use this for initialization
 	public virtual void Start () {
@@ -26,8 +29,18 @@ public class Player : MonoBehaviour {
 		inputData = new Vector2 (Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 		move (inputData);
 
-		if (Input.GetKeyDown(KeyCode.Space))
+		if (Input.GetAxisRaw("Fire") > 0f && _lastFrameAxis == 0f) {
 			shoot (shotType);
+			rofTimer = 0f;
+		}
+		if (Input.GetAxisRaw("Fire") > 0f && _lastFrameAxis == 1f) {
+			if (rofTimer > rateOfFire) {
+				shoot (shotType);
+				rofTimer = 0f;
+			}
+			rofTimer += Time.deltaTime;
+		}
+		_lastFrameAxis = Input.GetAxisRaw ("Fire");
 
 		if (invulnTime > 0f) {
 			invulnTime -= Time.deltaTime;

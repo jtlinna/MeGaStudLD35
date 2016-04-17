@@ -456,13 +456,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d544cf3db962e654a82394e3687fd02f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnPoints:
-  - {fileID: 560453659}
-  - {fileID: 383096471}
-  - {fileID: 1028054994}
-  - {fileID: 309817062}
-  - {fileID: 1577918736}
-  - {fileID: 1858645514}
+  Spawners: []
 --- !u!4 &187995481
 Transform:
   m_ObjectHideFlags: 0
@@ -896,6 +890,10 @@ Prefab:
       propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11447980, guid: 47ae5c8e5851f498292988f5c27f9b89, type: 2}
+      propertyPath: rateOfFire
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 47ae5c8e5851f498292988f5c27f9b89, type: 2}
   m_IsPrefabParent: 0
@@ -1297,10 +1295,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 11464400, guid: 87c18937fbe326d46ab3c7b69d0c1bb2, type: 2}
-      propertyPath: Type
-      value: 3
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 87c18937fbe326d46ab3c7b69d0c1bb2, type: 2}
   m_IsPrefabParent: 0
@@ -1606,7 +1600,7 @@ Camera:
   m_GameObject: {fileID: 961629869}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 4
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0.019607844}
   m_NormalizedViewPortRect:
     serializedVersion: 2
@@ -2422,7 +2416,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d544cf3db962e654a82394e3687fd02f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnPoints: []
+  Spawners: []
 --- !u!4 &1914107888
 Transform:
   m_ObjectHideFlags: 0
