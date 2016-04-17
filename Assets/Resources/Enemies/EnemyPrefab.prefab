@@ -583,7 +583,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: {fileID: 11426640}
   MoveSpeed: 2
-  Type: 8
+  Type: 3
   AutoStart: 0
   ShotSpawns: []
   Path: {fileID: 11438432}
