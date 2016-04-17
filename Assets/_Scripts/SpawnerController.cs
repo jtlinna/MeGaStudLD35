@@ -61,7 +61,11 @@ public class SpawnerController : MonoBehaviour {
         if (_activeSpawners.Count > 0)
             return;
 
+        if(DataManager.Instance == null)
+            return;
+
         _timeSinceWaveStart = 0f;
+        
         _currentWave = DataManager.Instance.GetNextWave();
         if (_currentWave == null)
         {

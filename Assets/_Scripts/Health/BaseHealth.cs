@@ -4,9 +4,9 @@ using System.Collections;
 public class BaseHealth : MonoBehaviour {
 
     [SerializeField]
-    private float MaxHealth;
+    protected float MaxHealth;
 
-    private float _currentHealth;
+    protected float _currentHealth;
 
     protected virtual void Awake()
     {

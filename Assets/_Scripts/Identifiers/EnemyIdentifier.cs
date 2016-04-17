@@ -9,4 +9,5 @@ public enum EnemyIdentifier
     HEXAGON = 6,
     SEPTIGON = 7,
     OCTAGON = 8,
+    BOSS = 9,
 }

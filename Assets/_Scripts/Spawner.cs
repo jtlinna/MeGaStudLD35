@@ -10,13 +10,13 @@ public class Spawner : MonoBehaviour {
 
     private List<SpawnCycleData> _currentCycles;
 
-    private GameObject[] _prefabs;
+    private GameObject _prefab;
+    private GameObject _bossPrefab;
     private float _cycleDelay;
 
 
     void Awake()
     {
-        _prefabs = new GameObject[System.Enum.GetNames(typeof(EnemyIdentifier)).Length];
         _currentCycles = new List<SpawnCycleData>();
     }
 
@@ -33,24 +33,51 @@ public class Spawner : MonoBehaviour {
 
     void Spawn(int enemyId, int powerUpId)
     {
-        int index = enemyId - 3;
-        if (_prefabs[index] == null)
+        if((EnemyIdentifier)enemyId == EnemyIdentifier.BOSS)
         {
-            _prefabs[index] = GetPrefab();
+            SpawnBoss();
+            return;
+        }
 
-            if (_prefabs[(int)index] == null)
+        int index = enemyId - 3;
+        if (_prefab == null)
+        {
+            _prefab = GetPrefab();
+
+            if (_prefab == null)
             {
                 Debug.LogError("No enemy prefab found!");
                 return;
             }
         }
 
-        GameObject go = Instantiate(_prefabs[(int)index], transform.position, Quaternion.identity) as GameObject;
+        GameObject go = Instantiate(_prefab, transform.position, Quaternion.identity) as GameObject;
         BaseEnemy enemy = go.GetComponent<BaseEnemy>();
         if (enemy != null)
         {
             enemy.Type = (EnemyIdentifier)enemyId;
             enemy.Init((PowerUpIdentifier)powerUpId);
+        }
+    }
+
+    private void SpawnBoss()
+    {
+        if(_bossPrefab == null)
+        {
+            _bossPrefab = Resources.Load<GameObject>("Enemies/Boss");
+            if(_bossPrefab == null)
+            {
+                Debug.LogError("No boss prefab was found");
+                return;
+            }
+        }
+
+        GameObject go = Instantiate(_bossPrefab, transform.position, Quaternion.identity) as GameObject;
+        BossScript boss = go.GetComponent<BossScript>();
+        if(boss != null)
+        {
+            boss.phase = (GameManager.BossStage <= 3)?(BossScript.BossPhase)GameManager.BossStage : BossScript.BossPhase.third;
+            boss.Init();
         }
     }
 

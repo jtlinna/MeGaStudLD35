@@ -7,7 +7,9 @@ public class GameManager : MonoBehaviour {
 		playing = 1,
 		paused = 2,
 		menu = 3};
-	
+
+    public static int BossStage = 1;
+
 	private States currentState;
 	[SerializeField] private float gameTime;
 	[SerializeField] private ulong score;
@@ -23,8 +25,15 @@ public class GameManager : MonoBehaviour {
 	void Awake() {
 		DontDestroyOnLoad(gameObject);
 
+        BossHealth.OnBossDamaged += DebugBossDamaged;
+
 		StartGame ();
 	}
+
+    void OnDestroy()
+    {
+        BossHealth.OnBossDamaged -= DebugBossDamaged;
+    }
 
 	public void StartGame() {
 		gameTime = 0f;
@@ -57,6 +66,11 @@ public class GameManager : MonoBehaviour {
             BaseEnemy.RemoveAllEnemies(true);
         }
 	}
+
+    public void DebugBossDamaged(float current, float max)
+    {
+        Debug.Log("Current: " + current + ", Max: " + max);
+    }
 
 	public bool addMultiplier (float amount) {
 		if (multiplier < maxMultiplier){
