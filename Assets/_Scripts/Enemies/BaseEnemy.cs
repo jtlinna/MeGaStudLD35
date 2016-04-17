@@ -10,7 +10,7 @@ public class BaseEnemy : BaseAI {
     [SerializeField]
     protected GameObject ProjectilePrefab;
     [SerializeField]
-    protected Transform ShotSpawn;
+    protected Transform[] ShotSpawns;
     [SerializeField]
     protected float ShootSpeed = 1f;
     [SerializeField]
@@ -23,12 +23,18 @@ public class BaseEnemy : BaseAI {
     {
         if (AutoStart)
             Invoke("Init", 1) ;
+
+		ShotSpawns = new Transform[transform.FindChild("Graphics").childCount];
+		for (int i = 0; i < ShotSpawns.Length; i++) {
+			ShotSpawns [i] = transform.FindChild ("Graphics").GetChild (i);
+		}
     }
 
     public void Init()
     {
         GetSprite();
         ChangePath();
+		ChangeShotSpawns ();
     }
 
     protected virtual void Update()
@@ -60,23 +66,21 @@ public class BaseEnemy : BaseAI {
 
     protected void Shoot()
     {
-        Instantiate(ProjectilePrefab, ShotSpawn.position, ShotSpawn.rotation);
+        //Instantiate(ProjectilePrefab, ShotSpawn.position, ShotSpawn.rotation);
     }
 
-    public void ChangeShape(bool moveToNearest = false, bool changeType = true)
+    public void ChangeShape()
     {
-        if (changeType)
+        int newType = (int)Type - 1;
+        if(newType <= 0)
         {
-            int newType = (int)Type - 1;
-            if (newType <= 0)
-            {
-                Destroy(gameObject);
-                return;
-            }
-            Type = (EnemyIdentifier)newType;
+            Destroy(gameObject);
+            return;
         }
-        GetSprite();
-        ChangePath(moveToNearest);
+        Type = (EnemyIdentifier)newType;
+        GetSprite ();
+        ChangePath ();
+		ChangeShotSpawns ();
     }
 
     protected void GetSprite()
@@ -124,7 +128,7 @@ public class BaseEnemy : BaseAI {
         _renderer.sprite = sprite;
     }
 
-    protected void ChangePath(bool moveToNearest = false)
+    protected void ChangePath()
     {
         switch(Type)
         {
@@ -147,12 +151,49 @@ public class BaseEnemy : BaseAI {
                 Path.reset(WaypointPath.Shapes.hourglass);
                 break;
         }
-
-        if(moveToNearest)
-        {
-            Path.MoveToNearestWaypoint();
-        }
     }
+
+	protected void ChangeShotSpawns()
+	{
+		switch(Type)
+		{
+		case EnemyIdentifier.TRIANGLE:
+			setShotSpawns (3);
+			break;
+		case EnemyIdentifier.SQUARE:
+			setShotSpawns (4);
+			break;
+		case EnemyIdentifier.PENTAGON:
+			setShotSpawns (5);
+			break;
+		case EnemyIdentifier.HEXAGON:
+			setShotSpawns (6);
+			break;
+		case EnemyIdentifier.SEPTIGON:
+			setShotSpawns (7);
+			break;
+		case EnemyIdentifier.OCTAGON:
+			setShotSpawns (8);
+			break;
+		}
+	}
+
+	private void setShotSpawns(int corners)
+	{
+		for (int i = 0; i < ShotSpawns.Length; i++) {
+			ShotSpawns [i].gameObject.SetActive (i < corners ? true : false);
+		}
+
+		int z = 0;
+		foreach (Transform spawn in ShotSpawns) {
+			spawn.localPosition = Vector3.zero;
+			spawn.localRotation = Quaternion.Euler(Vector3.zero);
+			spawn.Rotate (new Vector3 (0f, 0f, (360f / corners) * z));
+			spawn.localPosition += spawn.up * 2f;
+			z++;
+		}
+		z = 0;
+	}
 
 	void OnTriggerEnter2D (Collider2D other) {
 		if (other.CompareTag ("BottomEdge"))
