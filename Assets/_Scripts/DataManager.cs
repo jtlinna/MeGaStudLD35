@@ -34,6 +34,7 @@ public class SpawnerData
 public class SpawnCycleData
 {
     public int[] Enemies;
+    public int[] PowerUps;
     public float Interval;
 }
 

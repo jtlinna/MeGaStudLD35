@@ -15,9 +15,12 @@ public class BaseEnemy : BaseAI {
     protected WaypointPath Path;
 	[SerializeField]
 	protected BulletSequenceManager BulletManager;
+    [SerializeField]
+    protected GameObject ScorePowerUpPrefab;
 
     protected float _shootTimer;
     protected SpriteRenderer _renderer;
+    protected PowerUpIdentifier _additionalPowerUp;
     
     void Awake()
     {
@@ -30,8 +33,9 @@ public class BaseEnemy : BaseAI {
 		}
     }
 
-    public void Init()
+    public void Init(PowerUpIdentifier additionalPowerUp)
     {
+        _additionalPowerUp = additionalPowerUp;
         GetSprite();
         ChangePath();
 		ChangeShotSpawns ();
@@ -95,6 +99,7 @@ public class BaseEnemy : BaseAI {
             int newType = (int)Type - 1;
             if (newType <= 0)
             {
+                DropPowerUp();
                 Destroy(gameObject);
                 return;
             }
@@ -219,6 +224,38 @@ public class BaseEnemy : BaseAI {
 		}
 		z = 0;
 	}
+
+    public void DropPowerUp()
+    {
+        if(_additionalPowerUp == PowerUpIdentifier.NONE)
+        {
+            Instantiate(ScorePowerUpPrefab, transform.position, Quaternion.identity);
+            return;
+        }
+
+        string path = "PowerUps/";
+        switch(_additionalPowerUp)
+        {
+            case PowerUpIdentifier.HEALTH:
+                path += "LifePowerUp";
+                break;
+            case PowerUpIdentifier.SCORE_MULTIPLIER:
+                path += "MultiPowerUp";
+                break;
+            case PowerUpIdentifier.WEAPON:
+                path += "WeaponPowerUp";
+                break;
+        }
+
+        GameObject powerUp = Resources.Load<GameObject>(path);
+        if(powerUp == null)
+        {
+            Debug.LogError("No prefab was found for powerup " + _additionalPowerUp.ToString());
+            return;
+        }
+
+        Instantiate(powerUp, transform.position, Quaternion.identity);
+    }
 
 	void OnTriggerEnter2D (Collider2D other) {
 		if (other.CompareTag ("BottomEdge"))

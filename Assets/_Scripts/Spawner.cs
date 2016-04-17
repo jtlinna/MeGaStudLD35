@@ -31,7 +31,7 @@ public class Spawner : MonoBehaviour {
         StartCoroutine("SpawnRoutine");
     }
 
-    void Spawn(int enemyId)
+    void Spawn(int enemyId, int powerUpId)
     {
         int index = enemyId - 3;
         if (_prefabs[index] == null)
@@ -50,7 +50,7 @@ public class Spawner : MonoBehaviour {
         if (enemy != null)
         {
             enemy.Type = (EnemyIdentifier)enemyId;
-            enemy.Init();
+            enemy.Init((PowerUpIdentifier)powerUpId);
         }
     }
 
@@ -66,7 +66,7 @@ public class Spawner : MonoBehaviour {
             int index = 0;
             while(index < _currentCycles[0].Enemies.Length)
             {
-                Spawn(_currentCycles[0].Enemies[index]);
+                Spawn(_currentCycles[0].Enemies[index], _currentCycles[0].PowerUps[index]);
                 index++;
                 yield return new WaitForSeconds(_currentCycles[0].Interval);
             }

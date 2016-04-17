@@ -552,7 +552,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72c9a9e0d1f66664983528496c604012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 0
+  MaxHealth: 2
   EnemyAI: {fileID: 11464400}
 --- !u!114 &11438432
 MonoBehaviour:
@@ -582,13 +582,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Health: {fileID: 11426640}
-  MoveSpeed: 0
+  MoveSpeed: 2
   Type: 6
   AutoStart: 1
   ShotSpawns: []
   ShootSpeed: 0.5
   Path: {fileID: 11438432}
   BulletManager: {fileID: 11475388}
+  ScorePowerUpPrefab: {fileID: 171530, guid: 835652f43379647c38acca84a00dec6c, type: 2}
 --- !u!114 &11475388
 MonoBehaviour:
   m_ObjectHideFlags: 1

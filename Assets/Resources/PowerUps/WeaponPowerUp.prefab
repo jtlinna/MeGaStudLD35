@@ -12,7 +12,7 @@ GameObject:
   - 212: {fileID: 21281812}
   - 114: {fileID: 11455338}
   m_Layer: 0
-  m_Name: PowerPowerUp
+  m_Name: WeaponPowerUp
   m_TagString: PowerUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

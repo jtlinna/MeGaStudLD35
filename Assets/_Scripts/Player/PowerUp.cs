@@ -1,6 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public enum PowerUpIdentifier
+{
+    NONE = -1,
+    HEALTH = 1,
+    SCORE_MULTIPLIER = 2,
+    WEAPON = 3
+}
+
 public class PowerUp : MonoBehaviour {
 
 	protected GameManager manager;
