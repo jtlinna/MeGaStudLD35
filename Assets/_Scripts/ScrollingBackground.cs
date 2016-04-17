@@ -1,28 +1,30 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(Renderer))]
 public class ScrollingBackground : MonoBehaviour {
 
     [SerializeField]
-    private float ScrollSpeed = 0.25f;
+    private float ScrollSpeed = 5f;
 
     private float _scrollSpeed;
 
-    private Material _backgroundMaterial;
+	private Transform[] backGrounds;
 
     void Awake()
     {
-        _backgroundMaterial = GetComponent<SpriteRenderer>().material;
+		backGrounds = new Transform[2];
+		backGrounds[0] = transform.GetChild(0).transform;
+		backGrounds[1] = transform.GetChild(1).transform;
     }
 
     void Update()
     {
-        if(_backgroundMaterial != null)
-        {
-            Vector2 offset = _backgroundMaterial.mainTextureOffset;
-            offset.y += (ScrollSpeed / 100f * Time.deltaTime); // Just to get a reasonable scale for the speed
-            _backgroundMaterial.mainTextureOffset = offset;
-        }
+		foreach(Transform pic in backGrounds){
+			pic.localPosition = new Vector2(0f, pic.localPosition.y + (ScrollSpeed * Time.deltaTime));
+			if (pic.localPosition.y >= 64f)
+				pic.localPosition = new Vector2(0f, pic.localPosition.y - 128f);
+			else if (pic.localPosition.y <= -64f)
+				pic.localPosition = new Vector2(0f, pic.localPosition.y + 128f);
+		}
     }
 }
