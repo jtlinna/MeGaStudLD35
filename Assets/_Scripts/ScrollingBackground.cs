@@ -13,7 +13,7 @@ public class ScrollingBackground : MonoBehaviour {
 
     void Awake()
     {
-        _backgroundMaterial = GetComponent<Renderer>().material;
+        _backgroundMaterial = GetComponent<SpriteRenderer>().material;
     }
 
     void Update()
