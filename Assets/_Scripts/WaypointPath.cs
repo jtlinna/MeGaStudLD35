@@ -103,26 +103,27 @@ public class WaypointPath : MonoBehaviour {
 	public void reset (Shapes newShape) {
 		foreach (Transform trans in waypoints) {
 			trans.gameObject.SetActive (true);
-            trans.localPosition = new Vector3(0, MoveObject.transform.position.y);/*Vector3.zero;*/
+            trans.position = new Vector3(0, MoveObject.transform.position.y);/*Vector3.zero;*/
 			trans.localRotation = Quaternion.Euler(Vector3.zero);
 		}
 
+        transform.localPosition = Vector3.zero;
 		switch (newShape) {
-		case Shapes.star:
-			setStar (shapeScale);
-			break;
-		case Shapes.curve:
-			setCurve (shapeScale);
-			break;
-		case Shapes.hourglass:
-			setHourglass (shapeScale);
-			break;
-		case Shapes.envelope:
-			setEnvelope (shapeScale);
-			break;
-		case Shapes.infinity:
-			setInfinity (shapeScale);
-			break;
+		    case Shapes.star:
+			    setStar (shapeScale);
+			    break;
+		    case Shapes.curve:
+			    setCurve (shapeScale);
+			    break;
+		    case Shapes.hourglass:
+			    setHourglass (shapeScale);
+			    break;
+		    case Shapes.envelope:
+			    setEnvelope (shapeScale);
+			    break;
+		    case Shapes.infinity:
+			    setInfinity (shapeScale);
+			    break;
 		}
 			
 	}
@@ -158,8 +159,14 @@ public class WaypointPath : MonoBehaviour {
 		waypoints [0].Rotate (0f, 0f, 135f);
 		waypoints [1].Rotate (0f, 0f, 225f);
 
-		foreach (Transform trans in waypoints)
-			trans.localPosition += trans.up * scale;
+        transform.position = new Vector3(transform.position.x, waypoints[0].position.y);
+
+        foreach (Transform trans in waypoints)
+        {
+            trans.localPosition += trans.up * scale;
+            trans.localPosition = new Vector3(trans.localPosition.x, 0, trans.localPosition.z);
+        }
+
 
         _currentShape = Shapes.curve;
 	}
@@ -216,21 +223,26 @@ public class WaypointPath : MonoBehaviour {
     private void Move_Curve()
     {
         _moveTimer += Time.deltaTime;
+
+        Vector3 center = transform.position + (Vector3.up * shapeScale);
+        Vector3 leftRelCenter = getWaypoint(0).position - center;
+        Vector3 rightRelCenter = getWaypoint(1).position - center;
+
         if (_moveTimer > 2)
             _moveTimer = 2f;
         if (_currentWaypoint == 0)
         {
-
-            MoveObject.transform.position = Vector3.Slerp(getWaypoint(0).position, getWaypoint(1).position, _moveTimer / 2f);
-            
-            if(MoveObject.transform.position == getWaypoint(1).position)
+            MoveObject.transform.position = Vector3.Slerp(leftRelCenter, rightRelCenter, _moveTimer / 2f);
+            MoveObject.transform.position += center;
+            if (MoveObject.transform.position == getWaypoint(1).position)
             {
                 NextWaypoint();
             }
         }
         else
         {
-            MoveObject.transform.position = Vector3.Slerp(getWaypoint(1).position, getWaypoint(0).position, _moveTimer / 2f);
+            MoveObject.transform.position = Vector3.Slerp(rightRelCenter, leftRelCenter, _moveTimer / 2f);
+            MoveObject.transform.position += center;
 
             if (MoveObject.transform.position == getWaypoint(0).position)
             {

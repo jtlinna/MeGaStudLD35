@@ -6,6 +6,8 @@ public class BaseEnemy : BaseAI {
     public EnemyIdentifier Type;
 
     [SerializeField]
+    bool AutoStart = false;
+    [SerializeField]
     protected GameObject ProjectilePrefab;
     [SerializeField]
     protected Transform ShotSpawn;
@@ -16,6 +18,12 @@ public class BaseEnemy : BaseAI {
 
     protected float _shootTimer;
     protected SpriteRenderer _renderer;
+    
+    void Awake()
+    {
+        if (AutoStart)
+            Invoke("Init", 1) ;
+    }
 
     public void Init()
     {
@@ -31,7 +39,7 @@ public class BaseEnemy : BaseAI {
         if(_shootTimer <= 0f)
         {
             _shootTimer = ShootSpeed;
-            Shoot();
+            //Shoot();
         }
     }
 
