@@ -10,8 +10,6 @@ public class BaseEnemy : BaseAI {
     [SerializeField]
     protected Transform[] ShotSpawns;
     [SerializeField]
-    protected float ShootSpeed = 1f;
-    [SerializeField]
     protected WaypointPath Path;
 	[SerializeField]
 	protected BulletSequenceManager BulletManager;
@@ -24,8 +22,8 @@ public class BaseEnemy : BaseAI {
     
     void Awake()
     {
-        if (AutoStart)
-            Invoke("Init", 1) ;
+		if (AutoStart)
+			StartCoroutine (delayedInit ());
 
 		ShotSpawns = new Transform[transform.FindChild("Graphics").childCount];
 		for (int i = 0; i < ShotSpawns.Length; i++) {
@@ -33,24 +31,23 @@ public class BaseEnemy : BaseAI {
 		}
     }
 
+	private IEnumerator delayedInit() {
+		yield return null;
+		Init (PowerUpIdentifier.NONE);
+	}
+
     public void Init(PowerUpIdentifier additionalPowerUp)
     {
         _additionalPowerUp = additionalPowerUp;
         GetSprite();
         ChangePath();
 		ChangeShotSpawns ();
+		Shoot ();
     }
 
     protected virtual void Update()
     {
         CalculateMovement();
-
-		if (BulletManager.shotDone) _shootTimer -= Time.deltaTime;
-        if(_shootTimer <= 0f)
-        {
-            _shootTimer = ShootSpeed;
-            Shoot();
-        }
     }
 
 
@@ -58,6 +55,10 @@ public class BaseEnemy : BaseAI {
     public override void HandleMovement(Vector3 movement)
     {
         base.HandleMovement(movement);
+
+		if (Type == EnemyIdentifier.SQUARE)
+			transform.FindChild ("Graphics").transform.Rotate (new Vector3 (0f, 0f, 90f * Time.deltaTime));
+		else transform.FindChild ("Graphics").transform.rotation = Quaternion.Euler (Vector3.zero);
 
         Vector3 normalizedMovement = movement.normalized;
         transform.position += normalizedMovement * MoveSpeed * Time.deltaTime;
@@ -70,24 +71,25 @@ public class BaseEnemy : BaseAI {
 
     protected void Shoot()
     {
+		BulletManager.stopSpawning ();
 		switch (Type) {
 		case EnemyIdentifier.TRIANGLE:
-			StartCoroutine (BulletManager.spawnBullets (ShotSpawns, BulletSequenceManager.bulletIdentifier.triangleBullet, 3, 0f, 0.2f, 1f));
+			BulletManager.StartCoroutine (BulletManager.spawnBullets (ShotSpawns, BulletSequenceManager.bulletIdentifier.triangleBullet, 3, 0f, 0.2f, 1f));
 			break;
 		case EnemyIdentifier.SQUARE:
-			StartCoroutine (BulletManager.spawnBullets (ShotSpawns, BulletSequenceManager.bulletIdentifier.squareBullet, 1, 0f, 0f, (1f/3f)));
+			BulletManager.StartCoroutine (BulletManager.spawnBullets (ShotSpawns, BulletSequenceManager.bulletIdentifier.squareBullet, 1, 0f, 0f, (2f/3f)));
 			break;
 		case EnemyIdentifier.PENTAGON:
-			StartCoroutine (BulletManager.spawnBullets (ShotSpawns, BulletSequenceManager.bulletIdentifier.pentaBullet, 1, 0f, 0f, 1f));
+			BulletManager.StartCoroutine (BulletManager.spawnBullets (ShotSpawns, BulletSequenceManager.bulletIdentifier.pentaBullet, 1, 0f, 0f, 1f));
 			break;
 		case EnemyIdentifier.HEXAGON:
-			StartCoroutine (BulletManager.spawnBullets (ShotSpawns, BulletSequenceManager.bulletIdentifier.hexBullet, 1, 0.1f, 0f, 0f));
+			BulletManager.StartCoroutine (BulletManager.spawnBullets (ShotSpawns, BulletSequenceManager.bulletIdentifier.hexBullet, 1, 0.1f, 0f, 0f));
 			break;
 		case EnemyIdentifier.SEPTIGON:
-			StartCoroutine (BulletManager.spawnBullets (ShotSpawns, BulletSequenceManager.bulletIdentifier.septiBullet, 1, 0f, 0f, 1f));
+			BulletManager.StartCoroutine (BulletManager.spawnBullets (ShotSpawns, BulletSequenceManager.bulletIdentifier.septiBullet, 2, 0f, 0.5f, 2f));
 			break;
 		case EnemyIdentifier.OCTAGON:
-			StartCoroutine (BulletManager.spawnBullets (ShotSpawns, BulletSequenceManager.bulletIdentifier.octaBullet, 8, 0f, (1f / 8f), 1f));
+			BulletManager.StartCoroutine (BulletManager.spawnBullets (ShotSpawns, BulletSequenceManager.bulletIdentifier.octaBullet, 8, 0f, (1f / 8f), 3f));
 			break;
 		}
     }
@@ -108,7 +110,7 @@ public class BaseEnemy : BaseAI {
         GetSprite ();
         ChangePath (goToNearest);
 		ChangeShotSpawns ();
-		BulletManager.shotDone = true;
+		Shoot ();
     }
 
     protected void GetSprite()
