@@ -66,24 +66,24 @@ public class BaseEnemy : BaseAI {
 
     protected void Shoot()
     {
-		switch (Type){
+		switch (Type) {
 		case EnemyIdentifier.TRIANGLE:
-			StartCoroutine(BulletManager.spawnBullets (ShotSpawns, BulletSequenceManager.bulletIdentifier.triangleBullet, 3, 0f, 0.2f));
+			StartCoroutine (BulletManager.spawnBullets (ShotSpawns, BulletSequenceManager.bulletIdentifier.triangleBullet, 3, 0f, 0.2f, 1f));
 			break;
 		case EnemyIdentifier.SQUARE:
-			StartCoroutine(BulletManager.spawnBullets (ShotSpawns, BulletSequenceManager.bulletIdentifier.squareBullet, 1, 0f, 0f));
+			StartCoroutine (BulletManager.spawnBullets (ShotSpawns, BulletSequenceManager.bulletIdentifier.squareBullet, 1, 0f, 0f, (1f/3f)));
 			break;
 		case EnemyIdentifier.PENTAGON:
-			StartCoroutine(BulletManager.spawnBullets (ShotSpawns, BulletSequenceManager.bulletIdentifier.pentaBullet, 1, 0f, 0f));
+			StartCoroutine (BulletManager.spawnBullets (ShotSpawns, BulletSequenceManager.bulletIdentifier.pentaBullet, 1, 0f, 0f, 1f));
 			break;
 		case EnemyIdentifier.HEXAGON:
-			StartCoroutine(BulletManager.spawnBullets (ShotSpawns, BulletSequenceManager.bulletIdentifier.hexBullet, 1, 0.1f, 0f));
+			StartCoroutine (BulletManager.spawnBullets (ShotSpawns, BulletSequenceManager.bulletIdentifier.hexBullet, 1, 0.1f, 0f, 0f));
 			break;
 		case EnemyIdentifier.SEPTIGON:
-			StartCoroutine(BulletManager.spawnBullets (ShotSpawns, BulletSequenceManager.bulletIdentifier.septiBullet, 1, 0f, 0f));
+			StartCoroutine (BulletManager.spawnBullets (ShotSpawns, BulletSequenceManager.bulletIdentifier.septiBullet, 1, 0f, 0f, 1f));
 			break;
 		case EnemyIdentifier.OCTAGON:
-			StartCoroutine(BulletManager.spawnBullets (ShotSpawns, BulletSequenceManager.bulletIdentifier.defaultBullet, 8, 0f, (1f/8f)));
+			StartCoroutine (BulletManager.spawnBullets (ShotSpawns, BulletSequenceManager.bulletIdentifier.octaBullet, 8, 0f, (1f / 8f), 1f));
 			break;
 		}
     }
@@ -213,8 +213,8 @@ public class BaseEnemy : BaseAI {
 		foreach (Transform spawn in ShotSpawns) {
 			spawn.localPosition = Vector3.zero;
 			spawn.localRotation = Quaternion.Euler(Vector3.zero);
-			spawn.Rotate (new Vector3 (0f, 0f, (360f / corners) * z));
-			spawn.localPosition += spawn.up * 2f;
+			if (corners != 5) spawn.Rotate (new Vector3 (0f, 0f, (360f / corners) * z));
+			if (corners != 5) spawn.localPosition += spawn.up * 2f;
 			z++;
 		}
 		z = 0;

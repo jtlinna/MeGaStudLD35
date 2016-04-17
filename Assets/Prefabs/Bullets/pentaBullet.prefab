@@ -11,7 +11,7 @@ GameObject:
   - 212: {fileID: 21237528}
   - 50: {fileID: 5059376}
   - 58: {fileID: 5870248}
-  - 114: {fileID: 11499418}
+  - 114: {fileID: 11432726}
   m_Layer: 0
   m_Name: pentaBullet
   m_TagString: Untagged
@@ -62,7 +62,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.2
---- !u!114 &11499418
+--- !u!114 &11432726
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -76,6 +76,7 @@ MonoBehaviour:
   Damage: 25
   MoveSpeed: 5
   TargetTag: Player
+  _lastPos: {x: 0, y: 0, z: 0}
 --- !u!212 &21237528
 SpriteRenderer:
   m_ObjectHideFlags: 1
