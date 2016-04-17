@@ -103,7 +103,7 @@ public class WaypointPath : MonoBehaviour {
 	public void reset (Shapes newShape) {
 		foreach (Transform trans in waypoints) {
 			trans.gameObject.SetActive (true);
-            trans.localPosition = new Vector3(0, MoveObject.transform.position.y);/*Vector3.zero;*/
+            trans.position = new Vector3(0, MoveObject.transform.position.y);/*Vector3.zero;*/
 			trans.localRotation = Quaternion.Euler(Vector3.zero);
 		}
 
