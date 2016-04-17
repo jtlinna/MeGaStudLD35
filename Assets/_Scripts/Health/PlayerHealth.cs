@@ -9,4 +9,10 @@ public class PlayerHealth : BaseHealth {
 
         // TODO Update UI etc.
     }
+
+	protected override void Die ()
+	{
+		GetComponent<Animator> ().SetTrigger ("Death");
+		base.Die ();
+	}
 }
