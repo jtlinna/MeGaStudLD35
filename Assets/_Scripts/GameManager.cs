@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour {
 	private States currentState;
 	[SerializeField] private float gameTime;
 	[SerializeField] private ulong score;
-	private float maxMultiplier = 20f;
+	[SerializeField] private float maxMultiplier = 10f;
 	[SerializeField] private float multiplier = 1f;
 	[SerializeField] private int lives = 5;
 
