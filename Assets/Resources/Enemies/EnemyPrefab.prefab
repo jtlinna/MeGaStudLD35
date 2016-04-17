@@ -400,7 +400,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 101538}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 8, z: 0}
+  m_LocalPosition: {x: 5.595663, y: 5.887413, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 443210}
@@ -582,11 +582,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Health: {fileID: 11426640}
-  MoveSpeed: 0
+  MoveSpeed: 2
   Type: 8
-  AutoStart: 1
+  AutoStart: 0
   ShotSpawns: []
-  ShootSpeed: 0.5
   Path: {fileID: 11438432}
   BulletManager: {fileID: 11475388}
   ScorePowerUpPrefab: {fileID: 171530, guid: 835652f43379647c38acca84a00dec6c, type: 2}
@@ -601,7 +600,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4abf71d2e8fd84f5eb624db112ee91f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shotDone: 0
   bulletPrefabs:
   - {fileID: 172534, guid: bd20af9bbd05449b286ebdaf3c0520b5, type: 2}
   - {fileID: 172534, guid: 25d92798b8cbb410fb607c2c59d7364a, type: 2}
