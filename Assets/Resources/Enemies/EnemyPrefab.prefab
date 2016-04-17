@@ -26,6 +26,7 @@ GameObject:
   - 4: {fileID: 450802}
   - 114: {fileID: 11464400}
   - 114: {fileID: 11426640}
+  - 114: {fileID: 11475388}
   m_Layer: 0
   m_Name: EnemyPrefab
   m_TagString: Enemy
@@ -598,10 +599,23 @@ MonoBehaviour:
   MoveSpeed: 0
   Type: 6
   AutoStart: 1
-  ProjectilePrefab: {fileID: 172534, guid: bd20af9bbd05449b286ebdaf3c0520b5, type: 2}
   ShotSpawns: []
   ShootSpeed: 10
   Path: {fileID: 11438432}
+  BulletManager: {fileID: 11475388}
+--- !u!114 &11475388
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 101538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4abf71d2e8fd84f5eb624db112ee91f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefabs:
+  - {fileID: 172534, guid: bd20af9bbd05449b286ebdaf3c0520b5, type: 2}
 --- !u!212 &21225698
 SpriteRenderer:
   m_ObjectHideFlags: 1

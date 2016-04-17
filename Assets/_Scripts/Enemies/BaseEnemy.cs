@@ -8,13 +8,13 @@ public class BaseEnemy : BaseAI {
     [SerializeField]
     bool AutoStart = false;
     [SerializeField]
-    protected GameObject ProjectilePrefab;
-    [SerializeField]
     protected Transform[] ShotSpawns;
     [SerializeField]
     protected float ShootSpeed = 1f;
     [SerializeField]
     protected WaypointPath Path;
+	[SerializeField]
+	protected BulletSequenceManager BulletManager;
 
     protected float _shootTimer;
     protected SpriteRenderer _renderer;
@@ -41,11 +41,11 @@ public class BaseEnemy : BaseAI {
     {
         CalculateMovement();
 
-        _shootTimer -= Time.deltaTime;
+		if (BulletManager.shotDone) _shootTimer -= Time.deltaTime;
         if(_shootTimer <= 0f)
         {
             _shootTimer = ShootSpeed;
-            //Shoot();
+            Shoot();
         }
     }
 
@@ -66,7 +66,26 @@ public class BaseEnemy : BaseAI {
 
     protected void Shoot()
     {
-        //Instantiate(ProjectilePrefab, ShotSpawn.position, ShotSpawn.rotation);
+		switch (Type){
+		case EnemyIdentifier.TRIANGLE:
+			StartCoroutine(BulletManager.spawnBullets (ShotSpawns, BulletSequenceManager.bulletIdentifier.triangleBullet, 3, 0f, 0.2f));
+			break;
+		case EnemyIdentifier.SQUARE:
+			StartCoroutine(BulletManager.spawnBullets (ShotSpawns, BulletSequenceManager.bulletIdentifier.squareBullet, 1, 0f, 0f));
+			break;
+		case EnemyIdentifier.PENTAGON:
+			StartCoroutine(BulletManager.spawnBullets (ShotSpawns, BulletSequenceManager.bulletIdentifier.pentaBullet, 1, 0f, 0f));
+			break;
+		case EnemyIdentifier.HEXAGON:
+			StartCoroutine(BulletManager.spawnBullets (ShotSpawns, BulletSequenceManager.bulletIdentifier.hexBullet, 1, 0.1f, 0f));
+			break;
+		case EnemyIdentifier.SEPTIGON:
+			StartCoroutine(BulletManager.spawnBullets (ShotSpawns, BulletSequenceManager.bulletIdentifier.septiBullet, 1, 0f, 0f));
+			break;
+		case EnemyIdentifier.OCTAGON:
+			StartCoroutine(BulletManager.spawnBullets (ShotSpawns, BulletSequenceManager.bulletIdentifier.defaultBullet, 8, 0f, (1f/8f)));
+			break;
+		}
     }
 
     public void ChangeShape(bool goToNearest = false, bool changeType = true)
@@ -84,6 +103,7 @@ public class BaseEnemy : BaseAI {
         GetSprite ();
         ChangePath (goToNearest);
 		ChangeShotSpawns ();
+		BulletManager.shotDone = true;
     }
 
     protected void GetSprite()
