@@ -30,6 +30,8 @@ public class DelayBullet : BaseBullet {
 			currentMoveSpeed = MoveSpeed * 2f;
 		}
 		transform.position += _movementVector * Time.deltaTime * currentMoveSpeed;
+		float angle = Mathf.Atan2(_movementVector.y, _movementVector.x) * Mathf.Rad2Deg;
+		transform.rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
     }
 
     public void SetTarget(GameObject target)

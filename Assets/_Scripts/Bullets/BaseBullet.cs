@@ -9,6 +9,8 @@ public class BaseBullet : MonoBehaviour {
     protected float MoveSpeed;
     [SerializeField]
     protected string TargetTag;
+	[SerializeField]
+	protected Vector3 _lastPos;
 
     void Update()
     {
