@@ -349,8 +349,8 @@ MonoBehaviour:
   MoveObject: {fileID: 137486}
   waypoints: []
   rWaypoints: []
-  shape: 1
-  shapeScale: 10
+  shape: 5
+  shapeScale: 4
 --- !u!114 &11464400
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -363,8 +363,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Health: {fileID: 11426640}
-  MoveSpeed: 5
+  MoveSpeed: 2.5
   Type: 6
+  AutoStart: 0
   ProjectilePrefab: {fileID: 172534, guid: bd20af9bbd05449b286ebdaf3c0520b5, type: 2}
   ShotSpawn: {fileID: 430482}
   ShootSpeed: 10

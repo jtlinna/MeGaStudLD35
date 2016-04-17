@@ -63,17 +63,20 @@ public class BaseEnemy : BaseAI {
         Instantiate(ProjectilePrefab, ShotSpawn.position, ShotSpawn.rotation);
     }
 
-    public void ChangeShape()
+    public void ChangeShape(bool moveToNearest = false, bool changeType = true)
     {
-        int newType = (int)Type - 1;
-        if(newType <= 0)
+        if (changeType)
         {
-            Destroy(gameObject);
-            return;
+            int newType = (int)Type - 1;
+            if (newType <= 0)
+            {
+                Destroy(gameObject);
+                return;
+            }
+            Type = (EnemyIdentifier)newType;
         }
-        Type = (EnemyIdentifier)newType;
         GetSprite();
-        ChangePath();
+        ChangePath(moveToNearest);
     }
 
     protected void GetSprite()
@@ -121,7 +124,7 @@ public class BaseEnemy : BaseAI {
         _renderer.sprite = sprite;
     }
 
-    protected void ChangePath()
+    protected void ChangePath(bool moveToNearest = false)
     {
         switch(Type)
         {
@@ -143,6 +146,11 @@ public class BaseEnemy : BaseAI {
             case EnemyIdentifier.OCTAGON:
                 Path.reset(WaypointPath.Shapes.hourglass);
                 break;
+        }
+
+        if(moveToNearest)
+        {
+            Path.MoveToNearestWaypoint();
         }
     }
 

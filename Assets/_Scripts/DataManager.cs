@@ -21,6 +21,7 @@ public class WaveData
 public class SpawnerTierData
 {
     public int[] SpawnerId;
+    public int[] EnemyId;
     public int SpawnCount;
     public float Interval;
 }

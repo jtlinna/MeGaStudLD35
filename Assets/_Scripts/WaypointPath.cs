@@ -20,8 +20,13 @@ public class WaypointPath : MonoBehaviour {
 
     private Shapes _currentShape;
     private int _currentWaypoint;
+    private int _prevWaypoint;
 
     private float _moveTimer;
+    private float _arcMoveTime;
+    private float _moveSpeed;
+
+    private bool _allowPattern = true;
 
 	void Awake () {
 		length = transform.childCount;
@@ -51,6 +56,9 @@ public class WaypointPath : MonoBehaviour {
 
     void Update()
     {
+        if (!_allowPattern)
+            return;
+
         switch(_currentShape)
         {
             case Shapes.curve:
@@ -66,6 +74,7 @@ public class WaypointPath : MonoBehaviour {
                 Move_Star();
                 break;
 			case Shapes.infinity:
+                Move_Infinity();
 				break;
         }
     }
@@ -76,6 +85,7 @@ public class WaypointPath : MonoBehaviour {
 
     private void NextWaypoint()
     {
+        _prevWaypoint = _currentWaypoint;
         _currentWaypoint++;
         if (_currentWaypoint >= waypoints.Length)
             _currentWaypoint = 0;
@@ -87,12 +97,19 @@ public class WaypointPath : MonoBehaviour {
         _moveTimer = 0f;
     }
 
-	public Transform getNearestWaypoint () {
+	public Transform getNearestWaypoint (out int waypointIndex) {
 		float distance = Mathf.Infinity;
 		Transform nearestTrans = null;
-		foreach (Transform trans in waypoints) {
+        waypointIndex = 0;
+        for (int i = 0; i < waypoints.Length; i++)
+        {
+            Transform trans = waypoints[i];
+            if (!trans.gameObject.activeInHierarchy)
+                continue;
+
 			float dist = Vector2.Distance(MoveObject.transform.position, trans.position);
 			if (dist < distance) {
+                waypointIndex = i;
 				distance = dist;
 				nearestTrans = trans;
 			}
@@ -100,14 +117,22 @@ public class WaypointPath : MonoBehaviour {
 		return nearestTrans;
 	}
 
+    public void MoveToNearestWaypoint()
+    {
+        Transform nearestWaypoint = getNearestWaypoint(out _currentWaypoint);
+        StartCoroutine(MoveToNearestRoutine(nearestWaypoint));
+    }
+
 	public void reset (Shapes newShape) {
 		foreach (Transform trans in waypoints) {
 			trans.gameObject.SetActive (true);
-            trans.position = new Vector3(0, MoveObject.transform.position.y);/*Vector3.zero;*/
-			trans.localRotation = Quaternion.Euler(Vector3.zero);
+            trans.localPosition = Vector3.zero;
+            trans.localRotation = Quaternion.Euler(Vector3.zero);
 		}
 
-        transform.localPosition = Vector3.zero;
+        _currentWaypoint = 0;
+        _prevWaypoint = -1;
+        
 		switch (newShape) {
 		    case Shapes.star:
 			    setStar (shapeScale);
@@ -143,7 +168,7 @@ public class WaypointPath : MonoBehaviour {
 		waypoints [4].Rotate (0f,0f,(360f / 5f) * 3f);
 
 		foreach (Transform trans in waypoints)
-			trans.localPosition += trans.up * scale;
+			trans.localPosition = trans.up * scale;
 
         _currentShape = Shapes.star;
 	}
@@ -166,9 +191,10 @@ public class WaypointPath : MonoBehaviour {
             trans.localPosition += trans.up * scale;
             trans.localPosition = new Vector3(trans.localPosition.x, 0, trans.localPosition.z);
         }
-
-
+        
         _currentShape = Shapes.curve;
+        float arcLength = 90f * (Mathf.PI / 180) * scale;
+        _arcMoveTime = arcLength / 20;
 	}
 
 	private void setHourglass (float scale = 1f) {
@@ -206,7 +232,7 @@ public class WaypointPath : MonoBehaviour {
 
 	private void setInfinity (float scale = 1f) {
 		for (int i = 0; i < length; i++) {
-			if (i < 6)
+			if (i < 4)
 				waypoints [i].gameObject.SetActive (true);
 			else
 				waypoints [i].gameObject.SetActive (false);
@@ -214,11 +240,13 @@ public class WaypointPath : MonoBehaviour {
 
 		waypoints [0].localPosition = new Vector2 (0f, 0f) * scale;
 		waypoints [1].localPosition = new Vector2 (1f, 0f) * scale;
-		waypoints [2].localPosition = new Vector2 (1f, 0f) * scale;
-		waypoints [3].localPosition = new Vector2 (0f, 0f) * scale;
-		waypoints [4].localPosition = new Vector2 (-1f, 0f) * scale;
-		waypoints [5].localPosition = new Vector2 (-1f, 0f) * scale;
-	}
+		waypoints [2].localPosition = new Vector2 (0f, 0f) * scale;
+        waypoints[3].localPosition = new Vector2(-1f, 0f) * scale;
+        //waypoints [4].localPosition = new Vector2 (-1f, 0f) * scale;
+        //waypoints [5].localPosition = new Vector2 (-1f, 0f) * scale;
+
+        _currentShape = Shapes.infinity;
+    }
 
     private void Move_Curve()
     {
@@ -228,11 +256,11 @@ public class WaypointPath : MonoBehaviour {
         Vector3 leftRelCenter = getWaypoint(0).position - center;
         Vector3 rightRelCenter = getWaypoint(1).position - center;
 
-        if (_moveTimer > 2)
-            _moveTimer = 2f;
+        if (_moveTimer > _arcMoveTime)
+            _moveTimer = _arcMoveTime;
         if (_currentWaypoint == 0)
         {
-            MoveObject.transform.position = Vector3.Slerp(leftRelCenter, rightRelCenter, _moveTimer / 2f);
+            MoveObject.transform.position = Vector3.Slerp(leftRelCenter, rightRelCenter, _moveTimer / _arcMoveTime);
             MoveObject.transform.position += center;
             if (MoveObject.transform.position == getWaypoint(1).position)
             {
@@ -241,7 +269,7 @@ public class WaypointPath : MonoBehaviour {
         }
         else
         {
-            MoveObject.transform.position = Vector3.Slerp(rightRelCenter, leftRelCenter, _moveTimer / 2f);
+            MoveObject.transform.position = Vector3.Slerp(rightRelCenter, leftRelCenter, _moveTimer / _arcMoveTime);
             MoveObject.transform.position += center;
 
             if (MoveObject.transform.position == getWaypoint(0).position)
@@ -253,7 +281,7 @@ public class WaypointPath : MonoBehaviour {
 
     private void Move_Envelope()
     {
-        float speed = (_currentWaypoint == 2 || _currentWaypoint == 3) ? 20f : 4f;
+        float speed = (_currentWaypoint == 2 || _currentWaypoint == 3) ? 10f : 10f;
         MoveObject.transform.position = Vector2.MoveTowards(MoveObject.transform.position, getWaypoint(_currentWaypoint).position, speed * Time.deltaTime);
         if (MoveObject.transform.position == getWaypoint(_currentWaypoint).position)
             NextWaypoint();
@@ -261,7 +289,7 @@ public class WaypointPath : MonoBehaviour {
 
     private void Move_Hourglass()
     {
-        float speed = (_currentWaypoint == 2 || _currentWaypoint == 0) ? 20f : 4f;
+        float speed = (_currentWaypoint == 2 || _currentWaypoint == 0) ? 10f : 10f;
         MoveObject.transform.position = Vector2.MoveTowards(MoveObject.transform.position, getWaypoint(_currentWaypoint).position, speed * Time.deltaTime);
         if (MoveObject.transform.position == getWaypoint(_currentWaypoint).position)
             NextWaypoint();
@@ -269,7 +297,7 @@ public class WaypointPath : MonoBehaviour {
 
     private void Move_Star()
     {
-        float speed = 20f;
+        float speed = 10f;
         MoveObject.transform.position = Vector2.MoveTowards(MoveObject.transform.position, getWaypoint(_currentWaypoint).position, speed * Time.deltaTime);
         if (MoveObject.transform.position == getWaypoint(_currentWaypoint).position)
         {
@@ -280,5 +308,59 @@ public class WaypointPath : MonoBehaviour {
                 NextWaypoint();
             }
         }
+    }
+
+    private void Move_Infinity()
+    {
+        if (_prevWaypoint == -1)
+            NextWaypoint();
+        
+        Vector3 center = Vector3.zero;
+        if(_currentWaypoint == 1 && _prevWaypoint == 0)
+        {
+            center = transform.position + Vector3.down + Vector3.right * 0.5f * shapeScale;
+        }
+        else if(_prevWaypoint == 1 && _currentWaypoint == 2)
+        {
+            center = transform.position + Vector3.up + Vector3.right * 0.5f * shapeScale;
+        }
+        else if(_prevWaypoint == 2 && _currentWaypoint == 3)
+        {
+            center = transform.position + Vector3.down + Vector3.left * 0.5f * shapeScale;
+        }
+        else if(_prevWaypoint == 3 && _currentWaypoint == 0)
+        {
+            center = transform.position + Vector3.up + Vector3.left * 0.5f * shapeScale;
+        }
+        else
+        {
+            Debug.LogError("What's going on with Infinity Waypoint?!");
+        }
+
+        _moveTimer += Time.deltaTime;
+        if(_moveTimer > 2f)
+        {
+            _moveTimer = 2f;
+        }
+
+        Vector3 leftRelCenter = getWaypoint(_prevWaypoint).position - center;
+        Vector3 rightRelCenter = getWaypoint(_currentWaypoint).position - center;
+        MoveObject.transform.position = Vector3.Slerp(leftRelCenter, rightRelCenter, _moveTimer / 2f);
+        MoveObject.transform.position += center;
+        if(MoveObject.transform.position == getWaypoint(_currentWaypoint).position)
+        {
+            NextWaypoint();
+        }
+    }
+
+    private IEnumerator MoveToNearestRoutine(Transform trans)
+    {
+        _allowPattern = false;
+        while(MoveObject.transform.position != trans.position)
+        {
+            MoveObject.transform.position = Vector3.MoveTowards(MoveObject.transform.position, trans.position, 10f * Time.deltaTime);
+            yield return null;
+        }
+        _allowPattern = true;
     }
 }

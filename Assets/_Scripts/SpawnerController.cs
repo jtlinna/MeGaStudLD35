@@ -55,8 +55,7 @@ public class SpawnerController : MonoBehaviour {
             {
                 for (int j = 0; j < tier.SpawnerId.Length; j++)
                 {
-                    Debug.Log("SPAWN");
-                    Spawn(tier.SpawnerId[j]);
+                    Spawn(tier.SpawnerId[j], tier.EnemyId[j]);
                     yield return null;
                 }
                 spawnedCount++;
@@ -69,7 +68,7 @@ public class SpawnerController : MonoBehaviour {
         _spawning = false;
     }
 
-    private void Spawn(int spawnerId)
+    private void Spawn(int spawnerId, int enemyId)
     {
         if(_prefab == null)
         {
@@ -93,8 +92,9 @@ public class SpawnerController : MonoBehaviour {
         BaseEnemy enemy = Instantiate(_prefab, SpawnPoints[spawnerId].position, Quaternion.identity) as BaseEnemy;
         if (enemy != null)
         {
-            enemy.Type = (EnemyIdentifier)(spawnerId + 1);
-            enemy.ChangeShape();
+            enemy.Type = (EnemyIdentifier)enemyId;
+            Debug.Log("Enemy type: " + enemy.Type.ToString());
+            enemy.ChangeShape(false, false);
         }
     }
 

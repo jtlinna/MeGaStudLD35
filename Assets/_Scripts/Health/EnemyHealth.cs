@@ -17,7 +17,7 @@ public class EnemyHealth : BaseHealth {
 
     public override void TakeDamage(float damage)
     {
-        EnemyAI.ChangeShape();
+        EnemyAI.ChangeShape(true);
     }
 
 }
