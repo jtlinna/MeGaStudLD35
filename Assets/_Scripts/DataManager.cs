@@ -11,18 +11,29 @@ public class ConfigurationData
 public class WaveData
 {
     public int WaveId;
-    public SpawnerTierData[] SpawnerTiers;
-    public float StartDelay;
-    public float SpawnDelay;
-    public float WaveDelay;
+    public List<TierData> SpawnerTiers;
+    public float WaveLength;
 }
 
 [System.Serializable]
-public class SpawnerTierData
+public class TierData
 {
-    public int[] SpawnerId;
-    public int[] EnemyId;
-    public int SpawnCount;
+    public List<SpawnerData> Spawners;
+    public float StartDelay;
+}
+
+[System.Serializable]
+public class SpawnerData
+{
+    public int SpawnerId;
+    public List<SpawnCycleData> SpawnCycles;
+    public float CycleDelay;
+}
+
+[System.Serializable]
+public class SpawnCycleData
+{
+    public int[] Enemies;
     public float Interval;
 }
 
@@ -60,11 +71,32 @@ public class DataManager : MonoBehaviour
 
     private ConfigurationData _data;
 
-    public List<WaveData> GetWaveData()
+    public WaveData GetNextWave()
     {
-        return _data.WaveData;
+        WaveData waveData = null;
+        if(_data.WaveData.Count > 0)
+        {
+            waveData = _data.WaveData[0];
+            _data.WaveData.RemoveAt(0);
+        }
+
+        return waveData;
     }
 
+    public TierData GetNextTier(WaveData wave)
+    {
+        TierData tierData = null;
+        if(wave != null)
+        {
+            if(wave.SpawnerTiers.Count > 0)
+            {
+                tierData = wave.SpawnerTiers[0];
+                wave.SpawnerTiers.RemoveAt(0);
+            }
+        }
+
+        return tierData;
+    }
     private bool FetchConfiguration()
     {
         _data = new ConfigurationData();

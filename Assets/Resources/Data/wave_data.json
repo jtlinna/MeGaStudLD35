@@ -6,79 +6,41 @@
 			"SpawnerTiers" : 
 			[
 				{
-					"SpawnerId" : 
+					"Spawners" : 
 					[
-						0,
-						1,
-						2,
-						3,
-						4,
-						5					
+						{
+							"SpawnerId" : 3,
+							"SpawnCycles" :
+							[
+								{
+									"Enemies" : 
+									[
+										6,
+										6,
+										6,
+										6,
+										6,
+										6
+									],
+									"Interval" : 1
+								},
+								{
+									"Enemies" : 
+									[
+										8,
+										8,
+										8
+									],
+									"Interval" : 3
+								}
+							],
+							"CycleDelay" : 5
+						}					
 					],
-					"EnemyId" : 
-					[
-						6,
-						6,
-						6,
-						6,
-						6,
-						6
-					],
-					"SpawnCount" : 5,
-					"Interval" : 1.25
-				},
-				{
-					"SpawnerId" : 
-					[
-						1
-					],
-					"EnemyId" : 
-					[
-						6
-					],
-					"SpawnCount" : 5,
-					"Interval" : 1.25
-				},
-				{
-					"SpawnerId" : 
-					[
-						2
-					],
-					"EnemyId" : 
-					[
-						6
-					],
-					"SpawnCount" : 5,
-					"Interval" : 1.25
-				},
-				{
-					"SpawnerId" : 
-					[
-						3
-					],
-					"EnemyId" : 
-					[
-						6
-					],
-					"SpawnCount" : 5,
-					"Interval" : 1.25
-				},
-				{
-					"SpawnerId" : 
-					[
-						4
-					],
-					"EnemyId" : 
-					[
-						6
-					],
-					"SpawnCount" : 5,
-					"Interval" : 1.25
+					"StartDelay" : 0.5
 				}
 			],
-			"StartDelay" : 1.5,
-			"SpawnDelay" : 0,
-			"WaveDelay" : 20
+			"WaveLength" : 20
 		}
 	]
 }

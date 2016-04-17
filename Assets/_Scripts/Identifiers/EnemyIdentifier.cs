@@ -3,10 +3,10 @@ using System.Collections;
 
 public enum EnemyIdentifier
 {
-    TRIANGLE = 1,
-    SQUARE = 2,
-    PENTAGON = 3,
-    HEXAGON = 4,
-    SEPTIGON = 5,
-    OCTAGON = 6,
+    TRIANGLE = 3,
+    SQUARE = 4,
+    PENTAGON = 5,
+    HEXAGON = 6,
+    SEPTIGON = 7,
+    OCTAGON = 8,
 }
