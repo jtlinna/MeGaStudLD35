@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class BaseEnemy : BaseAI {
 
+    public static System.Action OnLastEnemyRemoved;
+
     private static List<BaseEnemy> ActiveEnemies = new List<BaseEnemy>();
 
     public static void AddEnemy(BaseEnemy enemy)
@@ -15,6 +17,11 @@ public class BaseEnemy : BaseAI {
     {
         if (ActiveEnemies.Contains(enemy))
             ActiveEnemies.Remove(enemy);
+
+        if(ActiveEnemies.Count < 1 && OnLastEnemyRemoved != null)
+        {
+            OnLastEnemyRemoved();
+        }
     }
 
     public static void RemoveAllEnemies(bool destroyObject = false)
@@ -23,13 +30,13 @@ public class BaseEnemy : BaseAI {
         {
             for (int i = ActiveEnemies.Count - 1; i >= 0; i--)
             {
-                Destroy(ActiveEnemies[i].gameObject);
+                ActiveEnemies[i].Die();
             }
         }
-
-        ActiveEnemies.Clear();
     }
+    
     public EnemyIdentifier Type;
+
 
     [SerializeField]
     bool AutoStart = false;
@@ -45,6 +52,8 @@ public class BaseEnemy : BaseAI {
     protected float _shootTimer;
     protected SpriteRenderer _renderer;
     protected PowerUpIdentifier _additionalPowerUp;
+
+    protected Transform _graphics;
     
     void Awake()
     {
@@ -52,10 +61,11 @@ public class BaseEnemy : BaseAI {
 			StartCoroutine (delayedInit ());
 
         AddEnemy(this);
+        _graphics = transform.FindChild("Graphics");
 
-		ShotSpawns = new Transform[transform.FindChild("Graphics").childCount];
+        ShotSpawns = new Transform[_graphics.childCount];
 		for (int i = 0; i < ShotSpawns.Length; i++) {
-			ShotSpawns [i] = transform.FindChild ("Graphics").GetChild (i);
+			ShotSpawns [i] = _graphics.GetChild (i);
 		}
     }
 
@@ -88,11 +98,7 @@ public class BaseEnemy : BaseAI {
     public override void HandleMovement(Vector3 movement)
     {
         base.HandleMovement(movement);
-
-		if (Type == EnemyIdentifier.SQUARE)
-			transform.FindChild ("Graphics").transform.Rotate (new Vector3 (0f, 0f, 90f * Time.deltaTime));
-		else transform.FindChild ("Graphics").transform.rotation = Quaternion.Euler (Vector3.zero);
-
+        
         Vector3 normalizedMovement = movement.normalized;
         transform.position += normalizedMovement * MoveSpeed * Time.deltaTime;
     }
@@ -134,8 +140,7 @@ public class BaseEnemy : BaseAI {
             int newType = (int)Type - 1;
             if (newType < 3)
             {
-                DropPowerUp();
-                Destroy(gameObject);
+                Die();
                 return;
             }
             Type = (EnemyIdentifier)newType;
@@ -144,6 +149,16 @@ public class BaseEnemy : BaseAI {
         ChangePath (goToNearest);
 		ChangeShotSpawns ();
 		Shoot ();
+
+        StopCoroutine("RotateSquare");
+        if(Type == EnemyIdentifier.SQUARE)
+        {
+            StartCoroutine("RotateSquare");
+        }
+        else
+        {
+            _graphics.transform.rotation = Quaternion.Euler(Vector3.zero);
+        }
     }
 
     protected void GetSprite()
@@ -289,7 +304,22 @@ public class BaseEnemy : BaseAI {
             return;
         }
 
-        Instantiate(powerUp, transform.position, Quaternion.identity);
+        Instantiate(powerUp, _graphics.position, Quaternion.identity);
+    }
+
+    IEnumerator RotateSquare()
+    {
+        while(true)
+        {
+            _graphics.transform.Rotate(new Vector3(0f, 0f, 90f * Time.deltaTime));
+            yield return null;
+        }
+    }
+
+    public void Die()
+    {
+        DropPowerUp();
+        Destroy(gameObject);
     }
 
 	void OnTriggerEnter2D (Collider2D other) {

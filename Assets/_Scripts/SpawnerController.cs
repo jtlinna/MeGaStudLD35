@@ -24,6 +24,13 @@ public class SpawnerController : MonoBehaviour {
 
         _currentTier = DataManager.Instance.GetNextTier(_currentWave);
         _timeSinceWaveStart = 0f;
+
+        BaseEnemy.OnLastEnemyRemoved += StartNewWave;
+    }
+
+    void OnDestroy()
+    {
+        BaseEnemy.OnLastEnemyRemoved -= StartNewWave;
     }
 
     void Update()
@@ -43,17 +50,25 @@ public class SpawnerController : MonoBehaviour {
             }
         }
 
-        if(_timeSinceWaveStart >= _currentWave.WaveLength && _activeSpawners.Count < 1)
+        if(_timeSinceWaveStart >= _currentWave.WaveLength)
         {
-            _timeSinceWaveStart = 0f;
-            _currentWave = DataManager.Instance.GetNextWave();
-            if(_currentWave == null)
-            {
-                Debug.Log("No more waves");
-                this.enabled = false;
-            }
-            _currentTier = DataManager.Instance.GetNextTier(_currentWave);
+            StartNewWave();
         }
+    }
+
+    public void StartNewWave()
+    {
+        if (_activeSpawners.Count > 0)
+            return;
+
+        _timeSinceWaveStart = 0f;
+        _currentWave = DataManager.Instance.GetNextWave();
+        if (_currentWave == null)
+        {
+            Debug.Log("No more waves");
+            this.enabled = false;
+        }
+        _currentTier = DataManager.Instance.GetNextTier(_currentWave);
     }
 
     private void StartTier(TierData tier)

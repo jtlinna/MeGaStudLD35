@@ -80,4 +80,9 @@ public class Spawner : MonoBehaviour {
             OnSpawnCyclesComplete(this);
         }
     }
+
+    IEnumerator CheckRemainingEnemies()
+    {
+        yield return null;
+    }
 }
