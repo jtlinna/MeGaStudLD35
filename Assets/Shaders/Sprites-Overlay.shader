@@ -94,7 +94,7 @@ Shader "Sprites/Overlay"
 			fixed4 frag(v2f IN) : SV_Target
 			{
 				fixed4 t = SampleSpriteTexture(IN.texcoord);
-				fixed4 o = Overlay(t, _Color);
+				fixed4 o = Overlay(t, IN.color);
 				
 				o.a = t.a;
 				o.rgb *= t.a*IN.color.a;
