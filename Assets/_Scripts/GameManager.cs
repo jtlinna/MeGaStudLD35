@@ -11,11 +11,21 @@ public class GameManager : MonoBehaviour {
     public static int BossStage = 1;
 
 	private States currentState;
-	[SerializeField] private float gameTime;
-	[SerializeField] private ulong score;
-	[SerializeField] private float maxMultiplier = 10f;
-	[SerializeField] private float multiplier = 1f;
-	[SerializeField] private int lives = 5;
+
+    [SerializeField]
+    private UIManager UIManager;
+	[SerializeField]
+    private float gameTime;
+	[SerializeField]
+    private ulong score;
+	[SerializeField]
+    private float maxMultiplier = 10f;
+	[SerializeField]
+    private float multiplier = 1f;
+	[SerializeField]
+    private int lives = 5;
+    [SerializeField]
+    private int bombs = 3;
     [SerializeField]
     private GameObject PlayerPrefab;
     [SerializeField]
@@ -34,6 +44,17 @@ public class GameManager : MonoBehaviour {
         BossHealth.OnBossDamaged += DebugBossDamaged;
         Player.OnPlayerDied += PlayerDied;
         Instantiate(PlayerPrefab, PlayerSpawn.position, Quaternion.identity);
+        if(UIManager == null)
+        {
+            UIManager = FindObjectOfType<UIManager>();
+            if (UIManager == null)
+                Debug.LogError("No UI Manager was found");
+        }
+
+        if(UIManager != null)
+        {
+            UIManager.Init(lives, bombs);
+        }
 		StartGame ();
 	}
 
