@@ -8,6 +8,9 @@ public class MenuManager : MonoBehaviour {
 	private Button Play, Tutorial, Quit, Back, openScore, closeScore;
 	public GameObject TutorialImg, ScorePanel;
 
+    [SerializeField]
+    private LeaderboardContainer[] LeaderboardEntries;
+
 	public string GameSceneName;
 
 	// Use this for initialization
@@ -27,6 +30,13 @@ public class MenuManager : MonoBehaviour {
 		Back.onClick.AddListener (() => closeTutorialPanel());
 		openScore.onClick.AddListener (() => openScores ());
 		closeScore.onClick.AddListener (() => closeScores ());
+
+        Leaderboard leaderboard = LeaderboardManager.Instance.GetLeaderboard();
+
+        for (int i = 0; i < LeaderboardEntries.Length; i++)
+        {
+            LeaderboardEntries[i].Init(leaderboard.Entries[i]);
+        }
 	}
 
 	private void loadGame () {

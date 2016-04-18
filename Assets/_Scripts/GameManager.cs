@@ -57,8 +57,7 @@ public class GameManager : MonoBehaviour {
 
 
 	void Awake() {
-
-        BossHealth.OnBossDamaged += DebugBossDamaged;
+        
         BossScript.OnBossDied += BossDied;
         Player.OnPlayerDied += PlayerDied;
         Instantiate(PlayerPrefab, PlayerSpawn.position, Quaternion.identity);
@@ -80,7 +79,6 @@ public class GameManager : MonoBehaviour {
 
     void OnDestroy()
     {
-        BossHealth.OnBossDamaged -= DebugBossDamaged;
         BossScript.OnBossDied -= BossDied;
         Player.OnPlayerDied -= PlayerDied;
     }
@@ -132,12 +130,6 @@ public class GameManager : MonoBehaviour {
             UIManager.ShowPauseMenu();
         }
 	}
-
-    public void DebugBossDamaged(float current, float max)
-    {
-        Debug.Log("Current: " + current + ", Max: " + max);
-    }
-
     private void BossDied()
     {
         int phase = (int)_currentBossPhase;
@@ -163,11 +155,11 @@ public class GameManager : MonoBehaviour {
 
 	public bool addScore (int amount){
 		if (currentState == States.playing) {
+            amount *= 10;
 			score += (int)((float)amount * multiplier);
             UIManager.UpdateScore(score);
 			return true;
 		} else {
-			Debug.LogError ("GAME NOT RUNNING, NO SCORE ADDED");
 			return false;
 		}
 	}
