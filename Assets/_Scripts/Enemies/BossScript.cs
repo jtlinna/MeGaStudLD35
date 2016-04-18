@@ -13,12 +13,14 @@ public class BossScript : MonoBehaviour {
 	private Transform[] _parts;
 	public BulletSequenceManager bulletManager;
 	public BossPhase phase = BossPhase.first;
+	public Collider2D bossCollider;
 
 	public int attackSequence;
 	private bool sequenceDone = false;
 
 	// Use this for initialization
 	void Awake () {
+		bossCollider.enabled = false;
 
 		_parts = new Transform[3];
 
@@ -48,6 +50,7 @@ public class BossScript : MonoBehaviour {
 	}
 
 	public IEnumerator preBossSequence () {
+		
 		yield break;
 	}
 	public IEnumerator sequenceOne () {
