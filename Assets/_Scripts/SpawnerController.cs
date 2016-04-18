@@ -20,9 +20,7 @@ public class SpawnerController : MonoBehaviour {
 
     void Awake()
     {
-        Vector3 pos = transform.position;
-        pos.y = Mathf.Abs(UIManager.GetCorner(UICorners.TOP_LEFT).y) + 10f;
-        transform.position = pos;
+        StartCoroutine(SetPosition());
         //_currentWave = DataManager.Instance.GetNextWave();
         //if(_currentWave == null)
         //{
@@ -162,6 +160,14 @@ public class SpawnerController : MonoBehaviour {
         StartNewWave();
     }
 
+    private IEnumerator SetPosition()
+    {
+        yield return null;
+
+        Vector3 pos = transform.position;
+        pos.y = Mathf.Abs(UIManager.GetCorner(UICorners.TOP_LEFT).y) + 2.5f;
+        transform.position = pos;
+    }
     // Second iteration
 
     //void Update()
