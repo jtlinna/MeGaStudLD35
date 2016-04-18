@@ -164,6 +164,7 @@ public class SpawnerController : MonoBehaviour {
     {
         if(BaseEnemy.GetActiveEnemies() == 0)
         {
+            Debug.Log("Last enemy killed, active spawner: " + _activeSpawners.Count);
             StartNewWave();
         }
     }
