@@ -2463,7 +2463,7 @@ MonoBehaviour:
   score: 0
   maxMultiplier: 10
   multiplier: 1
-  lives: 10
+  lives: 5
   bombs: 3
   maxBombs: 5
   PlayerPrefab: {fileID: 114400, guid: 47ae5c8e5851f498292988f5c27f9b89, type: 2}
