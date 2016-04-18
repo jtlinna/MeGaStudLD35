@@ -93,7 +93,7 @@ public class Player : MonoBehaviour {
 		}
 	}
 
-	private void bombDaShit() {
+	private void bombDaShit () {
 		GameManager.Instance.useBomb ();
 	}
 
