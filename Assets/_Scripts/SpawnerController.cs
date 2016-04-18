@@ -39,14 +39,12 @@ public class SpawnerController : MonoBehaviour {
             Spawners[i].OnBossSpawned += BossSpawned;
             Spawners[i].Controller = this;
         }
-
-        BaseEnemy.OnLastEnemyRemoved += StartNewWave;
+        
         BaseEnemy.OnEnemyDied += CheckEnemies;
     }
 
     void OnDestroy()
     {
-        BaseEnemy.OnLastEnemyRemoved -= StartNewWave;
         BaseEnemy.OnEnemyDied -= CheckEnemies;
 
         for (int i = 0; i < Spawners.Length; i++)
