@@ -46,6 +46,7 @@ public class BulletPoolManager : MonoBehaviour
             for (int j = 0; j < InitialPool; j++)
             {
                 GameObject go = Instantiate(_prefabMap[type]);
+                go.transform.SetParent(_bulletParent);
                 go.SetActive(false);
                 bullets.Add(go);
             }
@@ -76,6 +77,7 @@ public class BulletPoolManager : MonoBehaviour
             if(!found)
             {
                 go = GameObject.Instantiate(_prefabMap[type], position, rotation) as GameObject;
+                go.transform.SetParent(_bulletParent);
                 bullets.Add(go);
             }
         }
@@ -90,6 +92,7 @@ public class BulletPoolManager : MonoBehaviour
             if (_prefabMap.ContainsKey(type))
             {
                 go = GameObject.Instantiate(_prefabMap[type], position, rotation) as GameObject;
+                go.transform.SetParent(_bulletParent);
                 bullets.Add(go);
                 _bulletMap.Add(type, bullets);
             }

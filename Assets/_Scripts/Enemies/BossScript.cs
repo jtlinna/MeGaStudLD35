@@ -129,7 +129,7 @@ public class BossScript : MonoBehaviour {
 		coreSpinSpeed = coreSpinSpeedDefault * 3f;
 		sequenceTimer = 0f;
 
-		bulletManager.StartCoroutine (bulletManager.spawnBullets(sOneSpawns, (BulletSequenceManager.bulletIdentifier)0, 1, 0f, 0f, 1f/6f));
+		bulletManager.StartCoroutine (bulletManager.spawnBullets(sOneSpawns, BulletType.BOSS_S1, 1, 0f, 0f, 1f/6f));
 
 		while (sequenceTimeOne[(int)phase - 1] > sequenceTimer) {
 			yield return new WaitForEndOfFrame ();
@@ -199,7 +199,7 @@ public class BossScript : MonoBehaviour {
 
 		tripCounter = 0;
 
-		bulletManager.StartCoroutine (bulletManager.spawnBullets(sThreeSpawn, (BulletSequenceManager.bulletIdentifier)2, 1, 0f, 0f, 1f/5f));
+		bulletManager.StartCoroutine (bulletManager.spawnBullets(sThreeSpawn, BulletType.BOSS_S3, 1, 0f, 0f, 1f/5f));
 
 		while (tripAmout[(int)phase - 1] > tripCounter) {
 			if (bossGoRight)
@@ -249,7 +249,7 @@ public class BossScript : MonoBehaviour {
 
 		tripCounter = 0;
 
-		bulletManager.StartCoroutine (bulletManager.spawnBullets(sThreeSpawn, (BulletSequenceManager.bulletIdentifier)5, 10, 0f, 1f/10f, 1f/2f));
+		bulletManager.StartCoroutine (bulletManager.spawnBullets(sThreeSpawn, BulletType.BOSS_S5, 10, 0f, 1f/10f, 1f/2f));
 
 		while (tripAmout[(int)phase - 1] > tripCounter) {
 			if (bossGoRight)
