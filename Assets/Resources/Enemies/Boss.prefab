@@ -273,14 +273,14 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &134918
 GameObject:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 414752}
   m_Layer: 0
-  m_Name: SequenceThree
+  m_Name: SequenceThreeNFive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -584,21 +584,6 @@ GameObject:
   - 4: {fileID: 485968}
   m_Layer: 0
   m_Name: ShotSpawn (20)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &183532
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 411096}
-  m_Layer: 0
-  m_Name: SequenceFive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -928,18 +913,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 400212}
   m_RootOrder: 36
---- !u!4 &411096
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 183532}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 478498}
-  m_RootOrder: 4
 --- !u!4 &413556
 Transform:
   m_ObjectHideFlags: 1
@@ -974,8 +947,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 478498}
-  m_RootOrder: 2
+  m_Father: {fileID: 445794}
+  m_RootOrder: 5
 --- !u!4 &416976
 Transform:
   m_ObjectHideFlags: 1
@@ -1159,6 +1132,7 @@ Transform:
   - {fileID: 406904}
   - {fileID: 489030}
   - {fileID: 428030}
+  - {fileID: 414752}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &448628
@@ -1293,9 +1267,7 @@ Transform:
   m_Children:
   - {fileID: 400212}
   - {fileID: 404442}
-  - {fileID: 414752}
   - {fileID: 489592}
-  - {fileID: 411096}
   m_Father: {fileID: 445794}
   m_RootOrder: 0
 --- !u!4 &480834
@@ -1393,7 +1365,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 478498}
-  m_RootOrder: 3
+  m_RootOrder: 2
 --- !u!4 &489988
 Transform:
   m_ObjectHideFlags: 1
@@ -1542,14 +1514,17 @@ MonoBehaviour:
   bulletManager: {fileID: 11485262}
   phase: 1
   bossCollider: {fileID: 5865178}
+  bossSpeed: 8
+  bossGoRight: 1
   shotAmountOne: 140000001e00000028000000
   shotAmountTwo: 000000000000000000000000
   shotAmountFour: 000000000000000000000000
-  shotAmountFive: 000000000000000000000000
   sequenceTimeOne:
   - 3
   - 5
   - 8
+  sequenceTimeTwo: []
+  tripAmout: 05000000080000000c000000
 --- !u!114 &11485262
 MonoBehaviour:
   m_ObjectHideFlags: 1
