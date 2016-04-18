@@ -30,8 +30,13 @@ public class BulletSequenceManager : MonoBehaviour {
 					}
 				} else {
 					for (int j = 0; j < spawns.Length; j++) {
-						Vector3 vectorToPlayer = GameObject.FindGameObjectWithTag("Player").transform.position - spawns[j].transform.position;
-						if (spawns[j].gameObject.activeSelf) Instantiate (bulletPrefabs [(int)bulletID], spawns[j].position, Quaternion.AngleAxis(-90f + ((-14f + (7f * j)) + (Mathf.Atan2(vectorToPlayer.y, vectorToPlayer.x) * Mathf.Rad2Deg)), Vector3.forward));
+                        GameObject go = GameObject.FindGameObjectWithTag("Player");
+                        Vector3 vectorToPlayer = Vector2.down;
+                        if (go != null)
+                        {
+                            vectorToPlayer = go.transform.position - spawns[j].transform.position;
+                        }
+                        if (spawns[j].gameObject.activeSelf) Instantiate(bulletPrefabs[(int)bulletID], spawns[j].position, Quaternion.AngleAxis(-90f + ((-14f + (7f * j)) + (Mathf.Atan2(vectorToPlayer.y, vectorToPlayer.x) * Mathf.Rad2Deg)), Vector3.forward));
 					}
 				}
 
