@@ -9,7 +9,7 @@ public class BossScript : MonoBehaviour {
 		third = 3
 	}
     public bool AutoStart;
-	public BaseHealth health;
+	public BossHealth health;
 	private Transform[] _parts;
 	public BulletSequenceManager bulletManager;
 	public BossPhase phase = BossPhase.first;
@@ -77,7 +77,7 @@ public class BossScript : MonoBehaviour {
 		}
 
 		for (int i = 0; i < shotAmountTwo[shotAmountTwo.Length - 1]; i++){
-			sOneSpawns [i] = transform.FindChild ("Core").FindChild ("SequenceTwo").GetChild (i);
+			sTwoSpawns [i] = transform.FindChild ("Core").FindChild ("SequenceTwo").GetChild (i);
 			if (i < shotAmountTwo [(int)phase - 1]) {
 				sTwoSpawns [i].Rotate (new Vector3(0f,0f,(360f / shotAmountTwo[(int)phase - 1]) * i));
 				sTwoSpawns [i].localPosition = sTwoSpawns [i].forward * spawnerPositions;
@@ -91,6 +91,7 @@ public class BossScript : MonoBehaviour {
 		sThreeSpawn[0].rotation = Quaternion.Euler(new Vector3(0f,0f,180f));
 
 		GetComponent<Animator> ().SetInteger ("phase", (int)phase);
+		health.SetMaxHealth ((int)phase - 1);
 		StartCoroutine("preBossSequence", phase);
         Debug.Log(phase.ToString());
     }
@@ -150,13 +151,40 @@ public class BossScript : MonoBehaviour {
 			yield return new WaitForEndOfFrame ();
 		}
 
-		sequenceTimer = 0f;
+		coreSpinSpeed = coreSpinSpeedDefault * -3f;
+		sequenceTimer = -1f;
+		bool onceInit = false;
+		bool onceDo = false;
 
-//		while (sequenceTimeOne[(int)phase - 1] > sequenceTimer) {
-//			yield return new WaitForEndOfFrame ();
-//		}
+		while (sequenceTimeOne[(int)phase - 1] > sequenceTimer) {
+			if (sequenceTimer < 0f && !onceInit) {
+				foreach (Transform lazer in sTwoSpawns) {
+					lazer.GetComponent<Collider2D> ().enabled = false;
+					lazer.localScale = new Vector3 (200f, 0.5f, 1f);
+					lazer.GetComponent<SpriteRenderer> ().enabled = true;
+					lazer.GetComponent<SpriteRenderer> ().color = new Color (lazer.GetComponent<SpriteRenderer> ().color.r, lazer.GetComponent<SpriteRenderer> ().color.g, lazer.GetComponent<SpriteRenderer> ().color.b, 0.5f);
+				}
+				onceInit = true;
+			} else if (sequenceTimer >= 0f && !onceDo) {
+				foreach (Transform lazer in sTwoSpawns) {
+					lazer.GetComponent<Collider2D> ().enabled = true;
+					lazer.localScale = new Vector3 (200f, 2f, 1f);
+					lazer.GetComponent<SpriteRenderer> ().color = new Color (lazer.GetComponent<SpriteRenderer> ().color.r, lazer.GetComponent<SpriteRenderer> ().color.g, lazer.GetComponent<SpriteRenderer> ().color.b, 1f);
+				}
+				onceDo = true;
+			}
+			yield return new WaitForEndOfFrame ();
+		}
 
-		yield return new WaitForSeconds (2f);
+		foreach (Transform lazer in sTwoSpawns) {
+			lazer.GetComponent<Collider2D> ().enabled = false;
+			lazer.localScale = new Vector3 (0f, 0f, 0f);
+			lazer.GetComponent<SpriteRenderer> ().color = new Color (lazer.GetComponent<SpriteRenderer> ().color.r, lazer.GetComponent<SpriteRenderer> ().color.g, lazer.GetComponent<SpriteRenderer> ().color.b, 1f);
+			lazer.GetComponent<SpriteRenderer> ().enabled = false;
+		}
+
+		coreSpinSpeed = coreSpinSpeedDefault;
+		yield return new WaitForSeconds (3f/(int)phase);
 		Debug.Log ("SequenceTwoDone");
 		yield break;
 	}
