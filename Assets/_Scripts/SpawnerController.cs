@@ -28,8 +28,8 @@ public class SpawnerController : MonoBehaviour {
         //_currentTier = DataManager.Instance.GetNextTier(_currentWave);
         //_timeSinceWaveStart = 0f;
         _activeSpawners = new List<Spawner>();
-        StartNewWave();
         _spawning = true;
+        StartNewWave();
 
         for (int i = 0; i < Spawners.Length; i++)
         {
@@ -77,8 +77,7 @@ public class SpawnerController : MonoBehaviour {
 
     public void StartNewWave()
     {
-        Debug.Log("Starting wave");
-        if (_activeSpawners.Count > 0)
+        if (_activeSpawners.Count > 0 || !_spawning)
             return;
 
         if(DataManager.Instance == null)
@@ -87,6 +86,7 @@ public class SpawnerController : MonoBehaviour {
         _timeSinceWaveStart = 0f;
         
         _currentWave = DataManager.Instance.GetNextWave();
+        Debug.Log("Starting wave " + _currentWave.WaveId);
         if (_currentWave == null)
         {
             Debug.Log("No more waves");

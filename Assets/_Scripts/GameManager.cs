@@ -102,10 +102,10 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void Update () {
-		if (lives < 0) {
-			currentState = States.menu;
-			StopGame();
-		}
+		//if (lives < 0) {
+		//	currentState = States.menu;
+		//	StopGame();
+		//}
 		if (currentState == States.playing)
 			gameTime += Time.deltaTime;
 
@@ -132,7 +132,6 @@ public class GameManager : MonoBehaviour {
             // TODO Trigger win con
             UIManager.ShowEndText(true);
         }
-        Debug.Log("Current boss phase: " + _currentBossPhase);
     }
 
 	public bool addMultiplier (float amount) {
@@ -178,6 +177,10 @@ public class GameManager : MonoBehaviour {
         if (lives > 0)
         {
             StartCoroutine(SpawnPlayer(RespawnDelay));
+        }
+        else
+        {
+            StopGame();
         }
     }
 
