@@ -114,6 +114,11 @@ public class GameManager : MonoBehaviour {
             BaseBullet.RemoveAllBullets(true);
             BaseEnemy.RemoveAllEnemies(true);
         }
+
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            UIManager.ShowPauseMenu();
+        }
 	}
 
     public void DebugBossDamaged(float current, float max)

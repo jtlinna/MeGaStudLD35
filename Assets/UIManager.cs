@@ -27,11 +27,15 @@ public class UIManager : MonoBehaviour {
     [SerializeField]
     private Image BossHealthbar;
 
+    [SerializeField]
+    private GameObject PauseMenu;
+
     void Awake()
     {
         SpawnerController.OnBossSpawned += ShowBossHealthbar;
         BossScript.OnBossDied += HideBossHealthbar;
         BossHealth.OnBossDamaged += UpdateBossHealth;
+        HidePauseMenu();
     }
 
     void OnDestroy()
@@ -75,6 +79,18 @@ public class UIManager : MonoBehaviour {
         UpdateScoreMultiplier(1);
         EndText.gameObject.SetActive(false);
         HideBossHealthbar();
+    }
+
+    public void ShowPauseMenu()
+    {
+        PauseMenu.SetActive(true);
+        Time.timeScale = 0f;
+    }
+
+    public void HidePauseMenu()
+    {
+        PauseMenu.SetActive(false);
+        Time.timeScale = 1f;
     }
 
     public void UpdateScore(int score)
