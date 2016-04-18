@@ -11,6 +11,11 @@ public class MenuManager : MonoBehaviour {
     [SerializeField]
     private LeaderboardContainer[] LeaderboardEntries;
 
+    [SerializeField]
+    private Button ToggleSoundsButton;
+    [SerializeField]
+    private Text ToggleSoundsText;
+
 	public string GameSceneName;
 
 	// Use this for initialization
@@ -37,7 +42,24 @@ public class MenuManager : MonoBehaviour {
         {
             LeaderboardEntries[i].Init(leaderboard.Entries[i]);
         }
-	}
+    }
+
+    void Start()
+    {
+        ToggleSoundsText.text = (SoundManager.Instance.SoundsOn()) ? "SOUNDS ON" : "SOUNDS OFF";
+        ToggleSoundsButton.onClick.RemoveAllListeners();
+        ToggleSoundsButton.onClick.AddListener(delegate ()
+        {
+            ToggleSounds();
+        });
+    }
+
+    public void ToggleSounds()
+    {
+        bool soundsOn = SoundManager.Instance.SoundsOn();
+        SoundManager.Instance.ToggleSounds(!soundsOn);
+        ToggleSoundsText.text = (soundsOn) ? "SOUNDS OFF" : "SOUNDS ON";
+    }
 
 	private void loadGame () {
 		SceneManager.LoadScene (GameSceneName); 

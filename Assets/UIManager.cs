@@ -37,6 +37,10 @@ public class UIManager : MonoBehaviour {
 
     [SerializeField]
     private GameObject PauseMenu;
+    [SerializeField]
+    private Button ToggleSoundsButton;
+    [SerializeField]
+    private Text ToggleSoundsText;
 
     [SerializeField]
     private GameObject EndButtonsContainer;
@@ -51,7 +55,7 @@ public class UIManager : MonoBehaviour {
     private InputField NameInput;
     [SerializeField]
     private Button SubmitButton;
-
+    
     void Awake()
     {
         SpawnerController.OnBossSpawned += ShowBossHealthbar;
@@ -70,6 +74,12 @@ public class UIManager : MonoBehaviour {
         RestartButton.onClick.RemoveAllListeners();
         RestartButton.onClick.AddListener(delegate {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        });
+
+        ToggleSoundsButton.onClick.RemoveAllListeners();
+        ToggleSoundsButton.onClick.AddListener(delegate
+        {
+            ToggleSounds();
         });
     }
 
@@ -100,6 +110,8 @@ public class UIManager : MonoBehaviour {
     public void ShowPauseMenu()
     {
         PauseMenu.SetActive(true);
+        bool soundsOn = SoundManager.Instance.SoundsOn();
+        ToggleSoundsText.text = (soundsOn) ? "SOUNDS ON" : "SOUNDS OFF";
         Time.timeScale = 0f;
     }
 
@@ -175,5 +187,12 @@ public class UIManager : MonoBehaviour {
     private void HideBossHealthbar()
     {
         BossHealthbarParent.gameObject.SetActive(false);
+    }
+
+    private void ToggleSounds()
+    {
+        bool soundsOn = SoundManager.Instance.SoundsOn();
+        SoundManager.Instance.ToggleSounds(!soundsOn);
+        ToggleSoundsText.text = (soundsOn) ? "SOUNDS OFF" : "SOUNDS ON";
     }
 }

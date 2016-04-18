@@ -84,6 +84,13 @@ public class SoundManager : MonoBehaviour {
         Mixer.SetFloat("MasterVolume", volume);
     }
 
+    public bool SoundsOn()
+    {
+        float soundVolume;
+        Mixer.GetFloat("MasterVolume", out soundVolume);
+        return soundVolume == 0f;
+    }
+
     private AudioClip LoadAudioClip(SoundType type)
     {
         AudioClip clip = null;
