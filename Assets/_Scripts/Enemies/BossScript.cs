@@ -171,7 +171,11 @@ public class BossScript : MonoBehaviour {
 			yield return new WaitForEndOfFrame ();
 		}
 
-		coreSpinSpeed = coreSpinSpeedDefault * -3f;
+		if ((int)phase < 3)
+			coreSpinSpeed = coreSpinSpeedDefault * -2f;
+		else
+			coreSpinSpeed = coreSpinSpeedDefault * 2f;
+		
 		sequenceTimer = -1f;
 		bool onceInit = false;
 		bool onceDo = false;
