@@ -7,9 +7,8 @@ public class RofPowerUp : PowerUp {
 
 	public override void OnTriggerEnter2D (Collider2D other)
 	{
-		if (other.CompareTag ("Player"))
-			if (!other.GetComponent<Player>().RofUp()) 
-				manager.addScore(_addScore);
+		if (other.CompareTag ("Player") && !other.GetComponent<Player>().RofUp())
+			manager.addScore(_addScore);
 		base.OnTriggerEnter2D (other);
 	}
 }

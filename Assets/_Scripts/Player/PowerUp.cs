@@ -75,7 +75,7 @@ public class PowerUp : MonoBehaviour {
 	}
 
 	public virtual void OnTriggerEnter2D (Collider2D other) {
-		if (other.CompareTag ("Player") || other.CompareTag("BottomEdge")) {
+		if (other.CompareTag ("Player") || other.CompareTag("BottomEdge") || other.CompareTag("Edge")) {
 			Destroy (gameObject);
 		}
 	}
