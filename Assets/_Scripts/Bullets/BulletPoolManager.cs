@@ -53,7 +53,7 @@ public class BulletPoolManager : MonoBehaviour
         }
     }
 
-    public GameObject Instantiate(BulletType type, Vector3 position, Quaternion rotation)
+    public GameObject Spawn(BulletType type, Vector3 position, Quaternion rotation)
     {
         GameObject go = null;
         if (_bulletMap.ContainsKey(type))
@@ -101,9 +101,9 @@ public class BulletPoolManager : MonoBehaviour
         return go;
     }
 
-    public GameObject Instantiate(BulletType type)
+    public GameObject Spawn(BulletType type)
     {
-        return this.Instantiate(type, Vector3.zero, Quaternion.identity);
+        return this.Spawn(type, Vector3.zero, Quaternion.identity);
     }
 
     private GameObject FetchPrefab(BulletType type)
@@ -111,6 +111,9 @@ public class BulletPoolManager : MonoBehaviour
         string path = "Bullets/";
         switch (type)
         {
+            case BulletType.DEFAULT:
+                path += "EnemyBasicBullet";
+                break;
             case BulletType.PLAYER:
                 path += "PlayerBasicBullet";
                 break;

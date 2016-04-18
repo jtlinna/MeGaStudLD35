@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 public enum BulletType
 {
+    DEFAULT = 0,
     PLAYER = 1,
     TRIANGLE = 2,
     SQUARE = 3,

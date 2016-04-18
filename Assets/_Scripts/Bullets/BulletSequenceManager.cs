@@ -16,14 +16,14 @@ public class BulletSequenceManager : MonoBehaviour {
 
 	public GameObject[] bulletPrefabs;
 
-	public IEnumerator spawnBullets(Transform[] spawns, bulletIdentifier bulletID = bulletIdentifier.defaultBullet, int burstAmount = 1, float timeBetweenShots = 0f, float timeBetweenBursts = 0f, float timeBetweenCycles = 0f){
+	public IEnumerator spawnBullets(Transform[] spawns, BulletType bulletID = BulletType.DEFAULT, int burstAmount = 1, float timeBetweenShots = 0f, float timeBetweenBursts = 0f, float timeBetweenCycles = 0f){
 		
 		while (true) {
 			for (int i = 0; i < burstAmount; i++) {
-				if (bulletID != bulletIdentifier.pentaBullet) {
+				if (bulletID != BulletType.PENTAGON) {
 					foreach (Transform spawn in spawns) {
 						if (spawn.gameObject.activeSelf){
-							Instantiate (bulletPrefabs [(int)bulletID], spawn.position, spawn.rotation);
+							BulletPoolManager.Instance.Spawn (bulletID, spawn.position, spawn.rotation);
 							if (timeBetweenShots > 0f)
 								yield return new WaitForSeconds (timeBetweenShots);
 						}
@@ -36,7 +36,7 @@ public class BulletSequenceManager : MonoBehaviour {
                         {
                             vectorToPlayer = go.transform.position - spawns[j].transform.position;
                         }
-                        if (spawns[j].gameObject.activeSelf) Instantiate(bulletPrefabs[(int)bulletID], spawns[j].position, Quaternion.AngleAxis(-90f + ((-14f + (7f * j)) + (Mathf.Atan2(vectorToPlayer.y, vectorToPlayer.x) * Mathf.Rad2Deg)), Vector3.forward));
+                        if (spawns[j].gameObject.activeSelf) BulletPoolManager.Instance.Spawn(bulletID, spawns[j].position, Quaternion.AngleAxis(-90f + ((-14f + (7f * j)) + (Mathf.Atan2(vectorToPlayer.y, vectorToPlayer.x) * Mathf.Rad2Deg)), Vector3.forward));
 					}
 				}
 

@@ -86,12 +86,13 @@ public class SpawnerController : MonoBehaviour {
         _timeSinceWaveStart = 0f;
         
         _currentWave = DataManager.Instance.GetNextWave();
-        Debug.Log("Starting wave " + _currentWave.WaveId);
         if (_currentWave == null)
         {
             Debug.Log("No more waves");
             this.enabled = false;
+            return;
         }
+        Debug.Log("Starting wave " + _currentWave.WaveId);
         _currentTier = DataManager.Instance.GetNextTier(_currentWave);
     }
 

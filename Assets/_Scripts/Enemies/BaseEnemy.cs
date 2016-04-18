@@ -113,22 +113,22 @@ public class BaseEnemy : BaseAI {
 		BulletManager.stopSpawning ();
 		switch (Type) {
 		case EnemyIdentifier.TRIANGLE:
-			BulletManager.StartCoroutine (BulletManager.spawnBullets (ShotSpawns, BulletSequenceManager.bulletIdentifier.triangleBullet, 3, 0f, 0.2f, 1f));
+			BulletManager.StartCoroutine (BulletManager.spawnBullets (ShotSpawns, BulletType.TRIANGLE, 3, 0f, 0.2f, 1f));
 			break;
 		case EnemyIdentifier.SQUARE:
-			BulletManager.StartCoroutine (BulletManager.spawnBullets (ShotSpawns, BulletSequenceManager.bulletIdentifier.squareBullet, 1, 0f, 0f, (2f/3f)));
+			BulletManager.StartCoroutine (BulletManager.spawnBullets (ShotSpawns, BulletType.SQUARE, 1, 0f, 0f, (2f/3f)));
 			break;
 		case EnemyIdentifier.PENTAGON:
-			BulletManager.StartCoroutine (BulletManager.spawnBullets (ShotSpawns, BulletSequenceManager.bulletIdentifier.pentaBullet, 1, 0f, 0f, 1f));
+			BulletManager.StartCoroutine (BulletManager.spawnBullets (ShotSpawns, BulletType.PENTAGON, 1, 0f, 0f, 1f));
 			break;
 		case EnemyIdentifier.HEXAGON:
-			BulletManager.StartCoroutine (BulletManager.spawnBullets (ShotSpawns, BulletSequenceManager.bulletIdentifier.hexBullet, 1, 0.1f, 0f, 0f));
+			BulletManager.StartCoroutine (BulletManager.spawnBullets (ShotSpawns, BulletType.HEXAGON, 1, 0.1f, 0f, 0f));
 			break;
 		case EnemyIdentifier.SEPTIGON:
-			BulletManager.StartCoroutine (BulletManager.spawnBullets (ShotSpawns, BulletSequenceManager.bulletIdentifier.septiBullet, 2, 0f, 0.5f, 2f));
+			BulletManager.StartCoroutine (BulletManager.spawnBullets (ShotSpawns, BulletType.SEPTIGON, 2, 0f, 0.5f, 2f));
 			break;
 		case EnemyIdentifier.OCTAGON:
-			BulletManager.StartCoroutine (BulletManager.spawnBullets (ShotSpawns, BulletSequenceManager.bulletIdentifier.octaBullet, 8, 0f, (1f / 8f), 3f));
+			BulletManager.StartCoroutine (BulletManager.spawnBullets (ShotSpawns, BulletType.OCTAGON, 8, 0f, (1f / 8f), 3f));
 			break;
 		}
     }
