@@ -205,15 +205,29 @@ public class GameManager : MonoBehaviour {
 			return false; 
 	}
 
-	public void useBomb () {
+	public bool useBomb () {
 		if (bombs > 0) {
 			bombs--;
 			if (FindObjectOfType<BossHealth> () != null)
 				FindObjectOfType<BossHealth> ().TakeDamage (20);
 			BaseBullet.RemoveAllBullets (true);
 			BaseEnemy.RemoveAllEnemies (true);
-			UIManager.UpdateBombs(bombs);
-            StartCoroutine(PowerUpsToPlayer(PowerUp.GetActivePowerUps()));
+			UIManager.UpdateBombs (bombs);
+			StartCoroutine (PowerUpsToPlayer (PowerUp.GetActivePowerUps ()));
+			StartCoroutine (bombFlash ());
+			SoundManager.Instance.PlayClip ((SoundType)Random.Range(1,3));
+			return true;
+		} else
+			return false;
+	}
+
+	private IEnumerator bombFlash () {
+		yield return null;
+		SpriteRenderer flash = GameObject.Find ("BombFlash").GetComponent<SpriteRenderer> ();
+		flash.color = new Color (1f,1f,1f,1f);
+		while (flash.color.a > 0f){
+			flash.color = new Color (1f, 1f, 1f, flash.color.a - 0.025f);
+			yield return new WaitForEndOfFrame ();
 		}
 	}
 
