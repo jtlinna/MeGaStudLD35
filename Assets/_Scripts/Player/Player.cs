@@ -6,6 +6,7 @@ public class Player : MonoBehaviour {
     public static System.Action OnPlayerDied;
 
 	[SerializeField] private float velocity = 10f;
+	private UIManager UI;
 	private Rigidbody2D rigidBody;
 	private Collider2D col;
 	private Vector2 inputData;
@@ -26,6 +27,12 @@ public class Player : MonoBehaviour {
 
 	// Use this for initialization
 	public virtual void Awake () {
+		UI = FindObjectOfType<UIManager> ();
+		upBound = UI.GetCorner (UICorners.TOP_LEFT).y;
+		leftBound = UI.GetCorner (UICorners.TOP_LEFT).x;
+		downBound = UI.GetCorner (UICorners.BOTTOM_RIGHT).y;
+		rightBound = UI.GetCorner (UICorners.BOTTOM_RIGHT).x;
+		Debug.Log (upBound);
 		invulnTime = 3f;
 		rigidBody = GetComponent<Rigidbody2D> ();
 		col = GetComponent<CircleCollider2D> ();
