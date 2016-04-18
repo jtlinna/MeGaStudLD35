@@ -55,7 +55,8 @@ public class BossScript : MonoBehaviour {
 		_parts [1] = transform.GetChild (1);
 		_parts [2] = transform.GetChild (2);
 
-		sOneSpawns = new Transform[shotAmountOne[shotAmountOne.Length - 1]];
+		sOneSpawns = new Transform[shotAmountOne [shotAmountOne.Length - 1]];
+		sTwoSpawns = new Transform[shotAmountTwo [shotAmountTwo.Length - 1]];
 		sThreeSpawn = new Transform[1];
 		sFiveSpawn = new Transform[1];
 
@@ -73,6 +74,16 @@ public class BossScript : MonoBehaviour {
 				sOneSpawns [i].gameObject.SetActive (true);
 			} else
 				sOneSpawns [i].gameObject.SetActive (false);
+		}
+
+		for (int i = 0; i < shotAmountTwo[shotAmountTwo.Length - 1]; i++){
+			sOneSpawns [i] = transform.FindChild ("Core").FindChild ("SequenceTwo").GetChild (i);
+			if (i < shotAmountTwo [(int)phase - 1]) {
+				sTwoSpawns [i].Rotate (new Vector3(0f,0f,(360f / shotAmountTwo[(int)phase - 1]) * i));
+				sTwoSpawns [i].localPosition = sTwoSpawns [i].forward * spawnerPositions;
+				sTwoSpawns [i].gameObject.SetActive (true);
+			} else
+				sTwoSpawns [i].gameObject.SetActive (false);
 		}
 
 		sThreeSpawn[0] = transform.FindChild ("SequenceThreeNFive");
@@ -98,7 +109,7 @@ public class BossScript : MonoBehaviour {
 
 	public IEnumerator preBossSequence (BossPhase phase) {
 		while (transform.position != wpDefault.position) {
-			transform.position = Vector2.MoveTowards (transform.position, wpDefault.position, (bossSpeed * 0.25f) * Time.deltaTime);
+			transform.position = Vector2.MoveTowards (transform.position, wpDefault.position, (bossSpeed * 0.75f) * Time.deltaTime);
 			yield return new WaitForEndOfFrame ();
 		}
 		bossCollider.enabled = true;
@@ -117,7 +128,7 @@ public class BossScript : MonoBehaviour {
 		coreSpinSpeed = coreSpinSpeedDefault * 3f;
 		sequenceTimer = 0f;
 
-		bulletManager.StartCoroutine (bulletManager.spawnBullets(sOneSpawns, BulletSequenceManager.bulletIdentifier.octaBullet, 1, 0f, 0f, 1f/6f));
+		bulletManager.StartCoroutine (bulletManager.spawnBullets(sOneSpawns, (BulletSequenceManager.bulletIdentifier)0, 1, 0f, 0f, 1f/6f));
 
 		while (sequenceTimeOne[(int)phase - 1] > sequenceTimer) {
 			yield return new WaitForEndOfFrame ();
@@ -160,7 +171,7 @@ public class BossScript : MonoBehaviour {
 
 		tripCounter = 0;
 
-		bulletManager.StartCoroutine (bulletManager.spawnBullets(sThreeSpawn, BulletSequenceManager.bulletIdentifier.octaBullet, 1, 0f, 0f, 1f/10f));
+		bulletManager.StartCoroutine (bulletManager.spawnBullets(sThreeSpawn, (BulletSequenceManager.bulletIdentifier)2, 1, 0f, 0f, 1f/5f));
 
 		while (tripAmout[(int)phase - 1] > tripCounter) {
 			if (bossGoRight)
@@ -210,7 +221,7 @@ public class BossScript : MonoBehaviour {
 
 		tripCounter = 0;
 
-		bulletManager.StartCoroutine (bulletManager.spawnBullets(sThreeSpawn, BulletSequenceManager.bulletIdentifier.triangleBullet, 1, 0f, 0f, 1f/10f));
+		bulletManager.StartCoroutine (bulletManager.spawnBullets(sThreeSpawn, (BulletSequenceManager.bulletIdentifier)5, 10, 0f, 1f/10f, 1f/2f));
 
 		while (tripAmout[(int)phase - 1] > tripCounter) {
 			if (bossGoRight)
@@ -242,7 +253,7 @@ public class BossScript : MonoBehaviour {
 		bossCollider.enabled = false;
 		if (phase != BossPhase.third) {
 			while (transform.position != wpSpawn.position) {
-				transform.position = Vector2.MoveTowards (transform.position, wpSpawn.position, bossSpeed * 0.25f * Time.deltaTime);
+				transform.position = Vector2.MoveTowards (transform.position, wpSpawn.position, bossSpeed * 0.75f * Time.deltaTime);
 				yield return new WaitForEndOfFrame ();
 			}
 		} else {

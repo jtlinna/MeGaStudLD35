@@ -11,9 +11,9 @@ GameObject:
   - 212: {fileID: 21237528}
   - 50: {fileID: 5059376}
   - 58: {fileID: 5870248}
-  - 114: {fileID: 11411604}
+  - 114: {fileID: 11467020}
   m_Layer: 0
-  m_Name: PlayerBasicBullet
+  m_Name: BossS5Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26,8 +26,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 172534}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.62, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -62,7 +62,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.2
---- !u!114 &11411604
+--- !u!114 &11467020
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -70,12 +70,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 172534}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d597babe612db0448c59ddcd158e28f, type: 3}
+  m_Script: {fileID: 11500000, guid: b76a1a72427cfae4b83731e5f89516ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Damage: 25
-  MoveSpeed: 50
-  TargetTag: Enemy
+  MoveSpeed: 15
+  TargetTag: Player
+  _lastPos: {x: 0, y: 0, z: 0}
 --- !u!212 &21237528
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -86,7 +87,7 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  - {fileID: 2100000, guid: f4bc2a7209eb3eb458fcea3e995dc798, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -102,8 +103,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: dfe9f3e98de404b32a53ecc7b38192bb, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 877129ca48db14ed68f0969db996d874, type: 3}
+  m_Color: {r: 0.65517247, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
 --- !u!1001 &100100000

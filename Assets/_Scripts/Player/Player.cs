@@ -65,12 +65,15 @@ public class Player : MonoBehaviour {
 		if (type == 1) {
 			Instantiate (bulletPrefab, muzzle.position, Quaternion.identity);
 		} else if (type == 2) {
+			Instantiate (bulletPrefab, muzzle.position, Quaternion.identity);
 			Instantiate (bulletPrefab, muzzle.position, Quaternion.Euler(0f,0f,-15f));
 			Instantiate (bulletPrefab, muzzle.position, Quaternion.Euler(0f,0f,15f));
 		} else if (type == 3) {
 			Instantiate (bulletPrefab, muzzle.position, Quaternion.identity);
 			Instantiate (bulletPrefab, muzzle.position, Quaternion.Euler(0f,0f,-15f));
 			Instantiate (bulletPrefab, muzzle.position, Quaternion.Euler(0f,0f,15f));
+			Instantiate (bulletPrefab, muzzle.position, Quaternion.Euler(0f,0f,-7.5f));
+			Instantiate (bulletPrefab, muzzle.position, Quaternion.Euler(0f,0f,7.5f));
 		}
 	}
 
