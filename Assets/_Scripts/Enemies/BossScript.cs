@@ -102,7 +102,6 @@ public class BossScript : MonoBehaviour {
 		for (int i = 0; i < shotAmountFour [(int)phase-1]; i++) {
 			if (i < shotAmountFour [(int)phase - 1]) {
 				sFourSpawns [i] = transform.FindChild ("Core").FindChild ("SequenceFour").GetChild (i);
-				sFourSpawns [i].Rotate (new Vector3 (0f, 0f, 180f));
 				sFourSpawns [i].Rotate (new Vector3 (0f, 0f, -45f + ((90f / (float)shotAmountFour [(int)phase - 1]) * i)));
 				sFourSpawns [i].gameObject.SetActive (true);
 			} else {
@@ -256,7 +255,7 @@ public class BossScript : MonoBehaviour {
 		}
 
 		for (int i = 0; i < sFourDirSequence.Length; i++){
-			sFourParent.rotation = Quaternion.Euler(new Vector3 (0f, 0f, sFourDirections [sFourDirSequence [i]]));
+			sFourParent.rotation = Quaternion.Euler(new Vector3 (0f, 0f, 180f + sFourDirections [sFourDirSequence [i]]));
 			bulletManager.StartCoroutine (bulletManager.spawnBullets(sFourSpawns, BulletType.BOSS_S4, 1, 0f, 0f, 1f));
 			yield return new WaitForSeconds (1f/sFourFireRate[(int)phase-1]);
 			bulletManager.stopSpawning ();
