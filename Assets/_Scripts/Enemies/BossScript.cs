@@ -263,6 +263,7 @@ public class BossScript : MonoBehaviour {
 
 	public void killBoss(){
 		StopAllCoroutines();
+		bulletManager.stopSpawning ();
 		GetComponent<Animator> ().SetTrigger ("death");
 		StartCoroutine("postBossSequence", phase);
 	}
