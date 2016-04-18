@@ -77,7 +77,7 @@ public class Player : MonoBehaviour {
 	}
 
 	private void shoot(int type = 1) {
-		//PLAYSOUNDHERE
+		SoundManager.Instance.PlayClip (SoundType.PLAYER_SHOOT);
 		if (type == 1) {
 			Instantiate (bulletPrefab, muzzle.position, Quaternion.identity);
 		} else if (type == 2) {

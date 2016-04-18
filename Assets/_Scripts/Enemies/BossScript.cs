@@ -339,7 +339,7 @@ public class BossScript : MonoBehaviour {
 
 	public void animationPlaySound () {
 		int random = Random.Range (1, 3);
-		//PLAYSOUNDHERE
+		SoundManager.Instance.PlayClip ((SoundType)random);
 	}
 
     private IEnumerator DelayedInit()
