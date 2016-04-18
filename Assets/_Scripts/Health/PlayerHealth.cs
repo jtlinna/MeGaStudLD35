@@ -3,8 +3,14 @@ using System.Collections;
 
 public class PlayerHealth : BaseHealth {
 
+    [SerializeField]
+    Player player;
+
     public override void TakeDamage(float damage)
-    {
+    {     
+        if (!player.CanBeDamaged())
+            return;
+
         base.TakeDamage(damage);
 
         // TODO Update UI etc.

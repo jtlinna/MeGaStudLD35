@@ -27,6 +27,7 @@ public class Player : MonoBehaviour {
 		invulnTime = 3f;
 		rigidBody = GetComponent<Rigidbody2D> ();
 		col = GetComponent<CircleCollider2D> ();
+        col.enabled = true;
 		muzzle = transform.FindChild ("Muzzle");
         GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.4f);
     }
@@ -50,10 +51,8 @@ public class Player : MonoBehaviour {
 
 		if (invulnTime > 0f) {
 			invulnTime -= Time.deltaTime;
-			col.enabled = false;
 		} else {
 			GetComponent<SpriteRenderer> ().color = new Color (1f, 1f, 1f, 1f);
-			col.enabled = true;
 		}
 	}
 
@@ -113,6 +112,11 @@ public class Player : MonoBehaviour {
         }
 		Destroy (gameObject);
 	}
+    
+    public bool CanBeDamaged()
+    {
+        return invulnTime <= 0;
+    }
 
 //	public void resetPlayer () {
 //		
