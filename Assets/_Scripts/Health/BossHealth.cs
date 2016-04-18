@@ -18,7 +18,6 @@ public class BossHealth : BaseHealth {
     protected override void Die()
     {
 		GetComponent<BossScript> ().killBoss ();
-        GameManager.BossStage++;
     }
 
 }

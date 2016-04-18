@@ -14,6 +14,8 @@ public class BossScript : MonoBehaviour {
 	public BulletSequenceManager bulletManager;
 	public BossPhase phase = BossPhase.first;
 	public Collider2D bossCollider;
+	public static System.Action OnBossDied;
+	private bool thirdPhaseDead = false;
 
 	//public int attackSequence;
 	private bool sequenceDone = false;
@@ -35,6 +37,7 @@ public class BossScript : MonoBehaviour {
 
     public void Init()
     {
+		GetComponent<Animator> ().SetInteger ("phase", (int)phase);
 		StartCoroutine("preBossSequence", phase);
         Debug.Log(phase.ToString());
     }
@@ -65,6 +68,7 @@ public class BossScript : MonoBehaviour {
 		yield break;
 	}
 	public IEnumerator sequenceOne (BossPhase phase) {
+		
 		yield return new WaitForSeconds (2f);
 		Debug.Log ("SequenceOneDone");
 		yield break;
@@ -97,26 +101,43 @@ public class BossScript : MonoBehaviour {
 
 	public IEnumerator postBossSequence(BossPhase phase) {
 		bossCollider.enabled = false;
-		bool bossZero = transform.position.x == 0f ? true : false;
-		bool bossLeft = transform.position.x < 0f ? true : false;
-		while (transform.position.y < 40f) {
-			if (!bossZero && (bossLeft && transform.position.x < 0f))
-				moveBoss (-1f, 0f);
-			else if (!bossZero && (!bossLeft && transform.position.x > 0f))
-				moveBoss (1f, 0f);
-			else
-				transform.position = new Vector2 (0f, transform.position.y);
-			moveBoss (0f, 2f);
-			yield return new WaitForEndOfFrame ();
+		if (phase != BossPhase.third) {
+			bool bossZero = transform.position.x == 0f ? true : false;
+			bool bossLeft = transform.position.x < 0f ? true : false;
+			while (transform.position.y < 40f) {
+				if (!bossZero && (bossLeft && transform.position.x < 0f))
+					moveBoss (-1f, 0f);
+				else if (!bossZero && (!bossLeft && transform.position.x > 0f))
+					moveBoss (1f, 0f);
+				else
+					transform.position = new Vector2 (0f, transform.position.y);
+				moveBoss (0f, 2f);
+				yield return new WaitForEndOfFrame ();
+			}
+		} else {
+			while (!thirdPhaseDead) {
+				yield return new WaitForEndOfFrame ();
+			}
+
 		}
 		Debug.Log ("postSequenceDone");
+
+		if (OnBossDied != null) {
+			OnBossDied ();
+		}
+
 		Destroy (gameObject);
 		yield break;
 	}
 
 	public void killBoss(){
 		StopAllCoroutines();
+		GetComponent<Animator> ().SetTrigger ("death");
 		StartCoroutine("postBossSequence", phase);
+	}
+
+	public void bossDeadFromAnimation() {
+		thirdPhaseDead = true;
 	}
 
     private IEnumerator DelayedInit()
