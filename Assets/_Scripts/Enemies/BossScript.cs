@@ -15,7 +15,7 @@ public class BossScript : MonoBehaviour {
 	public BossPhase phase = BossPhase.first;
 	public Collider2D bossCollider;
 
-	public int attackSequence;
+	//public int attackSequence;
 	private bool sequenceDone = false;
 
 	// Use this for initialization
@@ -55,47 +55,66 @@ public class BossScript : MonoBehaviour {
 	}
 
 	public IEnumerator preBossSequence (BossPhase phase) {
-		while (transform.position.y >= 20f)
-			moveBoss (0f, 1f);
-		if (transform.position.y >= 20f)
-			transform.position = new Vector2 (0f, 20f);
+		while (transform.position.y > 20f) {
+			moveBoss (0f, -2f);
+			yield return new WaitForEndOfFrame ();
+		}
 		bossCollider.enabled = true;
-		StartCoroutine ("sequenceOne", phase);
+		StartCoroutine ("sequenceFive", phase);
+		Debug.Log ("PreSequenceDone");
 		yield break;
 	}
 	public IEnumerator sequenceOne (BossPhase phase) {
 		yield return new WaitForSeconds (2f);
-		StartCoroutine ("sequenceTwo", phase);
+		Debug.Log ("SequenceOneDone");
 		yield break;
 	}
 	public IEnumerator sequenceTwo (BossPhase phase) {
+		yield return sequenceOne (phase);
 		yield return new WaitForSeconds (2f);
-		StartCoroutine ("sequenceThree", phase);
+		Debug.Log ("SequenceTwoDone");
 		yield break;
 	}
 	public IEnumerator sequenceThree (BossPhase phase) {
+		yield return sequenceTwo (phase);
 		yield return new WaitForSeconds (2f);
-		StartCoroutine ("sequenceFour", phase);
+		Debug.Log ("SequenceThreeDone");
 		yield break;
 	}
 	public IEnumerator sequenceFour (BossPhase phase) {
+		yield return sequenceThree (phase);
 		yield return new WaitForSeconds (2f);
-		StartCoroutine ("sequenceFive", phase);
+		Debug.Log ("SequenceFourDone");
 		yield break;
 	}
 	public IEnumerator sequenceFive (BossPhase phase) {
+		yield return sequenceFour (phase);
 		yield return new WaitForSeconds (2f);
-		StartCoroutine ("sequenceOne", phase);
+		Debug.Log ("SequenceFiveDone");
+		StartCoroutine ("sequenceFive", phase);
 		yield break;
 	}
 
 	public IEnumerator postBossSequence(BossPhase phase) {
-		yield return new WaitForSeconds (2f);
+		bossCollider.enabled = false;
+		bool bossZero = transform.position.x == 0f ? true : false;
+		bool bossLeft = transform.position.x < 0f ? true : false;
+		while (transform.position.y < 40f) {
+			if (!bossZero && (bossLeft && transform.position.x < 0f))
+				moveBoss (-1f, 0f);
+			else if (!bossZero && (!bossLeft && transform.position.x > 0f))
+				moveBoss (1f, 0f);
+			else
+				transform.position = new Vector2 (0f, transform.position.y);
+			moveBoss (0f, 2f);
+			yield return new WaitForEndOfFrame ();
+		}
+		Debug.Log ("postSequenceDone");
 		Destroy (gameObject);
 		yield break;
 	}
 
-	public void killBoss(BossPhase phase){
+	public void killBoss(){
 		StopAllCoroutines();
 		StartCoroutine("postBossSequence", phase);
 	}
