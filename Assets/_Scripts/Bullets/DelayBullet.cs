@@ -10,8 +10,8 @@ public class DelayBullet : BaseBullet {
 	private bool targetAquired = false;
 	private GameObject Player;
 
-	protected override void Awake() {
-        base.Awake();
+	protected override void OnEnable() {
+        base.OnEnable();
 		_movementVector = transform.up;
 		timer = 0f;
 		currentMoveSpeed = MoveSpeed;

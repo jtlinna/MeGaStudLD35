@@ -37,7 +37,7 @@ public class BaseBullet : MonoBehaviour {
         {
             for (int i = ActiveBullets.Count - 1; i >= 0; i--)
             {
-                Destroy(ActiveBullets[i].gameObject);
+                ActiveBullets[i].gameObject.SetActive(false);
             }
         }
 
@@ -53,12 +53,12 @@ public class BaseBullet : MonoBehaviour {
 	[SerializeField]
 	protected Vector3 _lastPos;
 
-    protected virtual void Awake()
+    protected virtual void OnEnable()
     {
         AddBullet(this);
     }
 
-    void OnDestroy()
+    void OnDisable()
     {
         RemoveBullet(this);
     }
@@ -84,7 +84,8 @@ public class BaseBullet : MonoBehaviour {
             }
         }
 
-        Destroy(gameObject);
+        // Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 
     protected virtual void OnTriggerEnter2D(Collider2D other)

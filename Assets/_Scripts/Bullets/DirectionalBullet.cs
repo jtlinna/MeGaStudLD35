@@ -7,11 +7,11 @@ public class DirectionalBullet : BaseBullet {
 	private bool targetAquired = false;
 	private GameObject Player;
 
-    protected override void Awake ()
+    protected override void OnEnable ()
     {
 		if (GameObject.FindGameObjectWithTag ("Player") != null)
 			Player = GameObject.FindGameObjectWithTag ("Player");
-        base.Awake();
+        base.OnEnable();
         _movementVector = transform.up;
 	}
 
