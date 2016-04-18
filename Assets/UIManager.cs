@@ -2,6 +2,14 @@
 using UnityEngine.UI;
 using System.Collections;
 
+public enum UICorners
+{
+    TOP_LEFT = 0,
+    TOP_RIGHT = 1,
+    BOTTOM_LEFT = 3,
+    BOTTOM_RIGHT = 4
+}
+
 public class UIManager : MonoBehaviour {
 
     [SerializeField]
@@ -22,6 +30,9 @@ public class UIManager : MonoBehaviour {
     private GameObject BossHealthbarParent;
     [SerializeField]
     private Image BossHealthbar;
+
+    [SerializeField]
+    private Transform[] Corners;
 
     [SerializeField]
     private GameObject PauseMenu;
@@ -101,6 +112,11 @@ public class UIManager : MonoBehaviour {
     {
         float percentage = current / max;
         BossHealthbar.fillAmount = Mathf.Clamp01(percentage);
+    }
+
+    public Vector3 GetCorner(UICorners corner)
+    {
+        return Camera.main.ScreenToWorldPoint(Corners[(int)corner].position);
     }
 
     private void ShowBossHealthbar()
