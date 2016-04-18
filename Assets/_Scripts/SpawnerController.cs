@@ -69,7 +69,7 @@ public class SpawnerController : MonoBehaviour {
             }
         }
 
-        if(_timeSinceWaveStart >= _currentWave.WaveLength)
+        if(_currentWave != null &&_timeSinceWaveStart >= _currentWave.WaveLength)
         {
             StartNewWave();
         }
