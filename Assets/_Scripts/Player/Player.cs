@@ -22,12 +22,14 @@ public class Player : MonoBehaviour {
 	private float _lastFrameAxis = 0f;
 	private bool control = true;
 
+	private float upBound, downBound, leftBound, rightBound;
+
 	// Use this for initialization
 	public virtual void Awake () {
 		invulnTime = 3f;
 		rigidBody = GetComponent<Rigidbody2D> ();
 		col = GetComponent<CircleCollider2D> ();
-        col.enabled = true;
+		col.enabled = true;
 		muzzle = transform.FindChild ("Muzzle");
         GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.4f);
     }
@@ -58,6 +60,15 @@ public class Player : MonoBehaviour {
 
 	private void move(Vector2 movement) {
 		rigidBody.velocity = movement.normalized * velocity * (Input.GetAxisRaw ("Focus") <= 0f ? 1f : 0.4f);
+
+		if (rigidBody.velocity.x < 0f && transform.position.x <= leftBound)
+			rigidBody.velocity = new Vector2 (0f, rigidBody.velocity.y);
+		if (rigidBody.velocity.x > 0f && transform.position.x >= rightBound)
+			rigidBody.velocity = new Vector2 (0f, rigidBody.velocity.y);
+		if (rigidBody.velocity.y > 0f && transform.position.y >= upBound)
+			rigidBody.velocity = new Vector2 (rigidBody.velocity.x, 0f);
+		if (rigidBody.velocity.y < 0f && transform.position.y <= downBound)
+			rigidBody.velocity = new Vector2 (rigidBody.velocity.x, 0f);
 	}
 
 	private void shoot(int type = 1) {
@@ -112,7 +123,7 @@ public class Player : MonoBehaviour {
         }
 		Destroy (gameObject);
 	}
-    
+	
     public bool CanBeDamaged()
     {
         return invulnTime <= 0;
