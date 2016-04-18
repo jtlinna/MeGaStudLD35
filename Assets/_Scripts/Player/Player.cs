@@ -14,7 +14,7 @@ public class Player : MonoBehaviour {
 	public BaseHealth health;
 	public GameObject bulletPrefab;
 	public int shotType = 1;
-	public float rateOfFire = 5f;
+	private float rateOfFire = 5f;
 	private float maxRateOfFire = 30f;
 
 	private float rofTimer = 0f;
