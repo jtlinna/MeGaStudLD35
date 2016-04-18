@@ -20,11 +20,11 @@ public class ScrollingBackground : MonoBehaviour {
     void Update()
     {
 		foreach(Transform pic in backGrounds){
-			pic.localPosition = new Vector2(0f, pic.localPosition.y + (ScrollSpeed * Time.deltaTime));
+			pic.localPosition = new Vector2(pic.localPosition.x, pic.localPosition.y + (ScrollSpeed * Time.deltaTime));
 			if (pic.localPosition.y >= 64f)
-				pic.localPosition = new Vector2(0f, pic.localPosition.y - 128f);
+				pic.localPosition = new Vector2(pic.localPosition.x, pic.localPosition.y - 128f);
 			else if (pic.localPosition.y <= -64f)
-				pic.localPosition = new Vector2(0f, pic.localPosition.y + 128f);
+				pic.localPosition = new Vector2(pic.localPosition.x, pic.localPosition.y + 128f);
 		}
     }
 }
