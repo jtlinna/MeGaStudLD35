@@ -9,8 +9,7 @@ public class DirectionalBullet : BaseBullet {
 
     protected override void OnEnable ()
     {
-		if (GameObject.FindGameObjectWithTag ("Player") != null)
-			Player = GameObject.FindGameObjectWithTag ("Player");
+        targetAquired = false;
         base.OnEnable();
         _movementVector = transform.up;
 	}
@@ -19,15 +18,19 @@ public class DirectionalBullet : BaseBullet {
     {
         base.DoMovement();
 
-		if (!targetAquired && Player != null) SetTarget (Player);
+        if (Player == null)
+            Player = GameObject.FindGameObjectWithTag("Player");
+
+        if (!targetAquired && Player != null) SetTarget (Player);
 		transform.position += _movementVector * MoveSpeed * Time.deltaTime;
 
 		float angle = Mathf.Atan2(_movementVector.y, _movementVector.x) * Mathf.Rad2Deg;
 		transform.rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
     }
 
-    public void SetTarget(GameObject target)
+    private void SetTarget(GameObject target)
     {
+        Debug.Log("Setting target directional bullet");
 		_movementVector = target.transform.position - transform.position;
 		_movementVector = _movementVector.normalized;
 		targetAquired = true;
