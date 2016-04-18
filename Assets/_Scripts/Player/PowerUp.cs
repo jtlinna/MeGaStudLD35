@@ -4,9 +4,11 @@ using System.Collections;
 public enum PowerUpIdentifier
 {
     NONE = -1,
-    HEALTH = 1,
+    LIFE = 1,
     SCORE_MULTIPLIER = 2,
-    WEAPON = 3
+    WEAPON = 3,
+    FIRERATE = 4,
+    BOMB = 5
 }
 
 public class PowerUp : MonoBehaviour {

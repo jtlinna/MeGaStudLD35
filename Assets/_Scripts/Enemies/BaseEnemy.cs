@@ -57,7 +57,10 @@ public class BaseEnemy : BaseAI {
     
     void Awake()
     {
-		if (AutoStart)
+#if !UNITY_EDITOR
+        AutoStart = false;
+#endif
+        if (AutoStart)
 			StartCoroutine (delayedInit ());
 
         AddEnemy(this);
@@ -286,7 +289,7 @@ public class BaseEnemy : BaseAI {
         string path = "PowerUps/";
         switch(_additionalPowerUp)
         {
-            case PowerUpIdentifier.HEALTH:
+            case PowerUpIdentifier.LIFE:
                 path += "LifePowerUp";
                 break;
             case PowerUpIdentifier.SCORE_MULTIPLIER:
@@ -294,6 +297,12 @@ public class BaseEnemy : BaseAI {
                 break;
             case PowerUpIdentifier.WEAPON:
                 path += "WeaponPowerUp";
+                break;
+            case PowerUpIdentifier.FIRERATE:
+                path += "RofPowerUp";
+                break;
+            case PowerUpIdentifier.BOMB:
+                path += "BombPowerUp";
                 break;
         }
 
