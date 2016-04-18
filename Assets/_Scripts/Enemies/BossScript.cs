@@ -13,12 +13,15 @@ public class BossScript : MonoBehaviour {
 	private Transform[] _parts;
 	public BulletSequenceManager bulletManager;
 	public BossPhase phase = BossPhase.first;
+	public Collider2D bossCollider;
 
 	public int attackSequence;
 	private bool sequenceDone = false;
 
 	// Use this for initialization
 	void Awake () {
+		bossCollider = GetComponent<Collider2D> ();
+		bossCollider.enabled = false;
 
 		_parts = new Transform[3];
 
@@ -32,7 +35,7 @@ public class BossScript : MonoBehaviour {
 
     public void Init()
     {
-        StartCoroutine(preBossSequence());
+		StartCoroutine("preBossSequence", phase);
         Debug.Log(phase.ToString());
     }
 	
@@ -47,23 +50,54 @@ public class BossScript : MonoBehaviour {
 		_parts [2].Rotate (new Vector3(0f,0f, baseSpeed * Time.deltaTime));
 	}
 
-	public IEnumerator preBossSequence () {
+	private void moveBoss (float xPerSec, float yPerSec) {
+		transform.position = new Vector2 (transform.position.x + (xPerSec * Time.deltaTime), transform.position.y + (yPerSec * Time.deltaTime));
+	}
+
+	public IEnumerator preBossSequence (BossPhase phase) {
+		while (transform.position.y >= 20f)
+			moveBoss (0f, 1f);
+		if (transform.position.y >= 20f)
+			transform.position = new Vector2 (0f, 20f);
+		bossCollider.enabled = true;
+		StartCoroutine ("sequenceOne", phase);
 		yield break;
 	}
-	public IEnumerator sequenceOne () {
+	public IEnumerator sequenceOne (BossPhase phase) {
+		yield return new WaitForSeconds (2f);
+		StartCoroutine ("sequenceTwo", phase);
 		yield break;
 	}
-	public IEnumerator sequenceTwo () {
+	public IEnumerator sequenceTwo (BossPhase phase) {
+		yield return new WaitForSeconds (2f);
+		StartCoroutine ("sequenceThree", phase);
 		yield break;
 	}
-	public IEnumerator sequenceThree () {
+	public IEnumerator sequenceThree (BossPhase phase) {
+		yield return new WaitForSeconds (2f);
+		StartCoroutine ("sequenceFour", phase);
 		yield break;
 	}
-	public IEnumerator sequenceFour () {
+	public IEnumerator sequenceFour (BossPhase phase) {
+		yield return new WaitForSeconds (2f);
+		StartCoroutine ("sequenceFive", phase);
 		yield break;
 	}
-	public IEnumerator sequenceFive () {
+	public IEnumerator sequenceFive (BossPhase phase) {
+		yield return new WaitForSeconds (2f);
+		StartCoroutine ("sequenceOne", phase);
 		yield break;
+	}
+
+	public IEnumerator postBossSequence(BossPhase phase) {
+		yield return new WaitForSeconds (2f);
+		Destroy (gameObject);
+		yield break;
+	}
+
+	public void killBoss(BossPhase phase){
+		StopAllCoroutines();
+		StartCoroutine("postBossSequence", phase);
 	}
 
     private IEnumerator DelayedInit()
