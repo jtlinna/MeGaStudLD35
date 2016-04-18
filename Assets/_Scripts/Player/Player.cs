@@ -51,7 +51,9 @@ public class Player : MonoBehaviour {
 					rofTimer = 0f;
 				}
 			}
-			_lastFrameAxis = Input.GetAxisRaw ("Fire");
+			if (Input.GetAxisRaw ("Bomb") > 0f && _lastFrameAxis == 0f)
+				bombDaShit ();
+			_lastFrameAxis = Input.GetAxisRaw ("Bomb");
 		}
 
 		if (invulnTime > 0f) {
@@ -88,6 +90,10 @@ public class Player : MonoBehaviour {
 			Instantiate (bulletPrefab, muzzle.position, Quaternion.Euler (0f, 0f, Input.GetAxisRaw ("Focus") <= 0f ? 7.5f : 4.5f));
 			Instantiate (bulletPrefab, muzzle.position, Quaternion.Euler (0f, 0f, Input.GetAxisRaw ("Focus") <= 0f ? -7.5f : -4.5f));
 		}
+	}
+
+	private void bombDaShit() {
+		GameManager.Instance.useBomb();
 	}
 
 	public bool PowerUp () {

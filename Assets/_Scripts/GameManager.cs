@@ -44,6 +44,8 @@ public class GameManager : MonoBehaviour {
     private int lives = 5;
     [SerializeField]
     private int bombs = 3;
+	[SerializeField]
+	private int maxBombs = 5;
     [SerializeField]
     private GameObject PlayerPrefab;
     [SerializeField]
@@ -108,12 +110,6 @@ public class GameManager : MonoBehaviour {
 		//}
 		if (currentState == States.playing)
 			gameTime += Time.deltaTime;
-
-        if(Input.GetKeyDown(KeyCode.K))
-        {
-            BaseBullet.RemoveAllBullets(true);
-            BaseEnemy.RemoveAllEnemies(true);
-        }
 
         if(Input.GetKeyDown(KeyCode.Escape))
         {
@@ -189,6 +185,22 @@ public class GameManager : MonoBehaviour {
             StopGame();
         }
     }
+
+	public bool addBomb () {
+		if (bombs < maxBombs){
+			bombs++;
+			UIManager.UpdateBombs(bombs);
+			return true;
+		} else
+			return false; 
+	}
+
+	public void useBomb () {
+		if (FindObjectOfType<BossHealth> () != null)
+			FindObjectOfType<BossHealth> ().TakeDamage (20);
+		BaseBullet.RemoveAllBullets(true);
+		BaseEnemy.RemoveAllEnemies(true);
+	}
 
     IEnumerator SpawnPlayer(float delay)
     {
