@@ -28,11 +28,7 @@ public class Player : MonoBehaviour {
 	// Use this for initialization
 	public virtual void Awake () {
 		UI = FindObjectOfType<UIManager> ();
-		upBound = UI.GetCorner (UICorners.TOP_LEFT).y;
-		leftBound = UI.GetCorner (UICorners.TOP_LEFT).x;
-		downBound = UI.GetCorner (UICorners.BOTTOM_RIGHT).y;
-		rightBound = UI.GetCorner (UICorners.BOTTOM_RIGHT).x;
-		Debug.Log (rightBound);
+		StartCoroutine (getBound());
 		invulnTime = 3f;
 		rigidBody = GetComponent<Rigidbody2D> ();
 		col = GetComponent<CircleCollider2D> ();
@@ -135,6 +131,14 @@ public class Player : MonoBehaviour {
     {
         return invulnTime <= 0;
     }
+
+	private IEnumerator getBound() {
+		yield return null;
+		upBound = UI.GetCorner (UICorners.TOP_LEFT).y;
+		leftBound = UI.GetCorner (UICorners.TOP_LEFT).x;
+		downBound = UI.GetCorner (UICorners.BOTTOM_RIGHT).y;
+		rightBound = UI.GetCorner (UICorners.BOTTOM_RIGHT).x;
+	}
 
 //	public void resetPlayer () {
 //		
