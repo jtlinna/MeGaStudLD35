@@ -325,6 +325,7 @@ public class BossScript : MonoBehaviour {
 		}
 
         GameManager.Instance.addScore(1000 * (int)phase);
+        BaseBullet.RemoveAllBullets();
 		Destroy (gameObject);
 		yield break;
 	}
