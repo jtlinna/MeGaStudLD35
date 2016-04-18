@@ -99,10 +99,15 @@ public class BossScript : MonoBehaviour {
 
 		sFourParent = transform.FindChild ("Core").FindChild ("SequenceFour");
 
-		for (int i = 0; i < shotAmountFour [shotAmountFour.Length - 1]; i++) {
-			sFourSpawns [i] = transform.FindChild ("Core").FindChild ("SequenceFour").GetChild (i);
-			sFourSpawns [i].Rotate (new Vector3(0f,0f,-45f + ((90f / shotAmountFour.Length) * i)));
-			sFourSpawns [i].Rotate (new Vector3(0f,0f, 180f));
+		for (int i = 0; i < shotAmountFour [(int)phase-1]; i++) {
+			if (i < shotAmountFour [(int)phase - 1]) {
+				sFourSpawns [i] = transform.FindChild ("Core").FindChild ("SequenceFour").GetChild (i);
+				sFourSpawns [i].Rotate (new Vector3 (0f, 0f, 180f));
+				sFourSpawns [i].Rotate (new Vector3 (0f, 0f, -45f + ((90f / (float)shotAmountFour [(int)phase - 1]) * i)));
+				sFourSpawns [i].gameObject.SetActive (true);
+			} else {
+				sFourSpawns [i].gameObject.SetActive (false);
+			}
 		}
 
 		GetComponent<Animator> ().SetInteger ("phase", (int)phase);

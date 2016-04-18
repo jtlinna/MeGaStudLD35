@@ -3,19 +3,6 @@ using System.Collections;
 
 public class BulletSequenceManager : MonoBehaviour {
 
-	public enum bulletIdentifier
-	{
-		defaultBullet = 0,
-		triangleBullet = 1,
-		squareBullet = 2,
-		pentaBullet = 3,
-		hexBullet = 4,
-		septiBullet = 5,
-		octaBullet = 6
-	}
-
-	public GameObject[] bulletPrefabs;
-
 	public IEnumerator spawnBullets(Transform[] spawns, BulletType bulletID = BulletType.DEFAULT, int burstAmount = 1, float timeBetweenShots = 0f, float timeBetweenBursts = 0f, float timeBetweenCycles = 0f){
 		
 		while (true) {

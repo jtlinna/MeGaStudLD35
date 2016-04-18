@@ -14,7 +14,9 @@ public class Player : MonoBehaviour {
 	public BaseHealth health;
 	public GameObject bulletPrefab;
 	public int shotType = 1;
-	public float rateOfFire = 0.5f;
+	public float rateOfFire = 5f;
+	private float maxRateOfFire = 30f;
+
 	private float rofTimer = 0f;
 	private float invulnTime = 3f;
 	private float _lastFrameAxis = 0f;
@@ -39,7 +41,7 @@ public class Player : MonoBehaviour {
 				rofTimer = 0f;
 			}
 			if (Input.GetAxisRaw ("Fire") > 0f && _lastFrameAxis == 1f) {
-				if (rofTimer > rateOfFire) {
+				if (rofTimer > 1f/rateOfFire) {
 					shoot (shotType);
 					rofTimer = 0f;
 				}
@@ -85,6 +87,16 @@ public class Player : MonoBehaviour {
 		}
 		else
 			return false;
+	}
+
+	public bool RofUp () {
+		if (rateOfFire < maxRateOfFire) {
+			rateOfFire += 2.5f;
+			return true;
+		} else {
+			rateOfFire = maxRateOfFire;
+			return false;
+		}
 	}
 
 	public void toggleControls () {
