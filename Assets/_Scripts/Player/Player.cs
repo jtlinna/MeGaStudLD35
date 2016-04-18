@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Player : MonoBehaviour {
 
+    public static System.Action OnPlayerDied;
+
 	[SerializeField] private float velocity = 10f;
 	private Rigidbody2D rigidBody;
 	private Collider2D col;
@@ -19,11 +21,13 @@ public class Player : MonoBehaviour {
 	private bool control = true;
 
 	// Use this for initialization
-	public virtual void Start () {
+	public virtual void Awake () {
 		rigidBody = GetComponent<Rigidbody2D> ();
 		col = GetComponent<Collider2D> ();
 		muzzle = transform.FindChild ("Muzzle");
-	}
+        GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.4f);
+        col.enabled = false;
+    }
 	
 	// Update is called once per frame
 	public virtual void Update () {
@@ -46,8 +50,6 @@ public class Player : MonoBehaviour {
 
 		if (invulnTime > 0f) {
 			invulnTime -= Time.deltaTime;
-			GetComponent<SpriteRenderer> ().color = new Color (1f, 1f, 1f, 0.4f);
-			col.enabled = false;
 		} else {
 			GetComponent<SpriteRenderer> ().color = new Color (1f, 1f, 1f, 1f);
 			col.enabled = true;
@@ -89,6 +91,10 @@ public class Player : MonoBehaviour {
 	}
 
 	public void destroyPlayer () {
+        if(OnPlayerDied != null)
+        {
+            OnPlayerDied();
+        }
 		Destroy (gameObject);
 	}
 

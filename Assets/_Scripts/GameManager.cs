@@ -16,6 +16,12 @@ public class GameManager : MonoBehaviour {
 	[SerializeField] private float maxMultiplier = 10f;
 	[SerializeField] private float multiplier = 1f;
 	[SerializeField] private int lives = 5;
+    [SerializeField]
+    private GameObject PlayerPrefab;
+    [SerializeField]
+    private Transform PlayerSpawn;
+    [SerializeField]
+    private float RespawnDelay;
 
 	private float _lastGameTime;
 	public float lastGameTime { get { return _lastGameTime; } }
@@ -26,13 +32,15 @@ public class GameManager : MonoBehaviour {
 		DontDestroyOnLoad(gameObject);
 
         BossHealth.OnBossDamaged += DebugBossDamaged;
-
+        Player.OnPlayerDied += PlayerDied;
+        Instantiate(PlayerPrefab, PlayerSpawn.position, Quaternion.identity);
 		StartGame ();
 	}
 
     void OnDestroy()
     {
         BossHealth.OnBossDamaged -= DebugBossDamaged;
+        Player.OnPlayerDied -= PlayerDied;
     }
 
 	public void StartGame() {
@@ -98,5 +106,21 @@ public class GameManager : MonoBehaviour {
 		lives--;
 		multiplier = 1f;
 	}
+
+    private void PlayerDied()
+    {
+        removeLife();
+        if (lives > 0)
+        {
+            StartCoroutine(SpawnPlayer(RespawnDelay));
+        }
+    }
+
+    IEnumerator SpawnPlayer(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        Instantiate(PlayerPrefab, PlayerSpawn.position, Quaternion.identity);
+    }
 
 }
