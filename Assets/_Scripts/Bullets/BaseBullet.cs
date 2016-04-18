@@ -20,6 +20,8 @@ public enum BulletType
 public class BaseBullet : MonoBehaviour {
 
     private static List<BaseBullet> ActiveBullets = new List<BaseBullet>();
+
+	[SerializeField] private GameObject bulletHitPrefab;
     
     public static void AddBullet(BaseBullet bullet)
     {
@@ -93,6 +95,7 @@ public class BaseBullet : MonoBehaviour {
     {
         if(other.CompareTag(TargetTag))
         {
+			Instantiate (bulletHitPrefab, transform.position, Quaternion.identity);
             Trigger(other.gameObject);
         }
         if(other.CompareTag("BottomEdge") || other.CompareTag("Edge"))
