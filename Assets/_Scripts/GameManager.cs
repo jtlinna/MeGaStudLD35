@@ -196,10 +196,13 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void useBomb () {
-		if (FindObjectOfType<BossHealth> () != null)
-			FindObjectOfType<BossHealth> ().TakeDamage (20);
-		BaseBullet.RemoveAllBullets(true);
-		BaseEnemy.RemoveAllEnemies(true);
+		if (bombs > 0) {
+			bombs--;
+			if (FindObjectOfType<BossHealth> () != null)
+				FindObjectOfType<BossHealth> ().TakeDamage (20);
+			BaseBullet.RemoveAllBullets (true);
+			BaseEnemy.RemoveAllEnemies (true);
+		}
 	}
 
     IEnumerator SpawnPlayer(float delay)
