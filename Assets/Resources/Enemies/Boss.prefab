@@ -61,6 +61,7 @@ GameObject:
   - 50: {fileID: 5096010}
   - 58: {fileID: 5865178}
   - 114: {fileID: 11485262}
+  - 95: {fileID: 9500460}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Enemy
@@ -150,6 +151,23 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!95 &9500460
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 198384}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 549cc4e975af741dda5fb415a594ee28, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &11413262
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -173,7 +191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c9e7942701844ab68f1e2bfa44c709e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AutoStart: 0
+  AutoStart: 1
   health: {fileID: 11413262}
   bulletManager: {fileID: 11485262}
   phase: 1
