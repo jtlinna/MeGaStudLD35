@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour {
 
@@ -53,6 +54,8 @@ public class GameManager : MonoBehaviour {
     [SerializeField]
     private float RespawnDelay;
 
+    private GameObject _currentPlayer;
+
     private BossScript.BossPhase _currentBossPhase;
 
 
@@ -60,7 +63,7 @@ public class GameManager : MonoBehaviour {
         
         BossScript.OnBossDied += BossDied;
         Player.OnPlayerDied += PlayerDied;
-        Instantiate(PlayerPrefab, PlayerSpawn.position, Quaternion.identity);
+        _currentPlayer = Instantiate(PlayerPrefab, PlayerSpawn.position, Quaternion.identity) as GameObject;
         if(UIManager == null)
         {
             UIManager = FindObjectOfType<UIManager>();
@@ -210,14 +213,32 @@ public class GameManager : MonoBehaviour {
 			BaseBullet.RemoveAllBullets (true);
 			BaseEnemy.RemoveAllEnemies (true);
 			UIManager.UpdateBombs(bombs);
+            StartCoroutine(PowerUpsToPlayer(PowerUp.GetActivePowerUps()));
 		}
 	}
+
+    IEnumerator PowerUpsToPlayer(List<PowerUp> powerups)
+    {
+        while(powerups.Count > 0 && _currentPlayer != null)
+        {
+            for(int i = powerups.Count - 1; i >= 0; i--)
+            {
+                powerups[i].transform.position = Vector3.MoveTowards(powerups[i].transform.position, _currentPlayer.transform.position, 20f * Time.deltaTime);
+                if(powerups[i].transform.position == _currentPlayer.transform.position)
+                {
+                    powerups.RemoveAt(i);
+                }
+            }
+
+            yield return null;
+        }
+    }
 
     IEnumerator SpawnPlayer(float delay)
     {
         yield return new WaitForSeconds(delay);
 
-        Instantiate(PlayerPrefab, PlayerSpawn.position, Quaternion.identity);
+        _currentPlayer = Instantiate(PlayerPrefab, PlayerSpawn.position, Quaternion.identity) as GameObject;
     }
 
 }

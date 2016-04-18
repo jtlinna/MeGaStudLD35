@@ -71,6 +71,7 @@ public class SoundManager : MonoBehaviour {
         //AudioSource.PlayClipAtPoint(clip, Vector3.zero);
         GameObject go = new GameObject("SFX Source");
         AudioSource source = go.AddComponent<AudioSource>();
+        source.clip = clip;
         source.outputAudioMixerGroup = SfxGroup;
         source.Play();
         Destroy(go, clip.length);
