@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public enum UICorners
 {
@@ -37,12 +38,39 @@ public class UIManager : MonoBehaviour {
     [SerializeField]
     private GameObject PauseMenu;
 
+    [SerializeField]
+    private GameObject EndButtonsContainer;
+    [SerializeField]
+    private Button MainMenuButton;
+    [SerializeField]
+    private Button RestartButton;
+
+    [SerializeField]
+    private GameObject HighscoreContainer;
+    [SerializeField]
+    private InputField NameInput;
+    [SerializeField]
+    private Button SubmitButton;
+
     void Awake()
     {
         SpawnerController.OnBossSpawned += ShowBossHealthbar;
         BossScript.OnBossDied += HideBossHealthbar;
         BossHealth.OnBossDamaged += UpdateBossHealth;
         HidePauseMenu();
+        HighscoreContainer.SetActive(false);
+        EndButtonsContainer.SetActive(false);
+
+        MainMenuButton.onClick.RemoveAllListeners();
+        MainMenuButton.onClick.AddListener(delegate
+        {
+            SceneManager.LoadScene("_MainMenu");
+        });
+
+        RestartButton.onClick.RemoveAllListeners();
+        RestartButton.onClick.AddListener(delegate {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        });
     }
 
     void OnDestroy()
@@ -112,6 +140,25 @@ public class UIManager : MonoBehaviour {
     {
         float percentage = current / max;
         BossHealthbar.fillAmount = Mathf.Clamp01(percentage);
+    }
+
+    public void ShowHighscoreDialog(System.Action<string> callback)
+    {
+        HighscoreContainer.SetActive(true);
+        SubmitButton.onClick.RemoveAllListeners();
+        SubmitButton.onClick.AddListener(delegate {
+            if(!string.IsNullOrEmpty(NameInput.text))
+            {
+                callback(NameInput.text);
+                HighscoreContainer.SetActive(false);
+                ShowEndButtons();
+            }
+        });
+    }
+
+    public void ShowEndButtons()
+    {
+        EndButtonsContainer.SetActive(true);
     }
 
     public Vector3 GetCorner(UICorners corner)

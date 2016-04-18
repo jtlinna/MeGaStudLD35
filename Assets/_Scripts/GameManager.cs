@@ -98,10 +98,26 @@ public class GameManager : MonoBehaviour {
 		currentState = States.menu;
         UIManager.ShowEndText(false);
 
+        if(LeaderboardManager.Instance.IsHighscore(score))
+        {
+            UIManager.ShowHighscoreDialog(SubmitHighscore);
+        }
+        else
+        {
+            UIManager.ShowEndButtons();
+            score = 0;
+        }
+
+
 		multiplier = 1f;
-		score = 0;
 		gameTime = 0f;
 	}
+
+    private void SubmitHighscore(string name)
+    {
+        LeaderboardManager.Instance.AddScore(name, score);
+        score = 0;
+    }
 
 	void Update () {
 		//if (lives < 0) {

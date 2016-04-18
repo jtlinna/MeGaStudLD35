@@ -39,6 +39,9 @@ public class DelayBullet : BaseBullet {
 
     public void SetTarget(GameObject target)
 	{
+        if (target == null)
+            return;
+
 		_movementVector = target.transform.position - transform.position;
 		_movementVector = _movementVector.normalized;
 		targetAquired = true;
