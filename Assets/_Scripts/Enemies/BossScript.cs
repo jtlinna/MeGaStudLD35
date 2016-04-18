@@ -16,6 +16,16 @@ public class BossScript : MonoBehaviour {
 	public Collider2D bossCollider;
 	public static System.Action OnBossDied;
 	private bool thirdPhaseDead = false;
+	private float spawnerPositions = 0f;
+
+	private float sequenceTimer = 0f;
+
+	private float coreSpinSpeed = 10f;
+
+	public int[] shotAmountOne, shotAmountTwo, shotAmountFour, shotAmountFive;
+	public float[] sequenceTimeOne;
+
+	private Transform[] sOneSpawns, sTwoSpawns, sThreeSpawns, sFourSpawns, sFiveSpawns;
 
 	//public int attackSequence;
 	private bool sequenceDone = false;
@@ -31,12 +41,23 @@ public class BossScript : MonoBehaviour {
 		_parts [1] = transform.GetChild (1);
 		_parts [2] = transform.GetChild (2);
 
+		sOneSpawns = new Transform[shotAmountOne[shotAmountOne.Length - 1]];
+
         if (AutoStart)
             StartCoroutine(DelayedInit());
 	}
 
     public void Init()
     {
+		for (int i = 0; i < shotAmountOne[shotAmountOne.Length - 1]; i++){
+			sOneSpawns [i] = transform.FindChild ("Core").FindChild ("SequenceOne").GetChild (i);
+			if (i < shotAmountOne [(int)phase - 1]) {
+				sOneSpawns [i].Rotate (new Vector3(0f,0f,(360f / shotAmountOne[(int)phase - 1]) * i));
+				sOneSpawns [i].localPosition = sOneSpawns [i].forward * spawnerPositions;
+				sOneSpawns [i].gameObject.SetActive (true);
+			} else
+				sOneSpawns [i].gameObject.SetActive (false);
+		}
 		GetComponent<Animator> ().SetInteger ("phase", (int)phase);
 		StartCoroutine("preBossSequence", phase);
         Debug.Log(phase.ToString());
@@ -44,7 +65,8 @@ public class BossScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		rotateParts (-10f, 20f, -30f);
+		rotateParts (coreSpinSpeed, coreSpinSpeed - 40f,  coreSpinSpeed * 3f);
+		sequenceTimer += Time.deltaTime;
 	}
 
 	private void rotateParts (float coreSpeed, float midSpeed, float baseSpeed) {
@@ -68,11 +90,29 @@ public class BossScript : MonoBehaviour {
 		yield break;
 	}
 	public IEnumerator sequenceOne (BossPhase phase) {
+
+		coreSpinSpeed = coreSpinSpeed * 3f;
+		sequenceTimer = 0f;
+
+		if (transform.position != new Vector3 (0f, 20f)) {
+			//Move me better bitch
+			transform.position = new Vector2 (0f, 20f);
+		}
+
+		bulletManager.StartCoroutine (bulletManager.spawnBullets(sOneSpawns, BulletSequenceManager.bulletIdentifier.octaBullet, 1, 0f, 0f, 1f/6f));
+
+		while (sequenceTimeOne[(int)phase - 1] > sequenceTimer) {
+			yield return new WaitForEndOfFrame ();
+		}
+
+		bulletManager.stopSpawning ();
 		
-		yield return new WaitForSeconds (2f);
+		coreSpinSpeed = coreSpinSpeed / 3f;
+
 		Debug.Log ("SequenceOneDone");
 		yield break;
 	}
+
 	public IEnumerator sequenceTwo (BossPhase phase) {
 		yield return sequenceOne (phase);
 		yield return new WaitForSeconds (2f);
