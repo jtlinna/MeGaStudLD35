@@ -26,9 +26,6 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-	private static float _lastGameTime;
-	private static int _lastScore;
-
 	private States currentState;
 
     [SerializeField]
@@ -93,8 +90,6 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void StopGame() {
-		_lastGameTime = gameTime;
-		_lastScore = score;
 
 		currentState = States.menu;
         UIManager.ShowEndText(false);

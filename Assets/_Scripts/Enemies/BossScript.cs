@@ -41,9 +41,6 @@ public class BossScript : MonoBehaviour {
 	private Transform sFourParent;
 	private Transform[] sOneSpawns, sTwoSpawns, sThreeSpawn, sFourSpawns;
 
-	//public int attackSequence;
-	private bool sequenceDone = false;
-
 	// Use this for initialization
 	void Awake () {
 		wpDefault = GameObject.Find("wpDefault").transform;

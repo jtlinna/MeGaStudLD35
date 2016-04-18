@@ -41,7 +41,6 @@ public class Spawner : MonoBehaviour {
             return;
         }
 
-        int index = enemyId - 3;
         if (_prefab == null)
         {
             _prefab = GetPrefab();
