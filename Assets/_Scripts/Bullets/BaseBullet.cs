@@ -95,7 +95,7 @@ public class BaseBullet : MonoBehaviour {
         {
             Trigger(other.gameObject);
         }
-        if(other.CompareTag("BottomEdge"))
+        if(other.CompareTag("BottomEdge") || other.CompareTag("Edge"))
         {
             Trigger(null);
         }

@@ -76,6 +76,7 @@ MonoBehaviour:
   Damage: 25
   MoveSpeed: 5
   TargetTag: Player
+  _lastPos: {x: 0, y: 0, z: 0}
 --- !u!212 &21237528
 SpriteRenderer:
   m_ObjectHideFlags: 1
