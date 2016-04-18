@@ -10,8 +10,8 @@ GameObject:
   - 4: {fileID: 423826}
   - 212: {fileID: 21204026}
   - 50: {fileID: 5044474}
-  - 114: {fileID: 11447980}
   - 58: {fileID: 5843476}
+  - 114: {fileID: 11447980}
   - 114: {fileID: 11427242}
   - 95: {fileID: 9512180}
   m_Layer: 0
@@ -174,7 +174,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0.1}
   serializedVersion: 2

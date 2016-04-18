@@ -22,11 +22,11 @@ public class Player : MonoBehaviour {
 
 	// Use this for initialization
 	public virtual void Awake () {
+		invulnTime = 3f;
 		rigidBody = GetComponent<Rigidbody2D> ();
-		col = GetComponent<Collider2D> ();
+		col = GetComponent<CircleCollider2D> ();
 		muzzle = transform.FindChild ("Muzzle");
         GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.4f);
-        col.enabled = false;
     }
 	
 	// Update is called once per frame
@@ -50,6 +50,7 @@ public class Player : MonoBehaviour {
 
 		if (invulnTime > 0f) {
 			invulnTime -= Time.deltaTime;
+			col.enabled = false;
 		} else {
 			GetComponent<SpriteRenderer> ().color = new Color (1f, 1f, 1f, 1f);
 			col.enabled = true;
@@ -84,9 +85,11 @@ public class Player : MonoBehaviour {
 	}
 
 	public void toggleControls () {
-		if (control)
+		if (control) {
 			control = false;
-		else
+			col.enabled = false;
+			rigidBody.velocity = Vector2.zero;
+		} else
 			control = true;
 	}
 
