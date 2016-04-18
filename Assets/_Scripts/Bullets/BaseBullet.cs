@@ -1,6 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
+public enum BulletType
+{
+    PLAYER = 1,
+    TRIANGLE = 2,
+    SQUARE = 3,
+    PENTAGON = 4,
+    HEXAGON = 5,
+    SEPTIGON = 6,
+    OCTAGON = 7,
+    BOSS_S1 = 8,
+    BOSS_S3 = 9,
+    BOSS_S4 = 10,
+    BOSS_S5 = 11
+}
+
 public class BaseBullet : MonoBehaviour {
 
     private static List<BaseBullet> ActiveBullets = new List<BaseBullet>();
