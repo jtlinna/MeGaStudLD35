@@ -1604,7 +1604,7 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 899485518}
---- !u!1001 &960260015
+--- !u!1001 &951658801
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -2433,7 +2433,7 @@ MonoBehaviour:
   - {fileID: 55304437}
   - {fileID: 976782652}
   - {fileID: 1906446529}
-  GameSceneName: _PrototypePanu
+  GameSceneName: _PlayScene
 --- !u!114 &1286789678
 MonoBehaviour:
   m_ObjectHideFlags: 0

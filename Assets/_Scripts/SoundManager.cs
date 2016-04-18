@@ -13,18 +13,14 @@ public enum SoundType
 
 public class SoundManager : MonoBehaviour {
 
-    private static SoundManager _instance;
+    private static SoundManager _instance = null;
     public static SoundManager Instance
     {
         get
         {
             if(_instance == null)
             {
-                _instance = FindObjectOfType<SoundManager>();
-                if(_instance == null)
-                {
-                    Debug.LogError("No SoundManager was found");
-                }
+                 Debug.LogError("No SoundManager was found");
             }
 
             return _instance;
@@ -40,6 +36,20 @@ public class SoundManager : MonoBehaviour {
     private List<AudioSource> _sfxSources;
     private Dictionary<SoundType, AudioClip> _audioClipMap = new Dictionary<SoundType, AudioClip>();
     
+    void Start()
+    {
+        Debug.Log("Soundmanager instance : " + (_instance != null));
+        if(_instance == null)
+        {
+            _instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            DestroyImmediate(this.gameObject);
+            return;
+        }
+    }
 
     public void PlayClip(SoundType type)
     {
