@@ -272,6 +272,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpawnerId: 1
+  Controller: {fileID: 0}
 --- !u!114 &11420426
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -284,6 +285,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpawnerId: 6
+  Controller: {fileID: 0}
 --- !u!114 &11431084
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -295,6 +297,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d544cf3db962e654a82394e3687fd02f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UIManager: {fileID: 0}
   Spawners:
   - {fileID: 11499480}
   - {fileID: 11406090}
@@ -316,6 +319,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpawnerId: 3
+  Controller: {fileID: 0}
 --- !u!114 &11461782
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -328,6 +332,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpawnerId: 2
+  Controller: {fileID: 0}
 --- !u!114 &11462756
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -340,6 +345,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpawnerId: 4
+  Controller: {fileID: 0}
 --- !u!114 &11469668
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -352,6 +358,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpawnerId: 5
+  Controller: {fileID: 0}
 --- !u!114 &11485596
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -364,6 +371,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpawnerId: 7
+  Controller: {fileID: 0}
 --- !u!114 &11499480
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -376,6 +384,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpawnerId: 0
+  Controller: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

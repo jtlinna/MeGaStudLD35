@@ -7,6 +7,8 @@ public class SpawnerController : MonoBehaviour {
     public static System.Action OnBossSpawned;
 
     [SerializeField]
+    private UIManager UIManager;
+    [SerializeField]
     private Spawner[] Spawners;
 
     private WaveData _currentWave;
@@ -18,6 +20,9 @@ public class SpawnerController : MonoBehaviour {
 
     void Awake()
     {
+        Vector3 pos = transform.position;
+        pos.y = Mathf.Abs(UIManager.GetCorner(UICorners.TOP_LEFT).y) + 10f;
+        transform.position = pos;
         //_currentWave = DataManager.Instance.GetNextWave();
         //if(_currentWave == null)
         //{

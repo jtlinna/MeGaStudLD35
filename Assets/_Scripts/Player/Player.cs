@@ -32,7 +32,7 @@ public class Player : MonoBehaviour {
 		leftBound = UI.GetCorner (UICorners.TOP_LEFT).x;
 		downBound = UI.GetCorner (UICorners.BOTTOM_RIGHT).y;
 		rightBound = UI.GetCorner (UICorners.BOTTOM_RIGHT).x;
-		Debug.Log (upBound);
+		Debug.Log (rightBound);
 		invulnTime = 3f;
 		rigidBody = GetComponent<Rigidbody2D> ();
 		col = GetComponent<CircleCollider2D> ();
