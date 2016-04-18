@@ -9,6 +9,24 @@ public class DestroyOnTrigger : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag(tag))
-            Destroy(GetComponentInParent<BaseEnemy>().gameObject);
+        {
+
+            Debug.Log("On trigger enter " + other.gameObject.name);
+            if (tag != "Player")
+            {
+                BaseEnemy enemy = GetComponentInParent<BaseEnemy>();
+                if (enemy != null)
+                {
+                    Destroy(enemy.gameObject);
+                }
+                return;
+            }
+
+            Player player = other.GetComponentInParent<Player>();
+            if(player != null)
+            {
+                ((PlayerHealth)player.health).Kill();
+            }
+        }
     }
 }

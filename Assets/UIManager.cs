@@ -5,14 +5,10 @@ using System.Collections;
 public class UIManager : MonoBehaviour {
 
     [SerializeField]
-    private Transform LivesContainer;
-    [SerializeField]
-    private GameObject LifeIconPrefab;
+    private Text LivesText;
 
     [SerializeField]
-    private Transform BombsContainer;
-    [SerializeField]
-    private GameObject BombIconPrefab;
+    private Text BombsText;
 
     [SerializeField]
     private Text ScoreText;
@@ -47,21 +43,7 @@ public class UIManager : MonoBehaviour {
 
     public void Init(int lives, int bombs)
     {
-        if(LivesContainer.childCount > 0)
-        {
-            for(int i = LivesContainer.childCount - 1; i >= 0; i--)
-            {
-                DestroyImmediate(LivesContainer.GetChild(i).gameObject);
-            }
-        }
-
-        if(BombsContainer.childCount > 0)
-        {
-            for(int i = BombsContainer.childCount - 1; i >= 0; i--)
-            {
-                DestroyImmediate(BombsContainer.GetChild(i).gameObject);
-            }
-        }
+       
         //for (int i = 0; i < maxLives; i++)
         //{
         //    GameObject go = Instantiate(LifeIconPrefab) as GameObject;
@@ -69,12 +51,7 @@ public class UIManager : MonoBehaviour {
         //}
 
         UpdateLives(lives);
-
-        for (int i = 0; i < bombs; i++)
-        {
-            GameObject go = Instantiate(BombIconPrefab) as GameObject;
-            go.transform.SetParent(BombsContainer, false);
-        }
+        UpdateBombs(bombs);
         UpdateScore(0);
         UpdateScoreMultiplier(1);
         EndText.gameObject.SetActive(false);
@@ -105,21 +82,12 @@ public class UIManager : MonoBehaviour {
 
     public void UpdateLives(int lives)
     {
-        if(lives > LivesContainer.childCount)
-        {
-            while (LivesContainer.childCount < lives)
-            {
-                GameObject go = Instantiate(LifeIconPrefab) as GameObject;
-                go.transform.SetParent(LivesContainer, false);
-            }
-        }
-        else
-        {
-            for (int i = 0; i < LivesContainer.childCount; i++)
-            {
-                LivesContainer.GetChild(i).gameObject.SetActive(i < lives);
-            }
-        }
+        LivesText.text = "X" + lives;
+    }
+
+    public void UpdateBombs(int bombs)
+    {
+        BombsText.text = "X" + bombs;
     }
 
     public void ShowEndText(bool win)

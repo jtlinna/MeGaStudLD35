@@ -14,4 +14,9 @@ public class PlayerHealth : BaseHealth {
 	{
 		GetComponent<Animator> ().SetTrigger ("Death");
 	}
+
+    public void Kill()
+    {
+        Die();
+    }
 }
