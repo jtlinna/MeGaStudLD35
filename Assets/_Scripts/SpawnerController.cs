@@ -115,6 +115,22 @@ public class SpawnerController : MonoBehaviour {
         }
     }
     
+    public bool CanSpawnBoss(Spawner spawner)
+    {
+        if(_activeSpawners.Count == 0)
+        {
+            return true;
+        }
+
+        if(_activeSpawners.Count < 2)
+        {
+            if (_activeSpawners[0] == spawner)
+                return true;
+        }
+
+        return false;
+    }
+
     private void RemoveSpawner(Spawner spawner)
     {
         if(_activeSpawners.Contains(spawner))

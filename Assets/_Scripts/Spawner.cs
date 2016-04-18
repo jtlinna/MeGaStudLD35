@@ -9,6 +9,7 @@ public class Spawner : MonoBehaviour {
     private System.Action<Spawner> OnSpawnCyclesComplete;
 
     public int SpawnerId;
+    public SpawnerController Controller;
 
     private List<SpawnCycleData> _currentCycles;
 
@@ -37,7 +38,7 @@ public class Spawner : MonoBehaviour {
     {
         if((EnemyIdentifier)enemyId == EnemyIdentifier.BOSS)
         {
-            SpawnBoss();
+            StartCoroutine(SpawnBossRoutine());
             return;
         }
 
@@ -113,6 +114,16 @@ public class Spawner : MonoBehaviour {
         {
             OnSpawnCyclesComplete(this);
         }
+    }
+
+    IEnumerator SpawnBossRoutine()
+    {
+        while(!Controller.CanSpawnBoss(this))
+        {
+            yield return null;
+        }
+
+        SpawnBoss();
     }
 
     IEnumerator CheckRemainingEnemies()
