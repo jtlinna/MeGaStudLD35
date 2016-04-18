@@ -202,6 +202,7 @@ public class GameManager : MonoBehaviour {
 				FindObjectOfType<BossHealth> ().TakeDamage (20);
 			BaseBullet.RemoveAllBullets (true);
 			BaseEnemy.RemoveAllEnemies (true);
+			UIManager.UpdateBombs(bombs);
 		}
 	}
 
