@@ -71,7 +71,7 @@ public class PowerUp : MonoBehaviour {
             else
                 offset = transform.right;
         }
-        transform.position += offset * Time.deltaTime * 0.1f;
+        transform.position += offset * Time.deltaTime * 0.f;
 	}
 
 	public virtual void OnTriggerEnter2D (Collider2D other) {
