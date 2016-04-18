@@ -223,9 +223,9 @@ public class BossScript : MonoBehaviour {
 
 		while (tripAmout[(int)phase - 1] > tripCounter) {
 			if (bossGoRight)
-				transform.position = Vector2.MoveTowards (transform.position, wpTopRight.position, bossSpeed * 2f * Time.deltaTime);
+				transform.position = Vector2.MoveTowards (transform.position, wpTopRight.position, bossSpeed * 1.75f * Time.deltaTime);
 			else 
-				transform.position = Vector2.MoveTowards (transform.position, wpTopLeft.position, bossSpeed * 2f * Time.deltaTime);
+				transform.position = Vector2.MoveTowards (transform.position, wpTopLeft.position, bossSpeed * 1.75f * Time.deltaTime);
 
 			if (transform.position == wpTopRight.position) {
 				bossGoRight = false;
@@ -255,6 +255,7 @@ public class BossScript : MonoBehaviour {
 		}
 
 		for (int i = 0; i < sFourDirSequence.Length; i++){
+			sFourParent.rotation = Quaternion.Euler (Vector3.zero);
 			sFourParent.rotation = Quaternion.Euler(new Vector3 (0f, 0f, 180f + sFourDirections [sFourDirSequence [i]]));
 			bulletManager.StartCoroutine (bulletManager.spawnBullets(sFourSpawns, BulletType.BOSS_S4, 1, 0f, 0f, 1f));
 			yield return new WaitForSeconds (1f/sFourFireRate[(int)phase-1]);
@@ -280,9 +281,9 @@ public class BossScript : MonoBehaviour {
 
 		while (tripAmout[(int)phase - 1] > tripCounter) {
 			if (bossGoRight)
-				transform.position = Vector2.MoveTowards (transform.position, wpTopRight.position, bossSpeed * 2f * Time.deltaTime);
+				transform.position = Vector2.MoveTowards (transform.position, wpTopRight.position, bossSpeed * 1.75f * Time.deltaTime);
 			else 
-				transform.position = Vector2.MoveTowards (transform.position, wpTopLeft.position, bossSpeed * 2f * Time.deltaTime);
+				transform.position = Vector2.MoveTowards (transform.position, wpTopLeft.position, bossSpeed * 1.75f * Time.deltaTime);
 
 			if (transform.position == wpTopRight.position) {
 				bossGoRight = false;
