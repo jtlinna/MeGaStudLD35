@@ -32,7 +32,14 @@ public class BossScript : MonoBehaviour {
 	public int[] tripAmout;
 	private int tripCounter;
 
-	private Transform[] sOneSpawns, sTwoSpawns, sThreeSpawn, sFourSpawns, sFiveSpawn;
+	public float[] sFourDirections;
+
+	public int[] sFourDirSequence;
+
+	public float[] sFourFireRate;
+
+	private Transform sFourParent;
+	private Transform[] sOneSpawns, sTwoSpawns, sThreeSpawn, sFourSpawns;
 
 	//public int attackSequence;
 	private bool sequenceDone = false;
@@ -58,7 +65,7 @@ public class BossScript : MonoBehaviour {
 		sOneSpawns = new Transform[shotAmountOne [shotAmountOne.Length - 1]];
 		sTwoSpawns = new Transform[shotAmountTwo [shotAmountTwo.Length - 1]];
 		sThreeSpawn = new Transform[1];
-		sFiveSpawn = new Transform[1];
+		sFourSpawns = new Transform[shotAmountFour [shotAmountFour.Length -1]];
 
         if (AutoStart)
             StartCoroutine(DelayedInit());
@@ -89,6 +96,14 @@ public class BossScript : MonoBehaviour {
 		sThreeSpawn[0] = transform.FindChild ("SequenceThreeNFive");
 
 		sThreeSpawn[0].rotation = Quaternion.Euler(new Vector3(0f,0f,180f));
+
+		sFourParent = transform.FindChild ("Core").FindChild ("SequenceFour");
+
+		for (int i = 0; i < shotAmountFour [shotAmountFour.Length - 1]; i++) {
+			sFourSpawns [i] = transform.FindChild ("Core").FindChild ("SequenceFour").GetChild (i);
+			sFourSpawns [i].Rotate (new Vector3(0f,0f,-45f + ((90f / shotAmountFour.Length) * i)));
+			sFourSpawns [i].Rotate (new Vector3(0f,0f, 180f));
+		}
 
 		GetComponent<Animator> ().SetInteger ("phase", (int)phase);
 		health.SetMaxHealth ((int)phase - 1);
@@ -129,7 +144,7 @@ public class BossScript : MonoBehaviour {
 		coreSpinSpeed = coreSpinSpeedDefault * 3f;
 		sequenceTimer = 0f;
 
-		bulletManager.StartCoroutine (bulletManager.spawnBullets(sOneSpawns, (BulletSequenceManager.bulletIdentifier)0, 1, 0f, 0f, 1f/6f));
+		bulletManager.StartCoroutine (bulletManager.spawnBullets(sOneSpawns, BulletType.BOSS_S1, 1, 0f, 0f, 1f/6f));
 
 		while (sequenceTimeOne[(int)phase - 1] > sequenceTimer) {
 			yield return new WaitForEndOfFrame ();
@@ -139,6 +154,7 @@ public class BossScript : MonoBehaviour {
 		
 		coreSpinSpeed = coreSpinSpeedDefault;
 
+		yield return new WaitForSeconds (3f/(int)phase);
 		Debug.Log ("SequenceOneDone");
 		yield break;
 	}
@@ -199,7 +215,7 @@ public class BossScript : MonoBehaviour {
 
 		tripCounter = 0;
 
-		bulletManager.StartCoroutine (bulletManager.spawnBullets(sThreeSpawn, (BulletSequenceManager.bulletIdentifier)2, 1, 0f, 0f, 1f/5f));
+		bulletManager.StartCoroutine (bulletManager.spawnBullets(sThreeSpawn, BulletType.BOSS_S3, 1, 0f, 0f, 1f/5f));
 
 		while (tripAmout[(int)phase - 1] > tripCounter) {
 			if (bossGoRight)
@@ -221,7 +237,7 @@ public class BossScript : MonoBehaviour {
 
 		bulletManager.stopSpawning ();
 
-		yield return new WaitForSeconds (2f);
+		yield return new WaitForSeconds (3f/(int)phase);
 		Debug.Log ("SequenceThreeDone");
 		yield break;
 	}
@@ -232,6 +248,13 @@ public class BossScript : MonoBehaviour {
 		while (transform.position != wpDefault.position) {
 			transform.position = Vector2.MoveTowards (transform.position, wpDefault.position, bossSpeed * Time.deltaTime);
 			yield return new WaitForEndOfFrame ();
+		}
+
+		for (int i = 0; i < sFourDirSequence.Length; i++){
+			sFourParent.rotation = Quaternion.Euler(new Vector3 (0f, 0f, sFourDirections [sFourDirSequence [i]]));
+			bulletManager.StartCoroutine (bulletManager.spawnBullets(sFourSpawns, BulletType.BOSS_S4, 1, 0f, 0f, 1f));
+			yield return new WaitForSeconds (1f/sFourFireRate[(int)phase-1]);
+			bulletManager.stopSpawning ();
 		}
 
 		yield return new WaitForSeconds (2f);
@@ -249,7 +272,7 @@ public class BossScript : MonoBehaviour {
 
 		tripCounter = 0;
 
-		bulletManager.StartCoroutine (bulletManager.spawnBullets(sThreeSpawn, (BulletSequenceManager.bulletIdentifier)5, 10, 0f, 1f/10f, 1f/2f));
+		bulletManager.StartCoroutine (bulletManager.spawnBullets(sThreeSpawn, BulletType.BOSS_S5, 10, 0f, 1f/10f, 1f/2f));
 
 		while (tripAmout[(int)phase - 1] > tripCounter) {
 			if (bossGoRight)
@@ -271,7 +294,7 @@ public class BossScript : MonoBehaviour {
 
 		bulletManager.stopSpawning ();
 
-		yield return new WaitForSeconds (2f);
+		yield return new WaitForSeconds (3f/(int)phase);
 		Debug.Log ("SequenceFiveDone");
 		StartCoroutine ("sequenceFive", phase);
 		yield break;
