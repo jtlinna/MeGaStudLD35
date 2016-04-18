@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PowerPowerUp : PowerUp {
 
-	[SerializeField] private ulong _addScore = 10;
+	[SerializeField] private int _addScore = 10;
 
 	public override void OnTriggerEnter2D (Collider2D other)
 	{

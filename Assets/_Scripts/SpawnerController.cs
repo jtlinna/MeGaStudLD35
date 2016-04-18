@@ -4,26 +4,37 @@ using System.Collections.Generic;
 
 public class SpawnerController : MonoBehaviour {
 
+    public static System.Action OnBossSpawned;
+
     [SerializeField]
     private Spawner[] Spawners;
 
     private WaveData _currentWave;
     private TierData _currentTier;
     private float _timeSinceWaveStart;
+    private bool _spawning;
 
     private List<Spawner> _activeSpawners;
 
     void Awake()
     {
-        _currentWave = DataManager.Instance.GetNextWave();
-        if(_currentWave == null)
-        {
-            Debug.LogError("No wave data found -- Disabling SpawnerController");
-            this.enabled = false;
-        }
+        //_currentWave = DataManager.Instance.GetNextWave();
+        //if(_currentWave == null)
+        //{
+            //Debug.LogError("No wave data found -- Disabling SpawnerController");
+            //this.enabled = false;
+        //}
 
-        _currentTier = DataManager.Instance.GetNextTier(_currentWave);
-        _timeSinceWaveStart = 0f;
+        //_currentTier = DataManager.Instance.GetNextTier(_currentWave);
+        //_timeSinceWaveStart = 0f;
+        _activeSpawners = new List<Spawner>();
+        StartNewWave();
+        _spawning = true;
+
+        for (int i = 0; i < Spawners.Length; i++)
+        {
+            Spawners[i].OnBossSpawned += BossSpawned;
+        }
 
         BaseEnemy.OnLastEnemyRemoved += StartNewWave;
     }
@@ -31,10 +42,18 @@ public class SpawnerController : MonoBehaviour {
     void OnDestroy()
     {
         BaseEnemy.OnLastEnemyRemoved -= StartNewWave;
+
+        for (int i = 0; i < Spawners.Length; i++)
+        {
+            Spawners[i].OnBossSpawned -= BossSpawned;
+        }
     }
 
     void Update()
     {
+        if (!_spawning)
+            return;
+
         _timeSinceWaveStart += Time.deltaTime;
         if(_currentTier != null)
         {
@@ -58,6 +77,7 @@ public class SpawnerController : MonoBehaviour {
 
     public void StartNewWave()
     {
+        Debug.Log("Starting wave");
         if (_activeSpawners.Count > 0)
             return;
 
@@ -100,6 +120,25 @@ public class SpawnerController : MonoBehaviour {
         {
             _activeSpawners.Remove(spawner);
         }
+    }
+
+    private void BossSpawned()
+    {
+        Debug.Log("Boss spawned");
+        _spawning = false;
+        BossScript.OnBossDied += BossDied;
+        if(OnBossSpawned != null)
+        {
+            OnBossSpawned();
+        }
+    }
+
+    private void BossDied()
+    {
+        BossScript.OnBossDied -= BossDied;
+        _spawning = true;
+        _activeSpawners.Clear();
+        StartNewWave();
     }
 
     // Second iteration

@@ -56,6 +56,211 @@
 				}
 			],
 			"WaveLength" : 20
+		},
+		{
+			"WaveId" : 2,
+			"SpawnerTiers" : 
+			[
+				{
+					"Spawners" : 
+					[
+						{
+							"SpawnerId" : 7,
+							"SpawnCycles" :
+							[
+								{
+									"Enemies" : 
+									[
+										9
+									],
+									"PowerUps":
+									[
+										-1
+									],
+									"Interval" : 1
+								}
+							],
+							"CycleDelay" : 5
+						}					
+					],
+					"StartDelay" : 0.5
+				}
+			],
+			"WaveLength" : 20
+		},
+		{
+			"WaveId" : 3,
+			"SpawnerTiers" : 
+			[
+				{
+					"Spawners" : 
+					[
+						{
+							"SpawnerId" : 3,
+							"SpawnCycles" :
+							[
+								{
+									"Enemies" : 
+									[
+										6,
+										6,
+										6,
+										6,
+										6,
+										6
+									],
+									"PowerUps":
+									[
+										-1,
+										-1,
+										-1,
+										-1,
+										-1,
+										-1
+									],
+									"Interval" : 1
+								},
+								{
+									"Enemies" : 
+									[
+										8,
+										8,
+										8
+									],
+									"PowerUps":
+									[
+										1,
+										2,
+										3
+									],
+									"Interval" : 3
+								}
+							],
+							"CycleDelay" : 5
+						}					
+					],
+					"StartDelay" : 0.5
+				}
+			],
+			"WaveLength" : 20
+		},
+		{
+			"WaveId" : 4,
+			"SpawnerTiers" : 
+			[
+				{
+					"Spawners" : 
+					[
+						{
+							"SpawnerId" : 7,
+							"SpawnCycles" :
+							[
+								{
+									"Enemies" : 
+									[
+										9
+									],
+									"PowerUps":
+									[
+										-1
+									],
+									"Interval" : 1
+								}
+							],
+							"CycleDelay" : 5
+						}					
+					],
+					"StartDelay" : 0.5
+				}
+			],
+			"WaveLength" : 20
+		},
+		{
+			"WaveId" : 5,
+			"SpawnerTiers" : 
+			[
+				{
+					"Spawners" : 
+					[
+						{
+							"SpawnerId" : 3,
+							"SpawnCycles" :
+							[
+								{
+									"Enemies" : 
+									[
+										6,
+										6,
+										6,
+										6,
+										6,
+										6
+									],
+									"PowerUps":
+									[
+										-1,
+										-1,
+										-1,
+										-1,
+										-1,
+										-1
+									],
+									"Interval" : 1
+								},
+								{
+									"Enemies" : 
+									[
+										8,
+										8,
+										8
+									],
+									"PowerUps":
+									[
+										1,
+										2,
+										3
+									],
+									"Interval" : 3
+								}
+							],
+							"CycleDelay" : 5
+						}					
+					],
+					"StartDelay" : 0.5
+				}
+			],
+			"WaveLength" : 20
+		},
+		{
+			"WaveId" : 6,
+			"SpawnerTiers" : 
+			[
+				{
+					"Spawners" : 
+					[
+						{
+							"SpawnerId" : 7,
+							"SpawnCycles" :
+							[
+								{
+									"Enemies" : 
+									[
+										9
+									],
+									"PowerUps":
+									[
+										-1
+									],
+									"Interval" : 1
+								}
+							],
+							"CycleDelay" : 5
+						}					
+					],
+					"StartDelay" : 0.5
+				}
+			],
+			"WaveLength" : 20
 		}
 	]
 }

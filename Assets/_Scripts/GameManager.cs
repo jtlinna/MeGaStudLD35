@@ -7,8 +7,26 @@ public class GameManager : MonoBehaviour {
 		playing = 1,
 		paused = 2,
 		menu = 3};
+    
+    private static GameManager _instance;
+    public static GameManager Instance
+    {
+        get
+        {
+            if(_instance == null)
+            {
+                _instance = FindObjectOfType<GameManager>();
+                if(_instance == null)
+                {
+                    Debug.LogError("GameManager not found");
+                }
+            }
+            return _instance;
+        }
+    }
 
-    public static int BossStage = 1;
+	private static float _lastGameTime;
+	private static int _lastScore;
 
 	private States currentState;
 
@@ -17,7 +35,7 @@ public class GameManager : MonoBehaviour {
 	[SerializeField]
     private float gameTime;
 	[SerializeField]
-    private ulong score;
+    private int score;
 	[SerializeField]
     private float maxMultiplier = 10f;
 	[SerializeField]
@@ -33,15 +51,13 @@ public class GameManager : MonoBehaviour {
     [SerializeField]
     private float RespawnDelay;
 
-	private float _lastGameTime;
-	public float lastGameTime { get { return _lastGameTime; } }
-	private ulong _lastScore;
-	public ulong lastScore { get { return _lastScore; } }
+    private BossScript.BossPhase _currentBossPhase;
+
 
 	void Awake() {
-		DontDestroyOnLoad(gameObject);
 
         BossHealth.OnBossDamaged += DebugBossDamaged;
+        BossScript.OnBossDied += BossDied;
         Player.OnPlayerDied += PlayerDied;
         Instantiate(PlayerPrefab, PlayerSpawn.position, Quaternion.identity);
         if(UIManager == null)
@@ -55,12 +71,15 @@ public class GameManager : MonoBehaviour {
         {
             UIManager.Init(lives, bombs);
         }
+
+        _currentBossPhase = BossScript.BossPhase.first;
 		StartGame ();
 	}
 
     void OnDestroy()
     {
         BossHealth.OnBossDamaged -= DebugBossDamaged;
+        BossScript.OnBossDied -= BossDied;
         Player.OnPlayerDied -= PlayerDied;
     }
 
@@ -75,6 +94,7 @@ public class GameManager : MonoBehaviour {
 		_lastScore = score;
 
 		currentState = States.menu;
+        UIManager.ShowEndText(false);
 
 		multiplier = 1f;
 		score = 0;
@@ -101,17 +121,33 @@ public class GameManager : MonoBehaviour {
         Debug.Log("Current: " + current + ", Max: " + max);
     }
 
+    private void BossDied()
+    {
+        int phase = (int)_currentBossPhase;
+        phase++;
+        if(phase <= 3)
+            _currentBossPhase = (BossScript.BossPhase)phase;
+        else
+        {
+            // TODO Trigger win con
+            UIManager.ShowEndText(true);
+        }
+        Debug.Log("Current boss phase: " + _currentBossPhase);
+    }
+
 	public bool addMultiplier (float amount) {
 		if (multiplier < maxMultiplier){
 			multiplier += amount;
+            UIManager.UpdateScoreMultiplier(multiplier);
 			return true;
 		} else
 			return false; 
 	}
 
-	public bool addScore (ulong amount){
+	public bool addScore (int amount){
 		if (currentState == States.playing) {
-			score += (ulong)((float)amount * multiplier);
+			score += (int)((float)amount * multiplier);
+            UIManager.UpdateScore(score);
 			return true;
 		} else {
 			Debug.LogError ("GAME NOT RUNNING, NO SCORE ADDED");
@@ -121,12 +157,20 @@ public class GameManager : MonoBehaviour {
 
 	public void addLife () {
 		lives++;
+        UIManager.UpdateLives(lives);
 	}
 
 	public void removeLife () {
 		lives--;
 		multiplier = 1f;
-	}
+        UIManager.UpdateScoreMultiplier(multiplier);
+        UIManager.UpdateLives(lives);
+    }
+
+    public int GetBossStage()
+    {
+        return (int)_currentBossPhase;
+    }
 
     private void PlayerDied()
     {

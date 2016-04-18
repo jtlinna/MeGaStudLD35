@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class Spawner : MonoBehaviour {
 
+    public System.Action OnBossSpawned;
+
     private System.Action<Spawner> OnSpawnCyclesComplete;
 
     public int SpawnerId;
@@ -76,8 +78,13 @@ public class Spawner : MonoBehaviour {
         BossScript boss = go.GetComponent<BossScript>();
         if(boss != null)
         {
-            boss.phase = (GameManager.BossStage <= 3)?(BossScript.BossPhase)GameManager.BossStage : BossScript.BossPhase.third;
+            boss.phase = (BossScript.BossPhase)GameManager.Instance.GetBossStage();
             boss.Init();
+        }
+
+        if(OnBossSpawned != null)
+        {
+            OnBossSpawned();
         }
     }
 
