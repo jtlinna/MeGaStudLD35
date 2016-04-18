@@ -34,18 +34,16 @@ public class Player : MonoBehaviour {
 	// Update is called once per frame
 	public virtual void Update () {
 		if (control) {
-			inputData = new Vector2 (Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+			inputData = new Vector2 (Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 			move (inputData);
-			if (Input.GetAxisRaw ("Fire") > 0f && _lastFrameAxis == 0f) {
-				shoot (shotType);
-				rofTimer = 0f;
-			}
-			if (Input.GetAxisRaw ("Fire") > 0f && _lastFrameAxis == 1f) {
-				if (rofTimer > 1f/rateOfFire) {
+
+			if (rofTimer < 1f/rateOfFire) rofTimer += Time.deltaTime;
+
+			if (Input.GetAxisRaw ("Fire") > 0f) {
+				if (rofTimer >= 1f/rateOfFire) {
 					shoot (shotType);
 					rofTimer = 0f;
 				}
-				rofTimer += Time.deltaTime;
 			}
 			_lastFrameAxis = Input.GetAxisRaw ("Fire");
 		}
