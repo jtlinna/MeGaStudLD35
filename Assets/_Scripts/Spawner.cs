@@ -25,7 +25,6 @@ public class Spawner : MonoBehaviour {
 
     public void StartSpawnCycles(List<SpawnCycleData> cycles, float cycleDelay, System.Action<Spawner> callback)
     {
-        Debug.Log("Start cycle");
         _currentCycles = cycles;
         _cycleDelay = cycleDelay;
         OnSpawnCyclesComplete = callback;

@@ -112,7 +112,6 @@ public class BossScript : MonoBehaviour {
 		GetComponent<Animator> ().SetInteger ("phase", (int)phase);
 		health.SetMaxHealth ((int)phase - 1);
 		StartCoroutine("preBossSequence", phase);
-        Debug.Log(phase.ToString());
     }
 	
 	// Update is called once per frame
@@ -134,7 +133,6 @@ public class BossScript : MonoBehaviour {
 		}
 		bossCollider.enabled = true;
 		StartCoroutine ("sequenceFive", phase);
-		Debug.Log ("PreSequenceDone");
 		yield break;
 	}
 
@@ -159,7 +157,6 @@ public class BossScript : MonoBehaviour {
 		coreSpinSpeed = coreSpinSpeedDefault;
 
 		yield return new WaitForSeconds (3f/(int)phase);
-		Debug.Log ("SequenceOneDone");
 		yield break;
 	}
 
@@ -192,7 +189,7 @@ public class BossScript : MonoBehaviour {
 			} else if (sequenceTimer >= 0f && !onceDo) {
 				foreach (Transform lazer in sTwoSpawns) {
 					lazer.GetComponent<Collider2D> ().enabled = true;
-					lazer.localScale = new Vector3 (200f, 2f, 1f);
+					lazer.localScale = new Vector3 (200f, 1f, 1f);
 					lazer.GetComponent<SpriteRenderer> ().color = new Color (lazer.GetComponent<SpriteRenderer> ().color.r, lazer.GetComponent<SpriteRenderer> ().color.g, lazer.GetComponent<SpriteRenderer> ().color.b, 1f);
 				}
 				onceDo = true;
@@ -209,7 +206,6 @@ public class BossScript : MonoBehaviour {
 
 		coreSpinSpeed = coreSpinSpeedDefault;
 		yield return new WaitForSeconds (3f/(int)phase);
-		Debug.Log ("SequenceTwoDone");
 		yield break;
 	}
 
@@ -246,7 +242,6 @@ public class BossScript : MonoBehaviour {
 		bulletManager.stopSpawning ();
 
 		yield return new WaitForSeconds (3f/(int)phase);
-		Debug.Log ("SequenceThreeDone");
 		yield break;
 	}
 
@@ -267,7 +262,6 @@ public class BossScript : MonoBehaviour {
 		}
 
 		yield return new WaitForSeconds (2f);
-		Debug.Log ("SequenceFourDone");
 		yield break;
 	}
 
@@ -304,7 +298,6 @@ public class BossScript : MonoBehaviour {
 		bulletManager.stopSpawning ();
 
 		yield return new WaitForSeconds (3f/(int)phase);
-		Debug.Log ("SequenceFiveDone");
 		StartCoroutine ("sequenceFive", phase);
 		yield break;
 	}
@@ -322,7 +315,6 @@ public class BossScript : MonoBehaviour {
 			}
 
 		}
-		Debug.Log ("postSequenceDone");
 
 		if (OnBossDied != null) {
 			OnBossDied ();

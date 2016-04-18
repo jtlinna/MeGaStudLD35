@@ -108,9 +108,6 @@ public class DataManager : MonoBehaviour
             string configString = asset.text;
             ConfigDataWrapper deserializedData = JsonUtility.FromJson<ConfigDataWrapper>(configString);
             _data.WaveData = deserializedData.WaveConfigData;
-
-            string debugSerialize = JsonUtility.ToJson(deserializedData);
-            Debug.Log("Serialized: " + debugSerialize);
         }
 
         return true;

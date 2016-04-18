@@ -10,8 +10,6 @@ public class DestroyOnTrigger : MonoBehaviour {
     {
         if (other.CompareTag(tag))
         {
-
-            Debug.Log("On trigger enter " + other.gameObject.name);
             if (tag != "Player")
             {
                 BaseEnemy enemy = GetComponentInParent<BaseEnemy>();

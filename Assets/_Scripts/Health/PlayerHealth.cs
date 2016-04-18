@@ -23,6 +23,8 @@ public class PlayerHealth : BaseHealth {
 
     public void Kill()
     {
+		if (!player.CanBeDamaged())
+			return;
         Die();
     }
 }

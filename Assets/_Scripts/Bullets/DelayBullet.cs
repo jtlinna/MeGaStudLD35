@@ -27,9 +27,8 @@ public class DelayBullet : BaseBullet {
 		} else if (timer >= timeToStop && timer < (stopTime + timeToStop)) {
 			currentMoveSpeed = 0f;
 		} else if (timer >= (stopTime + timeToStop)) {
-			if (!targetAquired)
-				if (!SetTarget("Player"))
-					SetTarget(GameObject.FindGameObjectWithTag ("Player"));
+			if (!targetAquired && !SetTarget ("Player"))
+				targetAquired = true;
 			currentMoveSpeed = MoveSpeed * 2f;
 		}
 		transform.position += _movementVector * Time.deltaTime * currentMoveSpeed;
@@ -37,20 +36,11 @@ public class DelayBullet : BaseBullet {
 		transform.rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
     }
 
-    public void SetTarget(GameObject target)
-	{
-        if (target == null)
-            return;
-
-		_movementVector = target.transform.position - transform.position;
-		_movementVector = _movementVector.normalized;
-		targetAquired = true;
-	}
-
 	public bool SetTarget(string target)
 	{
-		if (GameObject.FindGameObjectWithTag (target) != null) {
-			_movementVector = GameObject.FindGameObjectWithTag (target).transform.position - transform.position;
+		GameObject go = GameObject.FindGameObjectWithTag (target);
+		if (go != null) {
+			_movementVector = go.transform.position - transform.position;
 			_movementVector = _movementVector.normalized;
 			targetAquired = true;
 			return true;

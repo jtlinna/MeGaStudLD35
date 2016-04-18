@@ -27,9 +27,9 @@ public class Player : MonoBehaviour {
 
 	// Use this for initialization
 	public virtual void Awake () {
+		invulnTime = 3f;
 		UI = FindObjectOfType<UIManager> ();
 		StartCoroutine (getBound());
-		invulnTime = 3f;
 		rigidBody = GetComponent<Rigidbody2D> ();
 		col = GetComponent<CircleCollider2D> ();
 		col.enabled = true;
@@ -135,7 +135,7 @@ public class Player : MonoBehaviour {
 	
     public bool CanBeDamaged()
     {
-        return invulnTime <= 0;
+        return invulnTime <= 0f;
     }
 
 	private IEnumerator getBound() {

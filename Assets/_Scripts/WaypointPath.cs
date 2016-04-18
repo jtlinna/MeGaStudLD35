@@ -334,10 +334,6 @@ public class WaypointPath : MonoBehaviour {
         {
             center = transform.position + Vector3.up + Vector3.left * 0.5f * shapeScale;
         }
-        else
-        {
-            Debug.LogError("What's going on with Infinity Waypoint?!");
-        }
 
         _moveTimer += Time.deltaTime;
         if(_moveTimer > 2f)
@@ -364,6 +360,5 @@ public class WaypointPath : MonoBehaviour {
             yield return null;
         }
         _allowPattern = true;
-        Debug.Log("Current WP: " + _currentWaypoint);
     }
 }

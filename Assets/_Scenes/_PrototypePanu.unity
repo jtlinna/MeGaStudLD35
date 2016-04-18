@@ -1177,7 +1177,7 @@ Transform:
   m_LocalScale: {x: 1, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
 --- !u!1 &1141574591
 GameObject:
   m_ObjectHideFlags: 0
@@ -1585,7 +1585,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!1 &1415087980
 GameObject:
   m_ObjectHideFlags: 0
@@ -2036,6 +2036,10 @@ Prefab:
       propertyPath: m_LocalPosition.y
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 11431084, guid: de0a8fff0a20a324e84ff83f9dc5b494, type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: de0a8fff0a20a324e84ff83f9dc5b494, type: 2}
   m_IsPrefabParent: 0
@@ -2313,7 +2317,7 @@ MonoBehaviour:
   score: 0
   maxMultiplier: 10
   multiplier: 1
-  lives: 1
+  lives: 10
   bombs: 3
   maxBombs: 5
   PlayerPrefab: {fileID: 114400, guid: 47ae5c8e5851f498292988f5c27f9b89, type: 2}

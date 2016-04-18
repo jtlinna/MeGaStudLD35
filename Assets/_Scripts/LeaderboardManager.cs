@@ -47,12 +47,10 @@ public class LeaderboardManager : MonoBehaviour {
         entry.Name = name;
         entry.Score = score;
 
-        Debug.Log("Adding new score for " + name + " with a score of " + score);
         for (int i = 0; i < _leaderboard.Entries.Count; i++)
         {
             if (score > _leaderboard.Entries[i].Score)
             {
-                Debug.Log("AND IT'S A HIGHSCORE");
                 _leaderboard.Entries.Insert(i, entry);
                 _leaderboard.Entries.RemoveAt(_leaderboard.Entries.Count - 1);
                 break;
@@ -60,7 +58,6 @@ public class LeaderboardManager : MonoBehaviour {
         }
 
         string leaderboardString = JsonUtility.ToJson(_leaderboard);
-        Debug.Log("Leaderboard JSON: " + leaderboardString);
         PlayerPrefs.SetString("Leaderboard", leaderboardString);
     }
 
@@ -101,7 +98,6 @@ public class LeaderboardManager : MonoBehaviour {
 
     private Leaderboard GenerateLeaderboard()
     {
-        Debug.Log("Generating leaderboard");
         Leaderboard leaderboard = new Leaderboard();
         leaderboard.Entries = new List<LeaderboardEntry>();
         for (int i = 0; i < 10; i++)

@@ -202,7 +202,7 @@ public class BaseEnemy : BaseAI {
 
         if(sprite == null)
         {
-            Debug.Log("No sprite was found for enemytype " + Type.ToString());
+            Debug.LogError("No sprite was found for enemytype " + Type.ToString());
             return;
         }
 

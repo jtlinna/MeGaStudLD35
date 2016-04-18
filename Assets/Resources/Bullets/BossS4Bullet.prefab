@@ -73,6 +73,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d597babe612db0448c59ddcd158e28f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletHitPrefab: {fileID: 179060, guid: b0a889809fc6e4691829c266077fb0f2, type: 2}
   Damage: 25
   MoveSpeed: 15
   TargetTag: Player
