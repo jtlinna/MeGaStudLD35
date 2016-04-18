@@ -41,11 +41,13 @@ public class SpawnerController : MonoBehaviour {
         }
 
         BaseEnemy.OnLastEnemyRemoved += StartNewWave;
+        BaseEnemy.OnEnemyDied += CheckEnemies;
     }
 
     void OnDestroy()
     {
         BaseEnemy.OnLastEnemyRemoved -= StartNewWave;
+        BaseEnemy.OnEnemyDied -= CheckEnemies;
 
         for (int i = 0; i < Spawners.Length; i++)
         {
@@ -158,6 +160,14 @@ public class SpawnerController : MonoBehaviour {
         _spawning = true;
         _activeSpawners.Clear();
         StartNewWave();
+    }
+
+    private void CheckEnemies()
+    {
+        if(BaseEnemy.GetActiveEnemies() == 0)
+        {
+            StartNewWave();
+        }
     }
 
     private IEnumerator SetPosition()

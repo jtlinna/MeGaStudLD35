@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class BaseEnemy : BaseAI {
 
     public static System.Action OnLastEnemyRemoved;
+    public static System.Action OnEnemyDied;
 
     private static List<BaseEnemy> ActiveEnemies = new List<BaseEnemy>();
 
@@ -340,6 +341,10 @@ public class BaseEnemy : BaseAI {
         GameManager.Instance.addScore(5);
         DropPowerUp();
         Destroy(gameObject);
+        if(OnEnemyDied != null)
+        {
+            OnEnemyDied();
+        }
     }
 
 	void OnTriggerEnter2D (Collider2D other) {
