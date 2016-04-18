@@ -337,6 +337,11 @@ public class BossScript : MonoBehaviour {
 		thirdPhaseDead = true;
 	}
 
+	public void animationPlaySound () {
+		int random = Random.Range (1, 3);
+		//PLAYSOUNDHERE
+	}
+
     private IEnumerator DelayedInit()
     {
         yield return null;

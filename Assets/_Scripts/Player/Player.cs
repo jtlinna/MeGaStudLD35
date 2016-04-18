@@ -77,6 +77,7 @@ public class Player : MonoBehaviour {
 	}
 
 	private void shoot(int type = 1) {
+		//PLAYSOUNDHERE
 		if (type == 1) {
 			Instantiate (bulletPrefab, muzzle.position, Quaternion.identity);
 		} else if (type == 2) {

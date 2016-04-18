@@ -96,6 +96,7 @@ public class BaseBullet : MonoBehaviour {
         if(other.CompareTag(TargetTag))
         {
 			Instantiate (bulletHitPrefab, transform.position, Quaternion.identity);
+			//HITSOUNDHERE
             Trigger(other.gameObject);
         }
         if(other.CompareTag("BottomEdge") || other.CompareTag("Edge"))
