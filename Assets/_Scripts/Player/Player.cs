@@ -58,7 +58,7 @@ public class Player : MonoBehaviour {
 	}
 
 	private void move(Vector2 movement) {
-		rigidBody.velocity = movement.normalized * velocity;
+		rigidBody.velocity = movement.normalized * velocity * (Input.GetAxisRaw ("Focus") <= 0f ? 1f : 0.4f);
 	}
 
 	private void shoot(int type = 1) {
@@ -66,14 +66,14 @@ public class Player : MonoBehaviour {
 			Instantiate (bulletPrefab, muzzle.position, Quaternion.identity);
 		} else if (type == 2) {
 			Instantiate (bulletPrefab, muzzle.position, Quaternion.identity);
-			Instantiate (bulletPrefab, muzzle.position, Quaternion.Euler(0f,0f,-15f));
-			Instantiate (bulletPrefab, muzzle.position, Quaternion.Euler(0f,0f,15f));
+			Instantiate (bulletPrefab, muzzle.position, Quaternion.Euler (0f, 0f, Input.GetAxisRaw ("Focus") <= 0f ? 15f : 9f));
+			Instantiate (bulletPrefab, muzzle.position, Quaternion.Euler (0f, 0f, Input.GetAxisRaw ("Focus") <= 0f ? -15f : -9f));
 		} else if (type == 3) {
 			Instantiate (bulletPrefab, muzzle.position, Quaternion.identity);
-			Instantiate (bulletPrefab, muzzle.position, Quaternion.Euler(0f,0f,-15f));
-			Instantiate (bulletPrefab, muzzle.position, Quaternion.Euler(0f,0f,15f));
-			Instantiate (bulletPrefab, muzzle.position, Quaternion.Euler(0f,0f,-7.5f));
-			Instantiate (bulletPrefab, muzzle.position, Quaternion.Euler(0f,0f,7.5f));
+			Instantiate (bulletPrefab, muzzle.position, Quaternion.Euler (0f, 0f, Input.GetAxisRaw ("Focus") <= 0f ? 15f : 9f));
+			Instantiate (bulletPrefab, muzzle.position, Quaternion.Euler (0f, 0f, Input.GetAxisRaw ("Focus") <= 0f ? -15f : -9f));
+			Instantiate (bulletPrefab, muzzle.position, Quaternion.Euler (0f, 0f, Input.GetAxisRaw ("Focus") <= 0f ? 7.5f : 4.5f));
+			Instantiate (bulletPrefab, muzzle.position, Quaternion.Euler (0f, 0f, Input.GetAxisRaw ("Focus") <= 0f ? -7.5f : -4.5f));
 		}
 	}
 
