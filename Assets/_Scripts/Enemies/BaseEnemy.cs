@@ -8,6 +8,14 @@ public class BaseEnemy : BaseAI {
 
     private static List<BaseEnemy> ActiveEnemies = new List<BaseEnemy>();
 
+    public static int GetActiveEnemies()
+    {
+        if (ActiveEnemies == null)
+            return 0;
+
+        return ActiveEnemies.Count;
+    }
+
     public static void AddEnemy(BaseEnemy enemy)
     {
         ActiveEnemies.Add(enemy);

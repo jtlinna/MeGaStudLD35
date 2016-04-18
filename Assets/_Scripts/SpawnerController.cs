@@ -34,6 +34,7 @@ public class SpawnerController : MonoBehaviour {
         for (int i = 0; i < Spawners.Length; i++)
         {
             Spawners[i].OnBossSpawned += BossSpawned;
+            Spawners[i].Controller = this;
         }
 
         BaseEnemy.OnLastEnemyRemoved += StartNewWave;
@@ -117,15 +118,9 @@ public class SpawnerController : MonoBehaviour {
     
     public bool CanSpawnBoss(Spawner spawner)
     {
-        if(_activeSpawners.Count == 0)
+        if(_activeSpawners.Count == 0 && BaseEnemy.GetActiveEnemies() == 0)
         {
             return true;
-        }
-
-        if(_activeSpawners.Count < 2)
-        {
-            if (_activeSpawners[0] == spawner)
-                return true;
         }
 
         return false;
@@ -141,13 +136,17 @@ public class SpawnerController : MonoBehaviour {
 
     private void BossSpawned()
     {
-        Debug.Log("Boss spawned");
         _spawning = false;
         BossScript.OnBossDied += BossDied;
         if(OnBossSpawned != null)
         {
             OnBossSpawned();
         }
+    }
+
+    public void DisableSpawning()
+    {
+        _spawning = false;
     }
 
     private void BossDied()

@@ -118,6 +118,8 @@ public class Spawner : MonoBehaviour {
 
     IEnumerator SpawnBossRoutine()
     {
+        Controller.DisableSpawning();
+
         while(!Controller.CanSpawnBoss(this))
         {
             yield return null;
