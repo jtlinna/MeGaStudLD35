@@ -150,6 +150,14 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 11492086, guid: bdd54caf1198dc341849720392f048e7, type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11457108, guid: bdd54caf1198dc341849720392f048e7, type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 22420744, guid: bdd54caf1198dc341849720392f048e7, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -221,6 +229,46 @@ Prefab:
     - target: {fileID: 22420744, guid: bdd54caf1198dc341849720392f048e7, type: 2}
       propertyPath: m_Pivot.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11492086, guid: bdd54caf1198dc341849720392f048e7, type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1685323447}
+    - target: {fileID: 11492086, guid: bdd54caf1198dc341849720392f048e7, type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: HidePauseMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 11492086, guid: bdd54caf1198dc341849720392f048e7, type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11492086, guid: bdd54caf1198dc341849720392f048e7, type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 11492086, guid: bdd54caf1198dc341849720392f048e7, type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11457108, guid: bdd54caf1198dc341849720392f048e7, type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1685323447}
+    - target: {fileID: 11457108, guid: bdd54caf1198dc341849720392f048e7, type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: HidePauseMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 11457108, guid: bdd54caf1198dc341849720392f048e7, type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11457108, guid: bdd54caf1198dc341849720392f048e7, type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 11457108, guid: bdd54caf1198dc341849720392f048e7, type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bdd54caf1198dc341849720392f048e7, type: 2}

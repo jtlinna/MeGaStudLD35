@@ -41,6 +41,10 @@ public class UIManager : MonoBehaviour {
     private Button ToggleSoundsButton;
     [SerializeField]
     private Text ToggleSoundsText;
+    [SerializeField]
+    private Button PauseMenuReturnToMainButton;
+    [SerializeField]
+    private Button PauseMenuRestartButton;
 
     [SerializeField]
     private GameObject EndButtonsContainer;
@@ -80,6 +84,17 @@ public class UIManager : MonoBehaviour {
         ToggleSoundsButton.onClick.AddListener(delegate
         {
             ToggleSounds();
+        });
+
+        PauseMenuReturnToMainButton.onClick.RemoveAllListeners();
+        PauseMenuReturnToMainButton.onClick.AddListener(delegate
+        {
+            SceneManager.LoadScene("_MainMenu");
+        });
+
+        PauseMenuRestartButton.onClick.RemoveAllListeners();
+        PauseMenuRestartButton.onClick.AddListener(delegate {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         });
     }
 
