@@ -72,7 +72,7 @@ public class UIManager : MonoBehaviour {
 
     public void UpdateScore(int score)
     {
-        ScoreText.text = score.ToString("D8");
+        ScoreText.text = score.ToString("D10");
     }
 
     public void UpdateScoreMultiplier(float multiplier)

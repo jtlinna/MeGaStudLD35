@@ -142,6 +142,7 @@ public class GameManager : MonoBehaviour {
 	public bool addMultiplier (float amount) {
 		if (multiplier < maxMultiplier){
 			multiplier += amount;
+            Debug.Log("Multiplier: " + multiplier);
             UIManager.UpdateScoreMultiplier(multiplier);
 			return true;
 		} else

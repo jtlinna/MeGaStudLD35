@@ -324,6 +324,7 @@ public class BossScript : MonoBehaviour {
 			OnBossDied ();
 		}
 
+        GameManager.Instance.addScore(1000 * (int)phase);
 		Destroy (gameObject);
 		yield break;
 	}

@@ -156,6 +156,8 @@ public class BaseEnemy : BaseAI {
             }
             Type = (EnemyIdentifier)newType;
         }
+
+        GameManager.Instance.addScore(10);
         GetSprite ();
         ChangePath (goToNearest);
 		ChangeShotSpawns ();
@@ -335,6 +337,7 @@ public class BaseEnemy : BaseAI {
 
     public void Die()
     {
+        GameManager.Instance.addScore(5);
         DropPowerUp();
         Destroy(gameObject);
     }

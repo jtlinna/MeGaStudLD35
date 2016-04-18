@@ -9,7 +9,7 @@ public class BulletSequenceManager : MonoBehaviour {
 			for (int i = 0; i < burstAmount; i++) {
 				if (bulletID != BulletType.PENTAGON) {
 					foreach (Transform spawn in spawns) {
-						if (spawn.gameObject.activeSelf){
+						if (spawn != null && spawn.gameObject.activeSelf){
 							BulletPoolManager.Instance.Spawn (bulletID, spawn.position, spawn.rotation);
 							if (timeBetweenShots > 0f)
 								yield return new WaitForSeconds (timeBetweenShots);
