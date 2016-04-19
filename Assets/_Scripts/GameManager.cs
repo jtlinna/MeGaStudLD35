@@ -138,6 +138,16 @@ public class GameManager : MonoBehaviour {
         {
             // TODO Trigger win con
             UIManager.ShowEndText(true);
+
+            if (LeaderboardManager.Instance.IsHighscore(score))
+            {
+                UIManager.ShowHighscoreDialog(SubmitHighscore);
+            }
+            else
+            {
+                UIManager.ShowEndButtons();
+                score = 0;
+            }
         }
     }
 
