@@ -73,9 +73,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d9d40184ad114fdeb859b54ff11294d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletHitPrefab: {fileID: 0}
   Damage: 25
   MoveSpeed: 4
   TargetTag: Player
+  _lastPos: {x: 0, y: 0, z: 0}
   timeToStop: 1
   stopTime: 1
 --- !u!212 &21237528
@@ -104,7 +106,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7c4c467920ff54a2082be449e642a25a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 39ca10e02993b47e8a8c534d80b8c2d3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

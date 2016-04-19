@@ -12,6 +12,7 @@ public class DelayBullet : BaseBullet {
 
 	protected override void OnEnable() {
         base.OnEnable();
+		targetAquired = false;
 		_movementVector = transform.up;
 		timer = 0f;
 		currentMoveSpeed = MoveSpeed;
